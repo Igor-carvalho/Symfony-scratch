@@ -1,0 +1,52 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.anouncement.attr.msg_delete" | trans }}";
+{% endblock %}
+
+{% block title %}{{ "pages.anouncement.index.title" | trans }}{% endblock %}
+
+{% block page_title %}{{ "pages.anouncement.index.title" | trans }}{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('anouncement_new') }}">
+            {{ "pages.anouncement.attr.add_anouncement" | trans }}
+        </a>
+    </div>
+    {% if anouncements | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.anouncement.attr.created" | trans }}</th>
+                <th>{{ "pages.anouncement.attr.title" | trans }}</th>
+                <th>{{ "pages.anouncement.attr.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for anouncement in anouncements %}
+                <tr>
+                    <td>{{ anouncement.created | date('d-m-Y') }}</td>
+                    <td>{{ anouncement.title }}</td>
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-info edit" href="{{ path('anouncement_edit', { 'id': anouncement.id }) }}">{{ "pages.anouncement.attr.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete"  data-href="{{ path('anouncement_delete', { 'id': anouncement.id }) }}">{{ "pages.anouncement.attr.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.anouncement.attr.no_anouncements" | trans }}</h4>
+    {% endif %}
+{% endblock %}

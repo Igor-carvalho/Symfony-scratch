@@ -1,0 +1,122 @@
+<div class="sidebar-section">
+    <div class="sidebar-section__scroll">
+        <div>
+            <div class="sidebar-user-a">
+                <div class="sidebar__user-avatar">
+                    <img src="{{ app.user.avatar  ? asset("uploads/"~app.user.avatar):asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="{{ app.user.name | default("Anonymous") }}" width="68" height="68" class="rounded-circle">
+                </div>
+                <div class="dropdown sidebar__user-dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ app.user.username | default("Anonymous") }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{{ path('user_logout') }}">{{ "base_admin.top_navbar.sign_out" | trans }}</a>
+                    </div>
+                </div>
+            </div>
+            <ul class="sidebar-section-nav">
+                <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.dashboard" | trans }}" data-tippy-placement="right">
+                    <a class="sidebar-section-nav__link" href="{{ path('app_dashboard') }}">
+                        <span class="sidebar-section-nav__item-icon ua-icon-home"></span>
+                        <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.dashboard" | trans }}</span>
+                    </a>
+                </li>
+                <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.admin.clients" | trans }}" data-tippy-placement="right">
+                    <a class="sidebar-section-nav__link sidebar-section-nav__link-dropdown" href="#">
+                        <span class="sidebar-section-nav__item-icon ua-icon-circle-check"></span>
+                        <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.admin.clients" | trans }}</span>
+                    </a>
+                    <ul class="sidebar-section-subnav">
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('line') }}">{{ "base_admin.sidebar.menu.clients.manage_lines" | trans }}</a></li>
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('user') }}">{{ "base_admin.sidebar.menu.clients.manage_users" | trans }}</a></li>
+                        {# <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="#">{{ "base_admin.sidebar.menu.clients.permissions" | trans }}</a></li> #}
+                    </ul>
+                </li>
+                <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.admin.resellers" | trans }}" data-tippy-placement="right">
+                    <a class="sidebar-section-nav__link" href="{{ path('user_resellers') }}">
+                        <span class="sidebar-section-nav__item-icon ua-icon-group"></span>
+                        <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.admin.resellers" | trans }}</span>
+                    </a>
+                </li>
+                <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.admin.wallet" | trans }}" data-tippy-placement="right">
+                    <a class="sidebar-section-nav__link sidebar-section-nav__link-dropdown" href="#">
+                        <span class="sidebar-section-nav__item-icon ua-icon-wallet"></span>
+                        <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.admin.wallet" | trans }}</span>
+                    </a>
+                    <ul class="sidebar-section-subnav">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('billing-configuration') }}">{{ "base_admin.sidebar.menu.billing.config" | trans }}</a></li>
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('gateways') }}">{{ "base_admin.sidebar.menu.billing.gateways" | trans }}</a></li>
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('packages') }}">{{ "base_admin.sidebar.menu.billing.packages" | trans }}</a></li>
+                        {% endif %}
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('products') }}">{{ "base_admin.sidebar.menu.billing.products" | trans }}</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('billing_orders') }}">{{ "base_admin.sidebar.menu.billing.orders" | trans }}</a></li>
+                        {% else %}
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('billing_customer_orders') }}">{{ "base_admin.sidebar.menu.billing.orders" | trans }}</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+                <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.admin.channels" | trans }}" data-tippy-placement="right">
+                    <a class="sidebar-section-nav__link sidebar-section-nav__link-dropdown" href="#">
+                        <span class="sidebar-section-nav__item-icon ua-icon-video"></span>
+                        <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.admin.channels" | trans }}</span>
+                    </a>
+                    <ul class="sidebar-section-subnav">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('streams') }}">{{ "base_admin.sidebar.menu.admin.channels" | trans }}</a></li>
+                        {% else %}
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('streams_report') }}">{{ "base_admin.sidebar.menu.channel.new_report" | trans }}</a></li>
+                        {% endif %}
+                        {% if not is_granted('ROLE_ADMIN') %}
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('streams_reports') }}">{{ "base_admin.sidebar.menu.channel.recent_reports" | trans }}</a></li>
+                        {% endif %}
+                        <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('epg') }}">{{ "base_admin.sidebar.menu.channel.epg" | trans }}</a></li>
+                        {# <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="#">{{ "base_admin.sidebar.menu.channel.favorites" | trans }}</a></li> #}
+                    </ul>
+                </li>
+                <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.admin.logs" | trans }}" data-tippy-placement="right">
+                    <a class="sidebar-section-nav__link" href="{{ path('logs') }}">
+                        <span class="sidebar-section-nav__item-icon ua-icon-pages"></span>
+                        <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.admin.logs" | trans }}</span>
+                    </a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.support" | trans }}" data-tippy-placement="right">
+                        <a class="sidebar-section-nav__link sidebar-section-nav__link-dropdown" href="#">
+                            <span class="sidebar-section-nav__item-icon ua-icon-ticket"></span>
+                            <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.support" | trans }}</span>
+                        </a>
+                        <ul class="sidebar-section-subnav">
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('tickets') }}">{{ "base_admin.sidebar.menu.tickets" | trans }}</a></li>
+                            <li class="sidebar-section-subnav__item"><a class="sidebar-section-subnav__link" href="{{ path('technical_issues') }}">{{ "base_admin.sidebar.menu.technical_issues" | trans }}</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+
+                {% if not is_granted('ROLE_ADMIN') %}
+                    <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.tickets" | trans }}" data-tippy-placement="right">
+                        <a class="sidebar-section-nav__link" href="{{ path('tickets') }}">
+                            <span class="sidebar-section-nav__item-icon ua-icon-ticket"></span>
+                            <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.tickets" | trans }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {# <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.admin.request" | trans }}" data-tippy-placement="right">
+                    <a class="sidebar-section-nav__link" href="#">
+                        <span class="sidebar-section-nav__item-icon ua-icon-envelope"></span>
+                        <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.admin.request" | trans }}</span>
+                    </a>
+                </li> #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="sidebar-section-nav__item" data-toggle="tooltip" data-placement="right" title="{{ "base_admin.sidebar.menu.admin.general_settings" | trans }}" data-tippy-placement="right">
+                        <a class="sidebar-section-nav__link" href="{{ path('settings') }}">
+                            <span class="sidebar-section-nav__item-icon ua-icon-settings"></span>
+                            <span class="sidebar-section-nav__item-text">{{ "base_admin.sidebar.menu.admin.general_settings" | trans }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

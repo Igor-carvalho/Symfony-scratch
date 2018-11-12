@@ -1,0 +1,60 @@
+
+<script src="{{ asset('bundles/assets/themes/default/plugins/themoviedb/themoviedb.min.js') }}"></script>
+<script src="{{ asset('bundles/assets/themes/default/plugins/bootstrap3-typeahead/bootstrap3-typeahead.min.js') }}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var file_name = "{{file_name}}";
+        if(file_name.length > 0) {
+            $('#file_upload a').remove();
+        }
+    });
+    theMovieDb.common.api_key = "{{ themoviedb_api_key }}";
+
+    var $input = $('#app_bundle_vod_series_type_title');
+    $input.typeahead({
+        source: function (query, process) {
+            var successCB = function successCB(data) {
+                return process(JSON.parse(data).results);
+            };
+            var errorCB = function errorCB(data) {
+                console.log("Error callback: " + data)
+            };
+
+            theMovieDb.search.getTv({"query": query}, successCB, errorCB);
+        },
+        autoSelect: true,
+        displayText: function (item) {
+                return item.name;
+        }
+    });
+
+    $input.change(function () {
+        var current = $input.typeahead("getActive");
+        if (current) {
+            if (current.name == $input.val()) {
+                // This means the exact match is found.
+
+                //Cover
+                //https://image.tmdb.org/t/p/original/2q1dsbdFUnTKNtIXI1BZvc6FjPH.jpg
+                if(current.poster_path) {
+                    var image = "https://image.tmdb.org/t/p/original" + current.poster_path;
+                    $('#file_name').val(image);
+                    if($('#file_upload a').length > 0) {
+                        $('#file_upload a').attr('href', image);
+                        $('#file_upload img').attr('src', image);
+                    } else {
+                        $('#file_upload').append('<a href="'+image+'"><img src="'+image+'" alt=""></a>');
+                    }
+                } else {
+                    $('#file_upload a').attr('href', '');
+                    $('#file_upload img').attr('src', '');
+                    $('#file_name').val('');
+                }
+
+                $('#app_bundle_vod_series_type_year').val(current.first_air_date.split("-")[0]);
+                $('#app_bundle_vod_series_type_description').val(current.overview);
+            }
+        }
+    });
+</script>

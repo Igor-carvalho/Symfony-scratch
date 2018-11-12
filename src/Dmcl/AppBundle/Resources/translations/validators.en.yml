@@ -1,0 +1,158 @@
+entity:
+    activation_code:
+        code:
+            unique: entity.activation_code.code.unique   # FIXME
+
+    billing:
+        interval:
+            invalid: 'Choose a valid Interval'
+
+        sales_email:
+            invalid: 'Sales Email is not a valid email address'
+    
+    line:
+        package: 'The value for package is not valid'
+
+    channel:
+        audioMode:
+            invalid: 'Choose a valid Audio Mode'
+
+        audio_samplerate:
+            invalid: 'Choose a valid Audio Samplerate'
+
+        audio_video_codec:
+            invalid: 'Choose a valid Audio/Video Codec'
+
+        audio_codec:
+            invalid: 'Choose a valid Audio Codec'
+
+        video_codec:
+            invalid: 'Choose a valid Video Codec'
+
+        name:
+            no_blank: 'Please,fill Channle''s Name'
+            unique: 'Channel Name already in use'
+
+        preset:
+            invalid: 'Choose a valid Preset'
+
+        profile:
+            invalid: 'Choose a valid Profile'
+
+        protocol:
+            invalid: 'Choose a valid protocol'
+
+        type:
+            invalid: 'Choose a valid type'
+
+        waterPosition:
+            invalid: 'Choose a valid Water Position'
+
+    channel_categories:
+        name:
+            no_blank: 'Please,fill Category''s Name'
+            unique: 'Category Name already in use'
+
+    channel_packages:
+        channels:
+            no_blank: 'Please,fill Package''s Channels'
+
+        interval:
+            invalid: 'Choose a valid Interval'
+
+        name:
+            no_blank: 'Please,fill Package''s Name'
+            unique: 'Package Name already in use'
+
+    customer:
+        email:
+            no_blank: entity.customer.email.no_blank   # FIXME
+
+        name:
+            no_blank: entity.customer.name.no_blank   # FIXME
+
+    customers:
+        code:
+            unique: 'Customer''s Code already in use'
+
+        email:
+            unique: 'Customer''s Email already in use'
+
+        username:
+            unique: 'Customer''s Username already in use'
+
+    epg:
+        name:
+            no_blank: 'Please,fill Epg''s Name'
+            unique: 'Epg Name already in use'
+
+    playlists:
+        name:
+            no_blank: 'Please,fill Playlist''s Name'
+            unique: 'Playlist''s Name already in use'
+
+    resellers_blocked:
+        reseller:
+            no_blank: 'Please,fill Reseller''s field'
+            unique: 'Resseller already blocked'
+
+    server:
+        name:
+            no_blank: 'Please,fill Server''s Name'
+            unique: 'Server Name already in use'
+
+    server_zone:
+        name:
+            no_blank: 'Please,fill Zone''s Name'
+            unique: 'Zone Name already in use'
+
+    settings:
+        company_email_support:
+            invalid: 'Email for Support is not a valid email address'
+
+        email_service_type:
+            invalid: 'Choose a valid Email Service'
+
+    storage:
+        name:
+            unique: 'Storage Name already in use'
+
+    vod:
+        title:
+            no_blank: 'Please,fill Vod''s Title'
+            unique: 'Vod Title already in use'
+
+    vod_genre:
+        name:
+            no_blank: 'Please,fill Genre''s Name'
+            unique: 'Genre Name already in use'
+
+    vod_packages:
+        interval:
+            invalid: 'Choose a valid Interval'
+
+        name:
+            no_blank: 'Please,fill Package''s Name'
+            unique: 'Package Name already in use'
+
+        vods:
+            no_blank: 'Please,fill Package''s Vods'
+
+fos_user:
+    email:
+        already_used: The email is already in use
+        blank: The email can not be blank
+        invalid: Type the correct email addrress
+        long: So long
+        short: So short
+
+    password:
+        blank: The password can not be blank
+        mismatch: The password not mismatch
+        short: So short
+
+    username:
+        already_used: The username is already in use
+        blank: The username can not be blank
+        long: So long
+        short: The minimu of caracters is 2

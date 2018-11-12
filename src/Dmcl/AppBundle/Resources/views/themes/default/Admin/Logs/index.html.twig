@@ -1,0 +1,101 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.logs.index.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+     <script text="javascript">
+        var table = '';
+        var rpp = 50;
+
+        $(document).ready(function(){
+           table = $('#datatable').DataTable({
+                lengthChange: true,
+                select: false,
+                bAutoWidth: false,
+                dom: "<'row'<'col-md-6 pull-left'lB><'col-md-6 pull-right'f>>rt<'row'<'col-md-6 pull-left'i><'col-md-6 pull-right'p>>", 
+                buttons: [
+                    'excel'
+                ],              
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    'excel'
+                ],
+                ajax: {
+                    url: "{{ path('logs_ajax') }}",
+                    method: 'POST',
+                    data: {
+                        page: 1,
+                        rpp: rpp
+                    }
+                },
+                columns: [
+                    { "data": "date" },
+                    { "data": "username" },
+                    { "data": "details" }
+                ],
+                columnDefs: [
+                    {
+                        width: "10%",
+                        targets: 0
+                    },
+                    {
+                        width: "10%",
+                        targets: 1
+                    },
+                    {
+                        width: "80%",
+                        targets: 2
+                    }
+                ]
+            });
+
+            setTimeout(function () {
+                search(2, rpp);
+            }, 900);
+        })
+
+        function search(page, rpp){
+            $.ajax({
+                url: "{{ path('logs_ajax') }}",
+                dataType: "json", 
+                type: 'POST',
+                data: {
+                    page: page,
+                    rpp: rpp
+                },
+                success: function(response){
+                    var datas = response.data;
+
+                    for(var i = 0; i < datas.length; i++){
+                        table.row.add({
+                            "date": datas[i].date,
+                            "username": datas[i].username,
+                            "details": datas[i].details,
+                        }).draw();
+                    }
+
+                    if(datas.length)
+                        search(++page, rpp);
+                }
+            });
+        }
+     </script>
+ {% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        <div class="m-datatable col-md-8 offset-md-2 col-sm-8 offset-sm-1 col-xs-12">
+            <table id="datatable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ "pages.logs.attrs.date" | trans }}</th>
+                        <th>{{ "pages.logs.attrs.username" | trans }}</th>
+                        <th>{{ "pages.logs.attrs.details" | trans }}</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+{% endblock %}

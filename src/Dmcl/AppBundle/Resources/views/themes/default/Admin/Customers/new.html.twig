@@ -1,0 +1,81 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.customers.new.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.customers.new.title" | trans }}{% endblock %}
+
+{% block body -%}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('admin_customers') }}">
+            {{ "pages.customers.new.back_to_list" | trans }}
+        </a>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                {{ form_label(form.name,"pages.customers.attrs.name" | trans ) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+                {{ form_label(form.email,"pages.customers.attrs.email" | trans ) }}
+                {{ form_widget(form.email) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                {{ form_label(form.username,"pages.customers.attrs.username" | trans ) }}
+                {{ form_widget(form.username) }}
+            </div>
+            <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+                {{ form_label(form.password,"pages.customers.attrs.password" | trans ) }}
+                {{ form_widget(form.password) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                {{ form_label(form.concurrentConnections,"pages.customers.attrs.concurrent_connections" | trans ) }}
+                {{ form_widget(form.concurrentConnections) }}
+            </div>
+            <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+                {{ form_label(form.country,"pages.customers.attrs.country" | trans ) }}
+                {{ form_widget(form.country) }}
+            </div>
+        </div>
+        {#<div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">#}
+            {#{{ form_label(form.code,"pages.customers.attrs.code" | trans ) }}#}
+            {#{{ form_widget(form.code) }}#}
+        {#</div>#}
+		{#<div class="col-md-6">#}
+            {#{{ form_label(form.paypalId,"pages.customers.attrs.paypal" | trans ) }}#}
+            {#{{ form_widget(form.paypalId) }}#}
+        {#</div>#}
+		<div class="row">
+            <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5" style="padding-top: 30px">
+                {{ form_label(form.enabled,"pages.customers.attrs.enabled" | trans ) }}
+                {{ form_widget(form.enabled) }}
+            </div>
+        </div>
+
+        {#<div class="clearfix"></div>#}
+        {#<div class="col-md-12 col-xs-12 no-padding margin-btm-5">#}
+            {#<label for="macs">{{ "pages.customers.attrs.macs" | trans }}</label>#}
+            {#<select id="macs" name="macs[]" class="select2-tag form-control" multiple></select>#}
+        {#</div>#}
+        {#<div class="col-md-12 col-xs-12 no-padding margin-btm-5">#}
+            {#<label for="ips">{{ "pages.customers.attrs.ips" | trans }}</label>#}
+            {#<select id="ips" name="ips[]" class="select2-tag form-control" multiple></select>#}
+        {#</div>#}
+        {#<div class="clearfix"></div>#}
+        {#<div class="col-md-12 col-xs-12 no-padding">#}
+            {#{{ form_label(form.playlists,"pages.customers.attrs.playlists" | trans ) }}#}
+            {#{{ form_widget(form.playlists) }}#}
+        {#</div>#}
+        <div class="col-md-12 col-xs-12 no-padding margin-btm-5" style="margin-top: 10px">
+            {{ form_widget(form.submit,{'attr':{
+            'class': 'btn btn-success btn-sm pull-right',
+            }}) }}
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.gateways.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.gateways.index.title" | trans }}{% endblock %}
+
+{% block body -%}
+    <h1>Gateways</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Uniquename</th>
+                <td>{{ entity.uniqueName }}</td>
+            </tr>
+            <tr>
+                <th>Displayname</th>
+                <td>{{ entity.displayName }}</td>
+            </tr>
+            <tr>
+                <th>Shopidpublickey</th>
+                <td>{{ entity.shopIdPublicKey }}</td>
+            </tr>
+            <tr>
+                <th>Secretkey</th>
+                <td>{{ entity.secretKey }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('gateways') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('gateways_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

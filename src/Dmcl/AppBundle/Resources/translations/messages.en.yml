@@ -1,0 +1,1166 @@
+'': ''   # FIXME
+'-': '-'   # FIXME
+11025: '11025'   # FIXME
+22050: '22050'   # FIXME
+44100: '44100'   # FIXME
+48000: '48000'   # FIXME
+8000: '8000'   # FIXME
+Baseline: Baseline   # FIXME
+'Bottom Left Corner': 'Bottom Left Corner'   # FIXME
+'Bottom Right Corner': 'Bottom Right Corner'   # FIXME
+Cram-md5: Cram-md5   # FIXME
+Create: Create   # FIXME
+Days: Days   # FIXME
+Delete: Delete   # FIXME
+Fast: Fast   # FIXME
+
+High: High   # FIXME
+High10: High10   # FIXME
+High422: High422   # FIXME
+High444: High444   # FIXME
+Hours: Hours   # FIXME
+Login: Login   # FIXME
+Main: Main   # FIXME
+Medium: Medium   # FIXME
+Mono: Mono   # FIXME
+months: Months   # FIXME
+None: None   # FIXME
+Plain: Plain   # FIXME
+
+Remote: Remote   # FIXME
+Slow: Slow   # FIXME
+Stereo: Stereo   # FIXME
+'Super Fast': 'Super Fast'   # FIXME
+TLS: TLS   # FIXME
+'Top Left Corner': 'Top Left Corner'   # FIXME
+'Top Right Corner': 'Top Right Corner'   # FIXME
+'Ultra Fast': 'Ultra Fast'   # FIXME
+Update: Update   # FIXME
+'Very Slow': 'Very Slow'   # FIXME
+Years: Years   # FIXME
+
+label_next: Next
+label_previous: Previous
+back_to_list: 'Back to the list'
+server_client: 'Server Client'
+servers_off: 'There are not found clients online'
+current_balance: 'Current Balance: '
+ui_setting: 'UI Setting'
+loading: 'Loading data...'
+
+base_admin:
+    footer:
+        all_rights_reserved: 'All rights reserved'
+        privacy_policy: 'Privacy Policy'
+        refund_policy: 'Refund Policy'
+
+    sidebar:
+        menu:
+            dashboard: Dashboard
+
+            admin:
+                admin: Administration
+                users: Users
+                channels: Channels
+                request: Request
+                clients: Clients
+                general_settings: Settings
+                resellers: Resellers
+                wallet: Wallet
+                logs: 'Logs'
+
+            clients:
+                manage_lines: 'Manage lines'
+                manage_users: 'Manage users'
+                permissions: Permissions
+
+            billing:
+                billing: 'Billing System'
+                config: Configuration
+                customers: Customers
+                packages: Packages
+                products: Products
+                gateways: Gateways
+                orders: Orders
+
+            channel:
+                new_report: 'New Report'
+                recent_reports: 'Recent Reports'
+                epg: Epg
+                favorites: 'Your favorites'
+
+            pages:
+                pages: Pages
+                privacy_policy: 'Privacy Policy'
+                refund_policy: 'Refund Policy'
+                anouncement: 'Anouncement'
+
+            support: Support
+
+            tickets: 'Tickets'
+            technical_issues: 'Technical issues'
+            users_request: 'Users Request'
+    top_navbar:
+        member_since: 'Member since'
+        profile: Profile
+        sign_out: 'Sign out'
+
+        login: 'Login'
+    welcome: Welcome
+
+cart:
+    check_out: Checkout
+    clear: 'Clear Cart'
+    items: Items
+
+    view_cart: 'View Cart'
+
+country: Country
+
+no_data: 'No data available'
+form:
+    new_password: New password
+    new_password_confirmation: New password confirmation
+
+js:
+    btnCancel: Cancel
+    btnOk: Ok
+
+    data_table:
+        no_details: 'Details not availables'
+        txt_howing: Showing
+        txt_no_data: 'No data available in table'
+        txt_of: of
+        txt_search: Search
+        txt_to: to
+
+    txtError: Error
+    txtSuccess: Success
+
+name: Name
+show: Show
+pages:
+    user:
+        create: 'Create User'
+        change_avatar: 'Change Avatar'
+        profile: 'Account Settings'
+        submit: Login
+        update: Update
+        no_users: 'There are no users'
+        create_reseller: Create
+        update_password: 'Update Password'
+        new_password: 'New Password'
+        current_password: 'Current Password'
+        created_error: 'Error creating User'
+        created_success: 'User created successfully'
+        msg_delete: 'Are you sure to delete this User, you want to continue?'
+        msg_user_delete_success: 'User delete successfully' 
+        msg_user_not_found: 'User not found'
+        msg_user_disabled: 'has disabled'
+        msg_user_enabled: 'has enabled'
+        msg_user_changestatus: 'The user %name% %text%'
+        msg_user_exist_username: 'The username is already in use'
+        msg_user_exist_email: 'The email is already in use'
+
+        form:
+            select_a_country: Selecte Country 
+
+        attrs:
+            name: Name
+            fullname: Full name
+            username: Username
+            password: Password
+            email: Email address
+            enabled: Enabled
+            country: Country
+            startdate: 'Start Date'
+            lastlogin: 'Last Login'
+            remember: 'Remember me'
+            credits: Credits
+
+        new:
+            back_to_list: Back to list
+            title: New Reseller    
+
+        index:
+            table:
+                actions: Actions
+                fullname: 'Full Name'
+                username: 'Username'
+                email: Email
+                enabled: Enabled
+                disabled: Disabled
+                details: Details
+            delete: Delete 
+            edit: Edit   
+            title: Users List
+            resellers: 'Resellers'
+            reset_all_users_serials: Reset all users Serial
+            add_user: 'Add Reseller'
+
+    billing:
+        checkout:
+            confirm: Confirm
+
+            creditcard:
+                card_number: 'Card Number'
+                cvc: CVC
+                expiration: Expiration
+                fields_required: 'All fields for Credit Card are required'
+                name: Name
+
+            select_payment_method: 'Select a Payment Method'
+            title: Products
+
+        customer_products:
+            index:
+                add_channels: 'Add Channels'
+                add_channels_packages: 'Add Channels Package'
+                add_vod: 'Add VOD'
+                add_vod_packages: 'Add VOD Packages'
+                back_to_list: 'Back to the list'
+                channels: Channels
+                channels_available: 'Channels Available'
+                channels_package_available: 'Channels Package Available'
+                channels_packages: 'Channels Packages'
+                disabled: Disabled
+                enabled: Enabled
+
+                msgs:
+                    channel:
+                        msg_remove: 'Are you sure to remove this Channel, you want to continue ?'
+
+                    channels_package:
+                        msg_remove: 'Are you sure to remove this Channels Package, you want to continue ?'
+
+                    vod:
+                        msg_remove: 'Are you sure to remove this VOD, you want to continue ?'
+
+                    vod_package:
+                        msg_remove: 'Are you sure to remove this VOD Package, you want to continue ?'
+
+                no_channels: 'There are no Channels'
+                no_channels_packages: 'There are no Channels Package'
+                no_vod: 'There are no VOD'
+                no_vod_packages: 'There are no VOD Packages'
+                remove: Remove
+
+                table:
+                    channels:
+                        action: Action
+                        category: Category
+                        live: Live
+                        name: Name
+                        status: Status
+
+                    channels_packages:
+                        actions: Actions
+                        channels: Channels
+                        details: Details
+                        name: Name
+                        price: Price
+                        status: Status
+
+                    vod:
+                        action: Action
+                        duration: Duration
+                        genre: Genre
+                        source: Source
+                        status: Status
+                        title: Title
+                        year: Year
+
+                    vod_packages:
+                        actions: Actions
+                        details: Details
+                        name: Name
+                        price: Price
+                        status: Status
+                        vods: VODs
+
+                title: '%name%''s Products'
+                vod: VOD
+                vod_available: 'VODs Available'
+                vod_package_available: 'VOD Packages Available'
+                vod_packages: 'VOD Packages'
+
+        customers:
+            index:
+                no_customers: 'There are no Customers'
+                no_verified: 'No Verified'
+                orders: Orders
+                products: Products
+
+                table:
+                    actions: Actions
+                    email: Email
+                    total: 'Total Customers'
+                    name: Name
+                    status: Status
+
+                title: Customers
+                verified: Verified
+
+        orders:
+            details:
+                back_to_list: 'Back to the list'
+                email: Email
+                from: From
+                gateway: 'Payment Method'
+                no_verified: 'No Verified'
+                order_id: 'Order ID'
+                payment_create: 'Created At'
+                payment_due: 'Payment Due'
+                phone: Phone
+                status: Status
+
+                types:
+                    channels_package: Channels package
+                    vod: Vod
+                    channel: Channel
+                    video_package: Video package
+
+                table:
+                    discount: Discount
+                    image: Image
+                    product_name: Product
+                    product_type: Type
+                    qty: Quantity
+                    subtotal: Subtotal
+                    total: Total
+                    unit_cost: 'Unit Cost'
+
+                title: Invoice
+                to: To
+                verified: Verified
+
+            index:
+                cutomer_title: '%customer%''s Orders'
+                details: Details
+                no_orders: 'There are no Order'
+                no_verified: 'No Verified'
+
+                table:
+                    actions: Actions
+                    amount: Amount
+                    customer_email: 'Customer Email'
+                    customer_name: CustomerName
+                    date_verified: 'Date Verified'
+                    status: Status
+                    transaction_id: 'Transcation Id'
+                    membership: 'Membership'
+                    payto: 'Pay to'
+
+                title: Orders
+                verified: Verified
+
+        payment:
+            gateways:
+                404: 'Gateway %gateway% no found'
+
+            purchase:
+                error: 'Purchase Error'
+                success: 'Purchase Success'
+
+        shopping_cart:
+            products_in_cart: 'Your Shopping Cart'
+            title: 'Shopping Cart'
+
+    billing_config:
+        attrs:
+            currency: Currency
+            orders_ttl: 'Orders TTL'
+            orders_ttl_interval: 'Orders TTL Interval'
+            sales_address: 'Sales Address'
+            sales_email: 'Sales Email'
+            sales_phone: 'Sales Phone'
+
+        index:
+            title: 'Billing Config'
+
+        unconfigured: 'Billing System Unconfigured'
+        updated_success: 'Epg updated successfully'
+
+    packages:
+        credits: 'Credits'
+        add_package: 'Add Package'
+        order: 'Order Now'
+        name: Name
+        status: Status
+        period: 'Period in Months'
+        superReseller: 'Super Reseller'
+        cancel: Cancel
+        confirm: Confirm
+        actions: Actions
+        trial: Trial
+        duration: Duration
+        durationin: 'Duration In'
+        genMag: 'Gen Mag'
+        genE2: 'Gen E2'
+        outputFormat: 'Output Formt'
+        maxConnections: 'Max Connections'
+
+        created_success: 'Package created successfully'
+        delete: Delete
+
+        edit:
+            title: 'Package Edit'
+            update: Update
+
+        index:
+            title: 'Packages'
+            edit: Edit
+
+        cart:
+            title: Cart
+            subtotal: 'Subtotal'
+            total: Total
+
+        no_packages: 'There are no Package'
+
+        title: 'Packages'
+
+        msg_delete: 'Are you sure to delete this Package, you want to continue?'
+        msg_delete_error: 'Error deleting Package'
+        msg_delete_success: 'Package deleted successfully'
+
+        new:
+            create: Create
+            title: 'Package Creation'
+
+        updated_success: 'Package updated successfully'
+
+    products:
+        credits: 'Total Credits'
+        price: Price
+        add_package: 'Add Product'
+        name: Name
+        logo: Logo
+        status: Status
+        price: Price
+        period: 'Period in Months'
+        superReseller: 'Super Reseller'
+        cancel: Cancel
+        confirm: Confirm
+        order: 'Order Now'
+
+        created_success: 'Product created successfully'
+        delete: Delete
+
+        edit:
+            title: 'Package Edit'
+            update: Update
+
+        index:
+            title: 'Products'
+            edit: Edit
+
+        cart:
+            title: Cart
+            subtotal: 'Subtotal'
+            total: Total
+
+        no_packages: 'There are no Product'
+
+        title: 'Products'
+
+        msg_delete: 'Are you sure to delete this Package, you want to continue?'
+        msg_delete_error: 'Error deleting Package'
+        msg_delete_success: 'Package deleted successfully'
+
+        new:
+            create: Create
+            title: 'Package Creation'
+
+        updated_success: 'Package updated successfully'
+
+    logs:
+        attrs:
+            date: Date
+            details: Details
+            username: Username
+
+        index:
+            title: 'Activity Logs'
+            no_logs: 'There are no logs acticity'
+
+    line:
+        attrs:
+            date: Date
+            enabled: Enabled
+            credentials: Credentials
+            remaining: 'Remaining days'
+            trial: Trial
+            mac_address: 'MAC Address'
+            status: Status
+            dashboard: Dashboard
+            notes: Notes
+            period: Period
+            bouquet: 'Bouquet List'
+            package: 'Choose a package'
+            note: Note
+            bouquets: 'Bouquets List'
+            username: Username
+            password: Password
+            email: Email
+            mac: MAC
+            enigma2: Enigma2
+            download: Download
+            parental_code: 'Parental Code'
+
+        created_success: 'Line created successfully'
+        delete: Delete
+
+        edit:
+            back_to_list: 'Back to the list'
+            title: 'Line Edit'
+            update: Update
+
+        index:
+            add_line: 'Add Line'
+            add_trial: 'Add Trial'
+            delete: Delete
+            disabled: Disabled
+            edit: Edit
+            enabled: Enabled
+            no_line: 'There are no Lines'
+
+            table:
+                actions: Actions
+                created_at: 'Created At'
+                name: Name
+                status: Status
+
+            title: 'Lines'
+
+        msg_delete: 'Are you sure to delete this Line, you want to continue ?'
+        msg_delete_error: 'Error deleting Line'
+        msg_additional_notes: 'Additional Notes'
+        msg_mac: 'Type a MAC address'
+        msg_parental_code: 'Type a code'
+        msg_delete_success: 'Line deleted successfully'
+        ms_select_format: 'Select a format'
+
+        new:
+            back_to_list: 'Back to the list'
+            create: Create
+            title: 'Line Creation'
+            trial: 'Free Trial (0 credits)'
+
+        show:
+            title: 'Line "%name%" Details'
+
+        updated_success: 'Line updated successfully'
+
+    customers:
+        attrs:
+            code: Code
+            concurrent_connections: 'Concurrent Connections'
+            country: Country
+            email: Email
+            enabled: Enabled
+            ips: IPs
+            macs: MACs
+            name: Name
+            password: Password
+            playlists: Playlists
+            username: Username
+            paypal: Paypal
+
+        created_success: 'Customer created successfully'
+        customers_exceeded: 'You have the max of customers allowed'
+
+        edit:
+            back_to_list: 'Back to the list'
+            title: 'Customer Edit'
+            update: Update
+
+        form:
+            select_a_country: 'Select a Country'
+
+        index:
+            add_customer: 'Add Customer'
+            delete: Delete
+            disabled: Disabled
+            edit: Edit
+            enabled: Enabled
+            get_playlists: 'Get PlayLists'
+            no_customers: 'There are no Customers'
+
+            table:
+                actions: Actions
+                country: Country
+                email: Email
+                name: Name
+                total: 'Total Custoemrs'
+                owner: Owner
+                status: Status
+
+            title: Customers
+
+        msg_delete: 'Are you sure to delete this Customer, you want to continue ?'
+        msg_delete_error: 'Error deleting Customer'
+        msg_show_customers: 'Show Customers'
+
+        new:
+            back_to_list: 'Back to the list'
+            create: Create
+            title: 'Customer Creation'
+
+        unique_ip_error: 'IP Address %ip% already in use'
+        unique_mac_error: 'MAC Address %mac% already in use'
+        updated_success: 'Customer updated successfully'
+
+    dashboard:
+        cpu_usage: 'CPU Usage'
+        current_playback: Playing
+        customers: Customers
+        last_orders: 'Last Orders'
+        expire_codes: 'Expired codes'
+        expire_playlist: 'Expired playlist'
+        no_orders: 'There are no Orders'
+
+        orders_table:
+            customer: Customer
+            customer_email: 'Customer Email'
+            no_verified: 'No Verified'
+            status: Status
+            transaction_id: 'Transaction Id'
+            verified: Verified
+
+        playback_report: 'Playback Report'
+        playlists: Playlists
+        ram_usage: 'RAM Usage'
+        sales: Sales
+        total_playback: 'Total Playback'
+        total_lines: 'Total Lines'
+        total_payments: 'Total Peyments'
+        total_bonus: 'Total Bonus'
+        bitcoins: 'Via Bitcoin'
+        card: 'Via Card'
+        redeem: Redeem
+        new_lines: 'New Lines'
+        extending_lines: 'Extending Lines'
+        additionals_connections: 'Additionals Connections'
+        new_reseller_fees: 'New Reseller Fees'
+
+        refund_from_reseller: 'Rrefund from Reseller'
+        add_to_resellers: 'Add to Resellers'
+
+        premium: Premium
+        total_resellers: 'Total Resellers'
+        credits: 'Credits'
+        trial: Trial
+        expired: Expired
+        mag: Mag
+        enigma2: Enigma2
+        assigned: Assigned
+
+        vnstat:
+            24_hours: 'Last 24 Hours'
+            month: 'Last 12 Months'
+
+        yearly_recap_report: 'Yearly Recap Report'
+        who_is_online: 'Who is online'
+
+    epg:
+        attrs:
+            name: Name
+            server_recorder: 'Server Recorder'
+            source: Source
+
+        msg_empty: 'Not found EPG'
+
+        title: 'EPG'
+        url: 'Direct URL'
+
+    streams:
+        title: Streams
+        type: 'Type the channel name'
+        submit: Submit
+        select: Select
+        sound: 'No Sound'
+        picture: 'No Picture'
+        down: 'Channel is Down'
+        wrong: 'Wrong Channel'
+        reports: 'Recent Reports'
+        name: 'Channel Name'
+        status: Status
+        pending: pending
+        fixed: fixed
+        date: Date
+        issues: issues
+        category: Category
+        source: Source
+        actions: Actions
+        update: Update
+        create: Create 
+        edit_stream: 'Stream Edit'
+        new_stream: 'Stream New'
+        add: 'Add Stream'
+
+        msg_delete_error: 'Error deleting stream'
+        msg_delete_success: 'Stream deleted successfully'
+        msg_delete: 'Are you sure to delete this Stream, you want to continue ?'
+        updated_success: 'Stream updated successfully'
+        select_category: 'Select Category'
+
+    gateways:
+        attrs:
+            enabled: Enabled
+            secret_key: 'Secret Key'
+            shop_id_public_key: 'Shop Id/Public Key'
+
+        edit:
+            back_to_list: 'Back to the list'
+            back_to_gateway: 'Back to Gateway'
+            title: 'Editing Gateway "%name%"'
+            update: Update
+
+        index:
+            disabled: Disabled
+            edit: Edit
+            enabled: Enabled
+
+            table:
+                actions: Actions
+                method: Method
+                secret_key: 'Secret Key'
+                shop_id_public_key: 'Shop Id/Public Key'
+                status: Status
+
+            title: Gateways
+
+        updated_success: 'Gateway updated successfully'
+        no_gateways: 'Not gateways found'
+
+    paypal:
+        attrs:
+            enabled: Enabled
+            name: Paypal name
+            secret_key: 'Secret Key'
+            shop_id_public_key: 'Shop Id/Public Key'
+
+        edit:
+            back_to_list: 'Back to the list'
+            title: 'Editing Paypal'
+            update: Update
+
+        new:
+            back_to_list: 'Back to the list'
+            title: 'New Paypal'
+            save: Save
+
+        index:
+            disabled: Disabled
+            edit: Edit
+            enabled: Enabled
+
+            table:
+                actions: Actions
+                method: Method
+                secret_key: 'Secret Key'
+                shop_id_public_key: 'Shop Id/Public Key'
+                status: Status
+
+            title: Paypal
+
+        updated_success: 'Gateway updated successfully'
+        not_found: 'Paypal not found'
+
+    home:
+        about: 'About us'
+        account: Account
+        address: Address
+        broadcast: Broadcast
+        contact: Contact
+        contact_btn: 'Send Message'
+        contact_us: 'Contact Us'
+        email: Email
+        email_address: 'Email Address'
+        enter_your_message: 'Enter your message'
+        fun: Fun
+        hello: 'Say Hello to'
+        love: 'The TV you will LOVE'
+        name: Name
+        our_services: 'Our Services'
+        over_channels: 'Over %channels% TV Channels'
+        phone: Phone
+        services: Services
+        subject: Subject
+        try: 'Try it Now'
+        tv_channels: 'TV Channels'
+        user_expriences: 'User Experiances'
+        vod: VOD
+        waiting: 'What are you waiting for?'
+        we_are: 'We are'
+        web_design: 'Web Design'
+        website: Website
+        anouncements: 'Anouncements'
+        no_anouncements: 'There are not anouncements'
+        validate:
+          key: 'Key'
+          license: 'License'
+          empty_key: 'Enter the key'
+          empty_license: 'Enter the license'
+          btn_check: 'Check'
+          field_required: 'This field is required'
+
+    login:
+        already_member: 'Already a member?'
+        create_account: 'Create Account'
+        enter_username_and_pass: 'Enter Username and Password'
+        login_to_your_account: 'Login to your Account'
+        new: 'Are new?'
+        password: Password
+        password_lost: 'Lost your Password?'
+        password_lost_no_worries: 'no worries click'
+        password_lost_no_worries_here: here
+        password_lost_no_worries_here_to_reset: 'to reset'
+        username: Username
+        choose_country: 'Choose country'
+
+    playlist:
+        attrs:
+            channels: Channels
+            channels_package: 'Channel Packages'
+            enabled: Enabled
+            expire_at: 'Expire At'
+            name: Name
+            vod_package: 'VOD Packages'
+            vods: VODs
+
+        created_success: 'Playlist created successfully'
+
+        edit:
+            back_to_list: 'Back to the list'
+            title: 'Playlist Edit'
+            update: Update
+
+        index:
+            add_playlist: 'Add Playlist'
+            delete: Delete
+            disabled: Disabled
+            edit: Edit
+            enabled: Enabled
+            m3u: M3U
+            no_playlists: 'There are no Playlists'
+
+            table:
+                actions: Actions
+                expire_at: 'Expire At'
+                name: Name
+                owner: Owner
+                status: Status
+
+            title: Playlists
+
+        msg_delete: 'Are you sure to delete this Playlist, you want to continue ?'
+        msg_delete_error: 'Error deleting Playlist'
+        msg_delete_success: 'Playlist deleted successfully'
+
+        new:
+            back_to_list: 'Back to the list'
+            create: Create
+            title: 'Playlist Creation'
+
+        updated_success: 'Playlist updated successfully'
+
+    profile:
+        details:
+            address: Address
+            avatar: Avatar
+            basic_information: 'Basic Information'
+            contact: Contact
+            contact_information: 'Contact Information'
+            country: Country
+            current_password: 'Current Password'
+            email_address: 'Email Address'
+            full_name: 'Full Name'
+            my_profile: 'My Profile'
+            name: Name
+            phone: Phone
+            phone_number: 'Phone Number'
+            user_profile: '%name%''s Profile'
+            username: Username
+
+        edit: 'Edit Profile'
+        password_change: 'Change password'
+
+        form:
+            password: Password
+            repeat_password: 'Repeat Password'
+
+        update: 'Update Profile'
+        change: 'Change'
+
+    register:
+        country: Country
+        name: Name
+
+    register_confirmed:
+        go_home: 'Go Home'
+
+    resellers:
+        add:
+            back_to_list: 'Back to the list'
+            title: 'Creating  Reseller'
+
+        attrs:
+            country: Country
+            email: Email
+            name: Name
+            password: Password
+            repeat_password: 'Repeat Password'
+            username: Username
+            apk_name: APK Name
+            apk_logo: 'APK Logo'
+            company_name: 'Company Name'
+            company_address: 'Company Address'
+            company_phone: 'Company Phone'			
+
+        created_success: 'Reseller created successfully'
+        updated_success: 'Reseller updated successfully'
+
+        index:
+            add_reseller: 'Add Reseller'
+            create: Create
+            delete: Delete
+            update: Update
+            edit: Edit
+            details: Details
+            disabled: Disabled
+            enabled: Enabled
+            no_reseller: 'There are no Resellers'
+
+            table:
+                actions: Actions
+                email: Email
+                name: Name
+                products: Products
+                status: Status
+
+            title: Resellers
+
+        msg_delete: 'Are you sure to delete this Reseller, you want to continue ?'
+        msg_delete_error: 'Error deleting Reseller'
+        msg_delete_success: 'Reseller deleted successfully'
+
+    settings:
+        attrs:
+            about_us: 'About Us'
+            allow_registration: 'Allow Registration'
+            allow_resellers_add_channels: 'Allow Resellers add Channels'
+            allow_resellers_add_vod: 'Allow Resellers add VOD'
+            allow_resellers_block_ip: 'Allow Reseller Block IP'
+            allow_resellers_transcoder: 'Allow Transcoder for Resellers'
+            broadcast_rtmp_port: 'Broadcast RTMP Port'
+            broadcast_http_port: 'Broadcast HTTP Port'
+            broadcast_dash_port: 'Broadcast DASH Port'
+            refreshtime: 'Refresh Time Screenshot'
+            nodejs_port: 'NodeJs Port'
+            hls_path: 'HLS path'
+            hls_dash: 'HLS/DASH Setting'
+            broadcast_server_status: 'Broadcast Server Status'
+            company_address: 'Company Address'
+            company_email_support: 'Company Email'
+            company_phone: 'Company Phone'
+            email_authentication_mode: 'Email Authentication'
+            email_encryption_mode: 'Email Encryption'
+            email_host: 'Email Host'
+            email_password: 'Email Password'
+            email_port: 'Email Port'
+            email_sender: 'Email Sender'
+            email_service_type: 'Email Service'
+            email_username: 'Email Username'
+            explain_value_0: 'Leave 0 the values "Max Customers for Resellers" and "Max Concurrent Connections" for unlimited'
+            besttranscoder_daemon: 'Daemon Status'
+            logo: Logo
+            max_concurrent_connections: 'Max Concurrent Connections'
+            notify_resellers: 'Notify Resellers Blocked'
+            resellers_limit: 'Max Customers for Resellers'
+            timeshift: 'Timeshift'
+            dash_fragment: 'DASH Fragment'
+            hls_multi_bitrates: 'HLS Multi Bitrates'
+            server_address: 'Server Address'
+            server_name: 'Server Name'
+            services_description: 'Sevices Description'
+            time_for_updates: 'Time for Updates'
+            time_zone: 'Time Zone'
+            vod_base_url: 'VOD Base Url'
+            vod_upload_dir: 'VOD Upload Dir'
+
+            time_zone_placeholder: 'Choose a time zone'
+            news: 'News'
+            trial_periodo_time: 'Trial periodo time'
+            activation_code_setting: 'Activation code setting'
+            system_info: 'System Info'
+            stream_server: 'Stream Server'
+            system_setting: 'System Setting'
+            email_setting: 'Email/Support Setting'
+            server_info: 'Server Info'
+            update: Update
+        broadcast_server_error: 'Broadcast server could not run on this port'
+        nodejs_server_error: 'NodeJs server do not start'
+
+        form:
+            select_email_authentication: 'Choose an authentication Mode'
+            select_email_encryption: 'Choose an encryption Mode'
+
+        index:
+            title: 'General Settings'
+
+        updated_success: 'Settings updated Successfully'
+        vod_upload_dir_no_exists: '%path% no exists'
+        vod_upload_dir_no_permissions: 'Insufficient permissions in %path%'
+
+    sla:
+        sla: '%sla%'
+        update: Update
+        updated_successfully: '%sla% updated Successfully'
+
+    tickets:
+        attrs:
+            message: 'Message:'
+            subject: 'Subject:'
+            to_email: 'To:'
+            issue: 'Issue:'
+
+        delete: Delete
+        delete_error: 'Error deleting Tickets'
+        delete_success: 'Tickets deleted successfully'
+        inbox: Inbox
+
+        index:
+            message: 'Message'
+            from: 'From'
+            subject: Subject
+            issue: Issue
+            date: 'Date'
+            compose: Compose
+            title: Tickets
+            sended: Sended
+
+        new:
+            create: Send
+            discard: Discard
+            title: 'New Ticket'
+
+        no_tickets: 'There are no Tickets'
+        mark_no_read: 'Mark as no read'
+        reply: Reply
+        reply_ticket: 'Reply Ticket'
+        trash: Trash
+        close: Close
+        send: Send
+        send_success: 'Ticket send successfully'
+        sent: Sent
+
+        show:
+            from: From
+            title: 'Ticket Details'
+
+    technical_issues:
+        attrs:
+            issue: Issue
+
+        delete: Delete
+        delete_error: 'Error deleting Technical issues'
+        delete_success: 'Technical issues deleted successfully'
+        inbox: Inbox
+
+        index:
+            title: Technical issues
+            new: Add technical issues
+            no_technical_issues: 'There are no technical issues'
+        new:
+            save: Save
+            title: 'New Technical issue'
+        edit:
+            save: Save
+            title: 'Technical issue edit'
+
+        no_technical_issues: 'There are no technical issues'
+        reply: Reply
+        send_success: 'Ticket send successfully'
+        sent: Sent
+
+        show:
+            from: From
+            title: 'Technical issues Details'
+
+        msg_delete: 'Are you sure to delete this technical issues, you want to continue ?'
+        msg_delete_error: 'Error deleting technical issues'
+        msg_delete_success: 'Technical issues deleted successfully'
+        msg_edited: 'Technical issues edited successfully'
+        msg_save: 'Technical issues created successfully'
+
+    external_contacts:
+        index:
+            no_external_contacts: 'There are no users request'
+            title: 'Users request'
+
+            table:
+                email: 'Email'
+                name: 'Name'
+                country: 'Country'
+                city: 'City'
+                note: 'Note'
+                requested: 'Requested'
+                actions: 'Actions'
+                mail: 'Mail'
+        msg_delete_error: 'User request deleted'
+        msg_delete: 'Are you sure to delete this user request, you want to continue ?'
+
+        msg_delete_sucess: 'User request deleted'
+    
+    anouncement:
+        attr:
+            add_anouncement: 'Add anouncement'
+            title: 'Title'
+            created: 'Created'
+            create: 'Create'
+            cancel: 'Cancel'
+            title: 'Title'
+            anouncement: 'Anouncement'
+            no_anouncements: 'There are not anouncements'
+            edit: 'Edit'
+            delete: 'Delete'
+            actions: 'Actions'
+            msg_create_sucess: 'Anouncement created'
+            msg_delete_sucess: 'Anouncement deleted'
+            msg_delete: 'Are you sure to delete this anouncement, you want to continue ?'
+            msg_edit_sucess: 'Anouncement edited'
+        new:
+            title: 'New anouncement'
+        index:
+            title: 'Anouncements'
+        edit:
+            title: 'Edit anouncement'
+security:
+    already_member: Already a member
+
+toastr:
+    error: Error
+    success: Success
+
+msg_series_delete: 'Are you sure to delete this VOD Serie, you want to continue ?'
+msg_episode_delete: 'Are you sure to delete this VOD Episode, you want to continue ?'
+msg_episode_delete: 'Are you sure to delete this VOD Episode, you want to continue ?'
+select_a_way: 'Select a way'
+upload: 'Upload'
+url: 'Url'
+
+enabled: Enabled
+transcoding: Transcoding
+downloading: Downloading
+disabled: Disabled
+
+content: 'Content'
+date: 'Date'
+not_messages: 'There are not Messages'
+label.msg: 'Message'
+label.date: 'Date'
+label.publish_rom: 'Publish From'
+btn.create: 'Create'
+btn.update: 'Update'

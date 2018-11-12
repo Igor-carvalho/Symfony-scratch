@@ -1,0 +1,125 @@
+channel_http_rtsp:
+    path:     /httpRtsp
+    defaults: { _controller: "AppBundle:Admin/Channel:indexHttpRtsp" }
+
+channel_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Admin/Channel:show" }
+
+channel_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/Channel:new" }
+
+channel_http_rtsp_new:
+    path:     /newHttpRtsp
+    defaults: { _controller: "AppBundle:Admin/Channel:newHttpRtsp" }
+
+channel_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/Channel:create" }
+    methods:  POST
+
+channel_import:
+    path:     /import
+    defaults: { _controller: "AppBundle:Admin/Channel:import" }
+    methods:  [POST, GET]
+
+channel_http_rtsp_import:
+    path:     /importHttpRtsp
+    defaults: { _controller: "AppBundle:Admin/Channel:import", http:true }
+    methods:  [POST, GET]
+
+incoming_channel_import:
+    path:     /import_incoming_channels
+    defaults: { _controller: "AppBundle:Admin/Channel:importIncomingChannels" }
+    methods:  [POST, GET]
+
+channel_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/Channel:edit" }
+
+channel_edit_http_rtsp:
+    path:     /{id}/editHttpRtsp
+    defaults: { _controller: "AppBundle:Admin/Channel:editHttpRtsp" }
+
+channel_log:
+    path:     /{id}/log
+    defaults: { _controller: "AppBundle:Admin/Channel:log" }
+
+channel_http_rtsp_log:
+    path:     /{id}/log
+    defaults: { _controller: "AppBundle:Admin/Channel:log", http:true }
+
+channel_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/Channel:update" }
+    methods:  [POST, PUT]
+
+channel_update_by_name:
+    path:     /update/{name}
+    defaults: { _controller: "AppBundle:Admin/Channel:updateByName" }
+    methods:  [POST, PUT]
+
+channel_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Channel:delete" }
+
+channel_delete_by_name:
+    path:     /delete/{name}
+    defaults: { _controller: "AppBundle:Admin/Channel:deleteByName" }
+
+channel_by_lib_status:
+    path:     /{status}/status/{page}/{rpp}/{filter}
+    defaults: { _controller: "AppBundle:Admin/Channel:channelsStatus", page:1, rpp:10, filter:'' }
+
+channel_delete_logs:
+    path:     /delete_logs
+    defaults: { _controller: "AppBundle:Admin/Channel:deleteLogs" }
+
+channel_http_rtsp_delete_logs:
+    path:     /delete_http_rtsp_logs
+    defaults: { _controller: "AppBundle:Admin/Channel:deleteLogs", http:true }
+
+channels_statistic:
+    path: /channels_statistic
+    defaults: { _controller: "AppBundle:Admin/Channel:channelsStatistic" }
+
+incoming_streams:
+    path: /incoming_streams
+    defaults: { _controller: "AppBundle:Admin/Channel:incomingStreams" }
+
+get_channels_stats:
+    path: /get_channels_stats
+    defaults: { _controller: "AppBundle:Admin/Channel:getChannelsFromStats" }
+
+get_incoming_channels:
+    path: /get_incoming_channels
+    defaults: { _controller: "AppBundle:Admin/Channel:getIncomingChannels" }
+
+get_incoming_channels_from_stats:
+    path: /get_incoming_channels_from_stats
+    defaults: { _controller: "AppBundle:Admin/Channel:getIncomingChannelsFromStats" }
+
+get_list_channels_stats:
+    path: /get_list_channels_stats
+    defaults: { _controller: "AppBundle:Admin/Channel:listChannelsStatistic" }
+
+get_list_channels_stats_ajax:
+    path: /get_list_channels_stats_ajax
+    defaults: { _controller: "AppBundle:Admin/Channel:listChannelsStatisticAJAX" }
+
+app.route.channels.bitrate:
+    path: /bitrate
+    defaults: { _controller: "AppBundle:Admin/Channel:bitrate" }
+
+app.route.channels.details:
+    path: /{id}/details
+    defaults: { _controller: "AppBundle:Admin/Channel:details" }
+
+app.route.channels.details_http_rtsp:
+    path: /{id}/detailsHttpRtsp
+    defaults: { _controller: "AppBundle:Admin/Channel:detailsHttpRtsp" }
+
+channel:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Channel:index" }

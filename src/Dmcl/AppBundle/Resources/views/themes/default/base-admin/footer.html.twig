@@ -1,0 +1,9 @@
+<footer class="main-footer"  >
+    <!-- To the right -->
+    <div class="pull-right hidden-xs">
+        <a href="{{ path('sla_show',{"slug":"privacy-policy"}) }}">{{ "base_admin.footer.privacy_policy" | trans }}</a> |
+        <a href="{{ path('sla_show',{"slug":"refund-policy"}) }}">{{ "base_admin.footer.refund_policy" | trans }}</a>
+    </div>
+    <!-- Default to the left -->
+    <strong>{{ project_name() }}  &copy; {{ "now" | date("Y") }} </strong> {{ "base_admin.footer.all_rights_reserved" | trans }}.
+</footer>

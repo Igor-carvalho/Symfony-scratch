@@ -1,0 +1,7 @@
+logs:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Logs:index" }
+
+logs_ajax:
+    path:     /ajax
+    defaults: { _controller: "AppBundle:Admin/Logs:ajax" }

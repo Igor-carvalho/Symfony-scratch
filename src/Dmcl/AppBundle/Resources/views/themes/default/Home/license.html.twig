@@ -1,0 +1,46 @@
+{% extends 'AppBundle:themes/default/Home:index.html.twig' %}
+
+{% block user %}
+{% endblock %}
+
+{% block services %}
+    <div class="row">        
+        <div class="text-center col-sm-6 col-sm-offset-2">        
+            {{ form_start(form) }}
+            {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}             
+            
+             <div class="form-group">
+                <label for="key">{{ form_label(form.code,"pages.home.validate.key" | trans ) }}</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>
+                  {{ form_widget(form.code, {'attr': {'style': 'border-color: #ccc', 'placeholder': "pages.home.validate.empty_key" | trans }}) }}
+                </div> 
+            </div>
+            
+             <div class="form-group">
+                <label for="key">{{ form_label(form.license,"pages.home.validate.license" | trans ) }}</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-legal fa-fw"></i></div>
+                  {{ form_widget(form.license, {'attr': {'style': 'border-color: #ccc', 'placeholder': "pages.home.validate.empty_license" | trans }}) }}
+                </div> 
+            </div>
+            
+            <div id="button">
+              {{ form_widget(form.submit,{'attr':{'class': 'btn btn-success',}}) }}
+            <div> 
+          {{ form_end(form) }}            
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="application/javascript">
+    $(document).ready(function(){
+      //obtenemos la posición en la que se encuentra el botón
+      var posicion_boton = $("#mainmanu").offset().top;
+                              
+      //hacemos scroll hasta el botón
+      $("html, body").animate({scrollTop:posicion_boton+"px"});
+    });    
+  </script>
+{% endblock %}

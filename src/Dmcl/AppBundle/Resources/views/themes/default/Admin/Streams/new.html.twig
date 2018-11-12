@@ -1,0 +1,51 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.streams.new_stream" | trans }}{% endblock %}
+
+{% block body_parent %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="row">
+        <div class="col-md-12">
+            <a style="float: right;" class="btn btn-secondary btn-sm" href="{{ path('streams') }}">
+                {{ "back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3 col-sm-8 offset-3 col-xs-12">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form_label(form.streamDisplayName,"pages.streams.name" | trans ) }}
+                        {{ form_widget(form.streamDisplayName) }}
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form_label(form.category,"pages.streams.category" | trans ) }}
+                        {{ form_widget(form.category) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.streamSource,"pages.streams.source" | trans ) }}
+                        {{ form_widget(form.streamSource) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_widget(form.submit,{'attr':{
+                    'class': 'btn btn-success btn-sm pull-right',
+                    }}) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

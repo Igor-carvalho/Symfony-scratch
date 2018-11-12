@@ -1,0 +1,65 @@
+nodejs_start:
+    path:  /nodejs/{id}/start
+    defaults: { _controller: "AppBundle:Transcoder:nodejsStart" }
+    requirements:
+        methods: GET|POST
+
+transcoder_start:
+    path:  /transcoder/channel/{ip}/{id}/start
+    defaults: { _controller: "AppBundle:Transcoder:start" }
+    requirements:
+        methods: POST
+
+transcoder_stop:
+    path:  /transcoder/channel/{ip}/{id}/stop
+    defaults: { _controller: "AppBundle:Transcoder:stop" }
+    requirements:
+        methods: POST
+
+transcoder_next_http:
+    path:  /next-http
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:nextHttp" }
+    requirements:
+        methods: POST
+
+transcoder_preadd:
+    path:  /pre-add
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:preAdd" }
+    requirements:
+        methods: POST
+
+transcoder_vodpackage_start:
+    path: /transcoder/vod-package/start
+    defaults: { _controller: "AppBundle:Transcoder:startTranscoderVodPackage" }
+
+transcoder_vodpackage_stop:
+    path: /transcoder/vod-package/stop
+    defaults: { _controller: "AppBundle:Transcoder:stopTranscoderVodPackage" }
+
+transcoder_vodpackage_start_all:
+    path: /transcoder/vod-package/start-all/
+    defaults: { _controller: "AppBundle:Transcoder:startTranscoderAllVodPackage" }
+
+transcoder_vodpackage_stop_all:
+    path: /transcoder/vod-package/stop-all/
+    defaults: { _controller: "AppBundle:Transcoder:stopTranscoderAllVodPackage" }
+
+transcoder_channel_start_all:
+    path: /{ip}/transcoder/channel/start-all/
+    defaults: { _controller: "AppBundle:Transcoder:startTranscoderAllChannel" }
+
+transcoder_channel_http_rtsp_start_all:
+    path: /transcoder/channelHttpRtsp/start-all/
+    defaults: { _controller: "AppBundle:Transcoder:startTranscoderAllChannelHttpRtsp" }
+
+transcoder_channel_stop_all:
+    path: /{ip}/transcoder/channel/stop-all/
+    defaults: { _controller: "AppBundle:Transcoder:stopTranscoderAllChannel" }
+
+transcoder_channel_http_rtsp_stop_all:
+    path: /transcoder/channelHttpRtsp/stop-all/
+    defaults: { _controller: "AppBundle:Transcoder:stopTranscoderAllChannelHttpRtsp" }
+
+transcoder_vodpackage_restart_all:
+    path: /transcoder/vod-package/restart-all/
+    defaults: { _controller: "AppBundle:Transcoder:restartTranscoderAllVodPackage" }

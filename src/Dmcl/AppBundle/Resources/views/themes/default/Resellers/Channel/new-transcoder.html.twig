@@ -1,0 +1,457 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.channel.new.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel.new.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet"
+           href="{{ asset('bundles/assets/themes/default/plugins/colorpicker/bootstrap-colorpicker.min.css') }}"/>
+ {% endblock %}
+ {% block javascripts %}
+     <script type="application/javascript">
+         var servers = {
+             hls: "{{ get_hls() }}",
+             rtmp: "{{ get_rtmp() }}",
+             http: "{{ get_http() }}",
+             rtsp: "{{ get_rtsp() }}",
+             udp: "{{ get_udp() }}"
+         }
+         var http_next_port = "{{ path("transcoder_next_http") }}";
+         var pre_add = "{{ path("transcoder_preadd") }}";
+
+         var editing = false;
+         var real_protocol = "{{ entity.protocol }}" || "";
+         var real_live = "{{ entity.live }}" || "";
+         var real_avcodec = "{{ entity.audioVideoCodec }}" || "";
+         predifined_presets = [];
+         {% for entity in presets %}
+         predifined_presets.push({
+             id: {{ entity.id }},
+             name: "{{ entity.name }}",
+             fps: {{ entity.fps }},
+             bitrate: {{ entity.bitrate }},
+             width: {{ entity.width }},
+             height: {{ entity.height }},
+             avcodec: "{{ entity.avcodec }}",
+             profile: "{{ entity.profile }}",
+             preset: "{{ entity.preset }}",
+             deinterlace: ("{{ entity.deinterlace }}" == "") ? false : true,
+             samplerate: {{ entity.samplerate }}
+         });
+         {% endfor %}
+         $(document).ready(function () {
+             $('#predefined_presets').change(function (arg) {
+                 var pos = arg.currentTarget.selectedIndex;
+                 var id = arg.currentTarget.options[pos].value;
+                 for (var i = 0; i < predifined_presets.length; i++) {
+                     var preset = predifined_presets[i];
+                     if (preset.id == id) {
+                         var look = 'option[value="' + preset.avcodec + '"]:first';
+                         $('#appbundle_channel_audioVideoCodec').find(look).prop('selected', true);
+                         look = 'option[value="' + preset.profile + '"]:first';
+                         $('#appbundle_channel_profile').find(look).prop('selected', true);
+                         look = 'option[value="' + preset.preset + '"]:first';
+                         $('#appbundle_channel_preset').find(look).prop('selected', true);
+                         look = 'option[value="' + preset.samplerate + '"]:first';
+                         $('#appbundle_channel_audioSamplerate').find(look).prop('selected', true);
+                         look = 'option[value="' + preset.mode + '"]:first';
+                         $('#appbundle_channel_audioMode').find(look).prop('selected', true);
+                         $('#appbundle_channel_deinterlace').prop('checked', preset.deinterlace);
+                         $('#appbundle_channel_fps').val(preset.fps);
+                         $('#appbundle_channel_width').val(preset.width);
+                         $('#appbundle_channel_bitRate').val(preset.bitrate);
+                         $('#appbundle_channel_height').val(preset.height);
+                         break;
+                     }
+                 }
+             });
+
+         });
+     </script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/transcoder.js') }}"></script>
+ {% endblock %}
+
+{% block body_parent %}
+    <div class="box">
+        {{ form_start(form) }}
+
+        <div class="box-body">
+            {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+
+            <div class="col-md-10 col-md-offset-1">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form_label(form.name,"pages.channel.attrs.name" | trans ) }}
+                            {{ form_widget(form.name) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form_label(form.category,"pages.channel.attrs.category" | trans ) }}
+                            {{ form_widget(form.category) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_label(form.enabled,"pages.channel.attrs.enabled" | trans ) }}
+                            {{ form_widget(form.enabled) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_label(form.file,"pages.channel.attrs.logo" | trans ) }}
+                            {{ form_widget(form.file) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_label(form.live,"pages.channel.attrs.live" | trans ) }}
+                            {{ form_widget(form.live) }}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                            {{ form_label(form.allowTranscoder,"pages.channel.attrs.allow_transcoder" | trans ) }}
+                            {{ form_widget(form.allowTranscoder) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="for-transcoder">
+                    <fieldset>
+                        <legend>
+                            <small>{{ "pages.channel.form.stream_details" | trans }}</small>
+                        </legend>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(form.source,"pages.channel.attrs.source" | trans ) }}
+                                    {{ form_widget(form.source) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.keepOriginal,"pages.channel.attrs.keep_original" | trans ) }}
+                                    {{ form_widget(form.keepOriginal) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.onlyAudio,"pages.channel.attrs.only_audio" | trans ) }}
+                                    {{ form_widget(form.onlyAudio) }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <fieldset>
+                    <legend>
+                        <small>{{ "pages.channel.form.output_details" | trans }}</small>
+                    </legend>
+
+                    <div class="row for-transcoder">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form_label(form.protocol,"pages.channel.attrs.protocol" | trans ) }}
+                                {{ form_widget(form.protocol) }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ "pages.channel.attrs.predefined_preset" | trans }}</label>
+                                <select required="" class="form-control fps_manage" name="predefined_presets"
+                                        id="predefined_presets">
+                                    <option value="custom">{{ "pages.channel.attrs.custom" | trans }}</option>
+                                    {% for entity in presets %}
+                                        <option value="{{ entity.id }}">{{ entity.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ "pages.channel.attrs.audio_video_codec" | trans }}</label>
+                                <select required="" class="form-control video_audio_codec_manage" name="audioVideoCodec"
+                                        id="appbundle_channel_audioVideoCodec">
+                                    <option value="h264+mp3" class="ffmpeg vlc udp rtmp rtsp">H264 + MP3</option>
+                                    <option value="h264+aac" class="ffmpeg vlc rtmp rtsp hls">H264 + AAC</option>
+                                    <option value="h264+mp2" class="ffmpeg vlc udp rtmp rtsp">H264 + MP2</option>
+                                    <option value="flv+mp3" class="ffmpeg vlc rtmp">FLV + MP3</option>
+                                    <option value="theora+vorbis" class="ffmpeg vlc http">THEORA + VORBIS</option>
+                                    <option value="mpeg4+mp3" class="ffmpeg udp http">MPEG4 + MP3</option>
+                                    <option value="mpeg2+mp2" class="ffmpeg udp http">MPEG2 + MP2</option>
+                                    <option value="mpeg4+aac" class="ffmpeg udp http">MPEG4 + AAC</option>
+                                    <option value="h264+mp2" class="ffmpeg http">H264 + MP2</option>
+                                    <option value="h264+mp3" class="ffmpeg vlc hls">H264 + MP3</option>
+                                    <option value="flv" class="vlc http">FLV</option>
+                                    <option value="webm" class="vlc http">WEBM</option>
+                                    <option value="wmv" class="vlc http">WMV</option>
+                                    <option value="h264+mp3" class="vlc http">H264 + MP3</option>
+                                    <option value="h264+aac" class="vlc http">H264 + AAC</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group lib-container" style="display: none">
+                                <label>{{ "pages.channel.attrs.mode" | trans }}</label>
+                                {{ form_widget(form.transcoderLib) }}
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <div class="for-transcoder no-only-audio">
+                    <fieldset>
+                        <legend>
+                            <small>{{ "pages.channel.form.video_configuration" | trans }}</small>
+                        </legend>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.fps,"pages.channel.attrs.fps" | trans ) }}
+                                    {{ form_widget(form.fps) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.width,"pages.channel.attrs.width" | trans ) }}
+                                    {{ form_widget(form.width) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.profile,"pages.channel.attrs.profile" | trans ) }}
+                                    {{ form_widget(form.profile) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.bitRate,"pages.channel.attrs.bit_rate" | trans ) }}
+                                    {{ form_widget(form.bitRate) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.height,"pages.channel.attrs.height" | trans ) }}
+                                    {{ form_widget(form.height) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.preset,"pages.channel.attrs.preset" | trans ) }}
+                                    {{ form_widget(form.preset) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.videoPids,"pages.channel.attrs.video_pids" | trans ) }}
+                                    {{ form_widget(form.videoPids) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.deinterlace,"pages.channel.attrs.deinterlace" | trans ) }}
+                                    {{ form_widget(form.deinterlace) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.allowSnapShot,"pages.channel.attrs.allow_snapshot" | trans ) }}
+                                    {{ form_widget(form.allowSnapShot) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.timeShitf,"pages.channel.attrs.timeShitf" | trans ) }}
+                                    {{ form_widget(form.timeShitf) }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="row for-transcoder">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>
+                                <small>{{ "pages.channel.form.audio_configuration" | trans }}</small>
+                            </legend>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(form.audioMode,"pages.channel.attrs.audio_mode" | trans ) }}
+                                        {{ form_widget(form.audioMode) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(form.audioPids,"pages.channel.attrs.audio_pids" | trans ) }}
+                                        {{ form_widget(form.audioPids) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(form.audioSamplerate,"pages.channel.attrs.audio_samplerate" | trans ) }}
+                                        {{ form_widget(form.audioSamplerate) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="no-only-audio water-mark-container">
+                            <fieldset>
+                                <legend>
+                                    <small>
+                                        {{ form_widget(form.allowWaterMark) }}
+                                        {{ form_label(form.allowWaterMark,"pages.channel.attrs.allow_water_mark" | trans ) }}
+                                    </small>
+                                </legend>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(form.waterPosition,"pages.channel.attrs.water_position" | trans ) }}
+                                            {{ form_widget(form.waterPosition) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(form.fileWater,"pages.channel.attrs.file_water" | trans ) }}
+                                            {{ form_widget(form.fileWater) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="for-transcoder no-only-audio">
+                    <fieldset>
+                        <legend>
+                            <small>
+                                {{ form_widget(form.allowTextOverlay) }}
+                                {{ form_label(form.allowTextOverlay,"pages.channel.attrs.allow_text_overlay" | trans ) }}
+                            </small>
+                        </legend>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(form.textOverlaySource,"pages.channel.attrs.text_overlay_source" | trans ) }}
+                                    {{ form_widget(form.textOverlaySource) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(form.textOverlaySize,"pages.channel.attrs.text_overlay_size" | trans ) }}
+                                    {{ form_widget(form.textOverlaySize) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(form.textOverlayColor,"pages.channel.attrs.text_overlay_color" | trans ) }}
+                                    {{ form_widget(form.textOverlayColor) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(form.textOverlayTop,"pages.channel.attrs.text_overlay_top" | trans ) }}
+                                    {{ form_widget(form.textOverlayTop) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(form.textOverlayLeft,"pages.channel.attrs.text_overlay_left" | trans ) }}
+                                    {{ form_widget(form.textOverlayLeft) }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="form-group pull-right">
+                        <a class="btn btn-default btn-sm"
+                           href="{{ path('resellers-channel') }}">{{ "pages.channel.new.back_to_list" | trans }}</a>
+                        {{ form_widget(form.submit,{'attr':{
+                            'class': 'btn btn-success btn-sm',
+                        }}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

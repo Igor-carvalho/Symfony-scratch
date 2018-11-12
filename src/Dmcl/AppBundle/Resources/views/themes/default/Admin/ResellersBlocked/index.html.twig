@@ -1,0 +1,50 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.resellers_blocked.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.resellers_blocked.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.resellers_blocked.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body -%}
+<div style="margin-bottom: 5px" class="col-md-12 no-padding">
+    <a class="btn btn-primary btn-sm pull-right" href="{{ path('resellers-blocked_new') }}">
+        {{ "pages.resellers_blocked.index.add_rule" | trans }}
+    </a>
+</div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Reseller</th>
+                <th>Reason</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.reseller }}</td>
+                <td>{{ entity.reason | truncate(100)  | raw }}</td>
+                <td style="text-align: center">
+                    <a class="btn btn-xs btn-danger delete" data-href="{{ path('resellers-blocked_delete', { 'id': entity.id }) }}">{{ "pages.resellers_blocked.index.delete" | trans }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h4 class="text-muted text-center">{{ "pages.resellers_blocked.index.no_rules" | trans }}</h4>
+{% endif %}
+    {% endblock %}

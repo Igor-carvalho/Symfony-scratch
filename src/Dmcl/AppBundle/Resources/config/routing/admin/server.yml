@@ -1,0 +1,30 @@
+server:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Server:index" }
+
+server_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Admin/Server:show" }
+
+server_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/Server:new" }
+
+server_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/Server:create" }
+    methods:  POST
+
+server_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/Server:edit" }
+
+server_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/Server:update" }
+    methods:  [POST, PUT]
+
+server_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Server:delete" }
+    methods:  [POST, DELETE]

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="StreamSubcategories" table="stream_subcategories">
+    <indexes>
+      <index name="parent_id" columns="parent_id"/>
+    </indexes>
+    <id name="subId" type="integer" column="sub_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="parentId" type="integer" column="parent_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="subcategoryName" type="string" column="subcategory_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,69 @@
+api_get_playback_channelinfo:
+    path:  /playback/channel/info
+    defaults: { _controller: AppBundle:Api:playbackChannelInfo }
+    methods: POST
+
+api_activation_code_login:
+    path:  /activation-code/login
+    defaults: { _controller: AppBundle:Api:activationCodeLogin }
+    methods: POST
+
+api_categories:
+    pattern:  /channels-categories
+    defaults: { _controller: AppBundle:Api:categories }
+    requirements:
+        _method: GET
+
+api_channels_with_programmes:
+    pattern:  /channels/programmes/{date}
+    defaults: { _controller: AppBundle:Api:channelsWithProgramme }
+    requirements:
+        _method: GET
+
+api_channels_with_programmes_between_dates:
+    pattern:  /channels/programmes/{startDate}/{endDate}
+    defaults: { _controller: AppBundle:Api:channelsWithProgrammeBetweenDates }
+    requirements:
+        _method: GET
+
+api_channels_programmes:
+    pattern:  /channels/programmes
+    defaults: { _controller: AppBundle:Api:channelProgramme }
+    requirements:
+        _method: POST
+
+api_request_trial_activation_code:
+    path:  /request/trial/activation-code
+    defaults: { _controller: AppBundle:Api:requestTrialActivationCode }
+    methods: POST
+
+api_post_getservertranscoder:
+    pattern:  /serverstranscoder/byuser
+    defaults: { _controller: AppBundle:Api:getServersTranscoderByUser }
+    requirements:
+        _method: POST
+
+api_vodgenres:
+    pattern:  /vod-genres
+    defaults: { _controller: AppBundle:Api:vodGenres }
+    requirements:
+        _method: GET
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /doc
+
+api_line_new:
+    path:  /line/new
+    defaults: { _controller: AppBundle:Api:newLine }
+    methods: POST
+
+api_line_edit:
+    path:  /line/edit
+    defaults: { _controller: AppBundle:Api:editLine }
+    methods: POST
+
+api_line_info:
+    path:  /line/info
+    defaults: { _controller: AppBundle:Api:infoLine }
+    methods: POST

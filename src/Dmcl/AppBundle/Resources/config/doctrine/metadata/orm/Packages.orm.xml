@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Packages" table="packages">
+    <indexes>
+      <index name="is_trial" columns="is_trial"/>
+      <index name="is_official" columns="is_official"/>
+      <index name="can_gen_mag" columns="can_gen_mag"/>
+      <index name="only_mag" columns="only_mag"/>
+      <index name="can_gen_e2" columns="can_gen_e2"/>
+      <index name="only_e2" columns="only_e2"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="packageName" type="string" column="package_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="isTrial" type="boolean" column="is_trial" nullable="false"/>
+    <field name="isOfficial" type="boolean" column="is_official" nullable="false"/>
+    <field name="trialCredits" type="float" column="trial_credits" precision="10" scale="0" nullable="false"/>
+    <field name="officialCredits" type="float" column="official_credits" precision="10" scale="0" nullable="false"/>
+    <field name="trialDuration" type="integer" column="trial_duration" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="trialDurationIn" type="string" column="trial_duration_in" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="officialDuration" type="integer" column="official_duration" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="officialDurationIn" type="string" column="official_duration_in" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="groups" type="text" column="groups" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="bouquets" type="text" column="bouquets" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="canGenMag" type="boolean" column="can_gen_mag" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="onlyMag" type="boolean" column="only_mag" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="outputFormats" type="text" column="output_formats" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="isIsplock" type="boolean" column="is_isplock" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="maxConnections" type="integer" column="max_connections" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="isRestreamer" type="boolean" column="is_restreamer" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="forceServerId" type="integer" column="force_server_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="onlyE2" type="boolean" column="only_e2" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="canGenE2" type="boolean" column="can_gen_e2" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="forcedCountry" type="string" column="forced_country" length="2" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="lockDevice" type="boolean" column="lock_device" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,121 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.user.index.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+     <script text="javascript">
+       $(document).ready(function(){
+           var table = $('#datatable').DataTable({
+                lengthChange: true,
+                select: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+           
+           $('#user_edit a.verified').click(function(e) {
+                e.preventDefault();  
+                var $this = $(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: $this.data('href'),
+                    dataType: "json",
+                    data: '',
+                    success: function(respuesta) {
+                        if (respuesta.type == 1) {
+                            if(respuesta.verified){
+                                $this.removeClass("label-default");
+                                $this.addClass("label-success");
+                                $this.text('{{ "enabled" | trans }}');                                
+                            }
+                            else{
+                                $this.removeClass("label-success");
+                                $this.addClass("label-default");
+                                $this.text('{{ "disabled" | trans }}');
+                            }                    
+
+                            toastr.success('Success');
+                        } 
+                    },
+                    error: function(respuesta) {
+
+                    }
+                });
+            });
+       });
+     </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.user.msg_delete" | trans }}";
+    var msgVerified = "{% trans %}Are you sure to change verified state to this user?{% endtrans %}";
+{% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        <div class="m-datatable col-md-12">
+            <table id="datatable" class="table table-bordered table-striped" id="user_edit">
+                <thead>
+                <tr>
+                    <th style="width:10%;">{{ "pages.user.attrs.username" | trans }}</th>
+                    <th style="width:10%;">{{ "pages.user.attrs.email" | trans }}</th>
+                    <th style="width:5%;">{{ "pages.user.index.table.enabled" | trans }}</th>
+                    <th style="width:10%;">{{ "pages.user.attrs.startdate" | trans }}</th>
+                    <th style="width:10%;">{{ "pages.user.attrs.lastlogin" | trans }}</th>
+                    <th style="width:5%;">{{ "pages.user.index.table.details" | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            {% if user.username != "admin" %} 
+                                {% if user.status %}                                                        
+                                        <td><a class="verified label-success label label-sm"
+                                        data-href="{{ path( 'user_change_verified',{'id':user.id} ) }}?ajax=true"
+                                        href="javascript:;">
+                                        {{ "enabled" | trans }}
+                                    </a></td>
+                                {% else %}
+                                        <td><a class="verified label-default label label-sm"
+                                        data-href="{{ path( 'user_change_verified',{'id':user.id} ) }}?ajax=true"
+                                        href="javascript:;">
+                                        {{ "disabled" | trans }}
+                                    </a></td>
+                                {% endif %}
+                            {% else %}    
+                                <td class="{{ user.status ? "enabled":"disabled" }}">{{ user.status ? "enabled" | trans :"disabled" | trans }}</td>
+                            {% endif %}
+                        {% else %}    
+                            <td class="{{ user.status ? "enabled":"disabled" }}">{{ user.status ? "enabled" | trans :"disabled" | trans }}</td>
+                        {% endif %}
+                        <td>
+                            <div class="table__cell-widget">
+                                <span class="table__cell-widget-name">{{ user.dateRegistered | date('m/d/Y') }}</span>
+                                <span class="table__cell-widget-description color-gray">
+                                    {{ user.dateRegistered | date('H:i:s') }}
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="table__cell-widget">
+                                <span class="table__cell-widget-name">{{ user.lastLogin | date('m/d/Y') }}</span>
+                                <span class="table__cell-widget-description color-gray">
+                                    {{ user.lastLogin | date('H:i:s') }}
+                                </span>
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            <a href="{{ path('user_update', { 'id': user.id }) }}"><span class="sidebar-nav__item_icon ua-icon-eye color-info"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+         </div>
+     </div>
+{% endblock %}

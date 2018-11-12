@@ -1,0 +1,45 @@
+{% if cart | length > 0 %}
+
+    {% set html = '' %}
+    {% set items = 0 %}
+    {% set amount = 0 %}
+
+    {% for type,products in cart %}
+        {% if products | length >0 and types[type] is defined %}
+            {% set htmlTmp %}
+            <li><strong>{{ types[type] }}</strong></li>
+            {% for id,product in products %}
+                {% set items = items + product['total'] %}
+                {% set amount = amount+(product['details']['price'] * product['total'] ) %}
+                <li>
+                    <img width="37" height="34" alt="{{ product['details']['name'] }}" src="{{ product['details']['image'] }}">
+                    <span class="cart-content-count">x {{ product['total'] }}</span>
+                    <strong>{{ product['details']['name'] }}</strong>
+                    <em>{{ (product['details']['price'] * product['total'] ) | price_humanize | trans }}</em>
+                    <a class="del-product" data-type="{{ type }}"  data-product="{{ id }}" href="{{ path('remove_from_cart') }}"><i class="fa fa-times" style="margin-top: 14px;"></i></a>
+                </li>
+            {% endfor %}
+            {% endset %}
+            {% set html = (html~htmlTmp) | raw %}
+        {% endif %}
+    {% endfor %}
+    <div class="cart-block">
+        <div class="cart-info">
+            <a class="cart-info-count" href="javascript:void(0);">{{ items }} {{ "cart.items" | trans }}</a>
+            <a class="cart-info-value" href="javascript:void(0);">{{ amount | price_humanize | trans  }}</a>
+        </div>
+        <i class="fa fa-shopping-cart"></i>
+        <div class="cart-content-wrapper">
+            <div class="cart-content">
+                <ul style="height: 250px;" class="scroller">
+                    {{ html | raw }}
+                </ul>
+                <div class="text-right cart-controllers">
+                    <a style="margin-left: 5px" class="btn btn-danger cart-controllers clear-cart pull-left" href="{{ path('clear_cart') }}">{{ "cart.clear" | trans }}</a>
+                    <a class="btn btn-primary cart-controllers" href="{{ path('store_shopping_cart') }}">{{ "cart.view_cart" | trans }}</a>
+                    <a class="btn btn-success cart-controllers" href="{{ path('store_checkout') }}">{{ "cart.check_out" | trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

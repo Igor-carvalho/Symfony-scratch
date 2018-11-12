@@ -1,0 +1,337 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+ {% block stylesheets %}
+     <link rel="stylesheet"
+           href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.activation_code.index.msg_delete" | trans }}";
+{% endblock %}
+
+{% block title %}{{ "pages.activation_code.index.title" | trans }}{% endblock %}
+
+{% block page_title %}{{ "pages.activation_code.index.title" | trans }}{% endblock %}
+
+{% block body_parent %}
+    <div class="box">
+        <div class="box-body">
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="row">
+                    <div style="margin-bottom: 5px" class="col-xs-12">
+                        <div class="form-group pull-right">
+                            <a class="btn btn-primary btn-sm" href="{{ path('activationcode_new') }}">
+                                {{ "pages.activation_code.index.add_activation_code" | trans }}
+                            </a>
+
+                            {% if entities | length > 0 %}
+                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
+                                        data-target="#myModal">
+                                    <span class="glyphicon glyphicon-file"></span>&nbsp;{{ "pages.activation_code.index.generate_report" | trans }}
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-xs-12">
+                    {% if entities | length > 0 %}
+                        <div class="table-responsive">
+                            <table class="datatable table table-bordered" >
+                                <thead>
+                                <tr>
+                                    <th>{{ "pages.activation_code.index.table.code" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.period" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.activated_at" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.end_date" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.mac" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.device_model" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.model_number" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.serial_number" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.reset" | trans }}</th>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <th>{{ "pages.activation_code.index.table.actions" | trans }}</th>
+                                    {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for entity in entities %}
+
+                                    {% if entity.period != 0 %}
+                                        <tr>                                            
+                                            {% if entity.endDate is null and entity.endDate <= date() %}
+                                            <td>
+                                                {{ entity.code }}
+                                            </td>
+                                            {% else  %}
+                                                {% if entity.endDate <= date() %}
+                                                    <td class="text-danger">
+                                                        <strong>{{ entity.code }}</strong>
+                                                    </td>
+                                                {% else  %}
+                                                    <td>
+                                                        {{ entity.code }}
+                                                    </td>
+                                                {% endif %}
+                                            {% endif %}
+                                            <td>{{ entity.period }}</td>
+                                            <td>{{ entity.startDate ? entity.startDate|date('Y-m-d') : '-' }}</td>
+                                            <td>{{ entity.endDate ? entity.endDate|date('Y-m-d') : '-' }}</td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    {% if entity.device.mac is not null %}
+                                                        {{ entity.device.mac }}
+                                                    {% else %}
+                                                        -
+                                                    {% endif %}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    {% if entity.device.deviceModel is not null %}
+                                                        {{ entity.device.deviceModel }}
+                                                    {% else %}
+                                                        -
+                                                    {% endif %}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    {% if entity.device.modelNumber is not null %}
+                                                        {{ entity.device.modelNumber }}
+                                                    {% else %}
+                                                        -
+                                                    {% endif %}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    {{ entity.device.serialNumber }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    <a class="btn btn-warning btn-xs"
+                                                       href="{{ path('activationcode_soft_reset', {'id': entity.id}) }}">
+                                                        {{ "pages.activation_code.index.table.soft_reset" | trans }}
+                                                    </a>
+                                                    {% if is_granted('ROLE_ADMIN') %}
+                                                        <a class="btn btn-warning btn-xs"
+                                                           href="{{ path('activationcode_hard_reset', {'id': entity.id}) }}">
+                                                            {{ "pages.activation_code.index.table.hard_reset" | trans }}
+                                                        </a>
+                                                    {% endif %}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <td>
+                                                    <a class="btn btn-success btn-xs" href="{{ path('activationcode_edit', {'id': entity.id}) }}">Edit</a>
+                                                    <a class="btn btn-danger btn-xs delete" data-href="{{ path('activationcode_delete', {'id': entity.id}) }}">Delete</a>
+                                                    <a class="btn btn-success btn-xs history" href="{{ path('activationcode_history', {'id': entity.id}) }}">History</a>
+												    <a class="btn btn-success btn-xs" href="{{ path('activationcode_playlist', {'code': entity.code}) }}">Playlist</a>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+
+                                    {% elseif entity.period == 0 %}
+                                        <tr bgcolor="#f08080"  >
+                                            <td>{{ entity.code }}</td>
+                                            <td>{{ entity.period }}</td>
+                                            <td>{{ entity.startDate ? entity.startDate|date('Y-m-d') : '-' }}</td>
+                                            <td>{{ entity.endDate ? entity.endDate|date('Y-m-d') : '-' }}</td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    {% if entity.device.mac is not null %}
+                                                        {{ entity.device.mac }}
+                                                    {% else %}
+                                                        -
+                                                    {% endif %}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    {% if entity.device.deviceModel is not null %}
+                                                        {{ entity.device.deviceModel }}
+                                                    {% else %}
+                                                        -
+                                                    {% endif %}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    {% if entity.device.modelNumber is not null %}
+                                                        {{ entity.device.modelNumber }}
+                                                    {% else %}
+                                                        -
+                                                    {% endif %}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    {{ entity.device.serialNumber }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <td>{{ entity.reseller.name }}</td>
+                                            {% endif %}
+                                            <td>
+                                                {% if entity.device is not null %}
+                                                    <a class="btn btn-warning btn-xs"
+                                                    href="{{ path('activationcode_soft_reset', {'id': entity.id}) }}">
+                                                        {{ "pages.activation_code.index.table.soft_reset" | trans }}
+                                                    </a>
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    <a class="btn btn-warning btn-xs"
+                                                    href="{{ path('activationcode_hard_reset', {'id': entity.id}) }}">
+                                                        {{ "pages.activation_code.index.table.hard_reset" | trans }}
+                                                    </a>
+                                                {% endif %}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <td>
+                                                    <a class="btn btn-success btn-xs" href="{{ path('activationcode_edit', {'id': entity.id}) }}">Edit</a>
+                                                    <a class="btn btn-danger btn-xs delete" data-href="{{ path('activationcode_delete', {'id': entity.id}) }}">Delete</a>
+                                                    <a class="btn btn-success btn-xs history" href="{{ path('activationcode_history', {'id': entity.id}) }}">History</a>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endif %}
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <h4 class="text-muted text-center">{{ "pages.activation_code.index.no_activation_code" | trans }}</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"
+                            id="myModalLabel">{{ "pages.activation_code.index.generate_report" | trans }}</h4>
+                    </div>
+                    <form method="post" action="{{ path('activationcode_generate_report') }}">
+                        <div class="modal-body">
+
+                            <div class="container-fluid">
+
+                                <fieldset>
+                                    <legend>
+                                        <small>
+                                            <i class="fa fa-search"></i>&nbsp;{{ 'pages.activation_code.index.search_filters'|trans }}
+                                        </small>
+                                    </legend>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>{{ 'pages.activation_code.index.table.reseller'|trans }}</label>
+                                                <select name="reseller" id="reseller" class="selectpicker show-tick"
+                                                        title="{{ 'pages.activation_code.index.table.select_reseller'|trans }}"
+                                                        data-live-search="true">
+                                                    {% for reseller in resellers %}
+                                                        <option value="{{ reseller.id }}">{{ reseller.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>{{ 'pages.activation_code.index.date_created'|trans }}</label>
+                                                <div class="input-group datetimepicker">
+                                                    <input type="text" class="form-control" id="date"/>
+                                                <span class="input-group-addon" style="cursor: pointer">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i
+                                        class="fa fa-times"></i> {{ 'pages.activation_code.index.close'|trans }}
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btn-download-report"><i
+                                        class="fa fa-download"></i> {{ 'pages.activation_code.index.download_report'|trans }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+     <script src="//{{ get_serveraddress() }}:{{ nodejs_port() }}/socket.io/socket.io.js"></script>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(document).on('click', '#btn-download-report', function () {
+                    $('#myModal').modal('hide');
+                    window.open(Routing.generate('activationcode_generate_report', {
+                        _locale: '{{ app.request.locale }}',
+                        reseller: $('#reseller').val(),
+                        date: $('#date').val()
+                    }));
+                });
+
+                $('#myModal').on('hidden.bs.modal', function (e) {
+                    $('#reseller').val(null);
+                    $('#reseller').selectpicker('render');
+                    $('#date').val(null)
+                });
+
+                $('.datetimepicker').datetimepicker({
+                    locale: '{{ app.request.locale }}',
+                    showClose: false,
+                    allowInputToggle: true,
+                    format: 'DD/MM/YYYY'
+                });
+            })
+        </script>
+    {% endif %}
+{% endblock %}

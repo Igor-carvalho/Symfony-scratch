@@ -1,0 +1,43 @@
+{% set setting = settings() %}
+
+<div class="row">
+    <div class="col-md-12">
+        <pre style="text-align: left; padding-left: 2%; width: 100%; white-space: pre-wrap; word-break: normal !important; word-wrap: normal !important;"
+             id="json-renderer-{{ entity.id }}">
+            <script type="text/javascript">               
+                var data = {                   
+                    "streams": {                        
+                        {% if entity.rtmp %}
+                          "rtmp": "{{'rtmp://' ~ setting.serverAddress ~ ':' ~ setting.broadcastRTMPPort ~ '/' ~ stream.app ~ '/' ~ stream.channel_name }}",
+                        {% endif %} 
+                        
+                        {% if stream.app == 'streams' %}                          
+                          "hls": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/streamshls' ~ '/'  ~ stream.channel_name ~ '/index.m3u8' }}",
+                          "dash": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/streamsdash' ~ '/'  ~ stream.channel_name ~ '/index.mpd' }}"
+                        {% endif %}
+                        
+                        {% if stream.app == 'live' %}                          
+                          "hls": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/multihls' ~ '/'  ~ stream.channel_name ~ '.m3u8' }}",
+                          "hls_variant_low": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/multihls' ~ '/'  ~ stream.channel_name ~ '_low/index.m3u8' }}",
+                          "hls_variant_mid": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/multihls' ~ '/'  ~ stream.channel_name ~ '_mid/index.m3u8' }}",
+                          "hls_variant_hi": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/multihls' ~ '/'  ~ stream.channel_name ~ '_hi/index.m3u8' }}",
+                        {% endif %}
+                        
+                        {% if stream.app == 'livehls' %}                          
+                          "hls": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/livehls' ~ '/'  ~ stream.channel_name ~ '/index.m3u8' }}"                          
+                        {% endif %}
+                        
+                        {% if stream.app == 'livedash' %}                          
+                          "dash": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/livedash' ~ '/'  ~ stream.channel_name ~ '/index.mpd' }}"
+                        {% endif %}
+                        
+                        {% if entity.dash and stream.app == 'live' %}
+                           "dash": "{{'http://' ~ setting.serverAddress ~ ':' ~ setting.broadcastHTTPPort ~ '/multidash' ~ '/'  ~ stream.channel_name ~ '/index.mpd' }}"  
+                        {% endif %}
+                    }
+                };               
+                $("#json-renderer-{{ entity.id }}").jsonViewer(data);
+            </script>
+        </pre>
+    </div>
+</div>

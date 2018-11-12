@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="StreamingServers" table="streaming_servers">
+    <indexes>
+      <index name="total_clients" columns="total_clients"/>
+      <index name="status" columns="status"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="server_ip" columns="server_ip,http_broadcast_port"/>
+      <unique-constraint name="server_ip_2" columns="server_ip,http_broadcast_port"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="serverName" type="string" column="server_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="domainName" type="string" column="domain_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="serverIp" type="string" column="server_ip" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="vpnIp" type="string" column="vpn_ip" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="sshPassword" type="text" column="ssh_password" length="16777215" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="sshPort" type="integer" column="ssh_port" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="diffTimeMain" type="integer" column="diff_time_main" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="httpBroadcastPort" type="integer" column="http_broadcast_port" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="totalClients" type="integer" column="total_clients" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="systemOs" type="string" column="system_os" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="networkInterface" type="string" column="network_interface" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="latency" type="float" column="latency" precision="10" scale="0" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="status" type="boolean" column="status" nullable="false">
+      <options>
+        <option name="default">-1</option>
+      </options>
+    </field>
+    <field name="enableGeoip" type="integer" column="enable_geoip" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="geoipCountries" type="text" column="geoip_countries" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="lastCheckAgo" type="integer" column="last_check_ago" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="canDelete" type="boolean" column="can_delete" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="serverHardware" type="text" column="server_hardware" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="totalServices" type="integer" column="total_services" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">5</option>
+      </options>
+    </field>
+    <field name="persistentConnections" type="boolean" column="persistent_connections" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="rtmpPort" type="integer" column="rtmp_port" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">8001</option>
+      </options>
+    </field>
+    <field name="geoipType" type="string" column="geoip_type" length="13" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">low_priority</option>
+      </options>
+    </field>
+    <field name="ispNames" type="text" column="isp_names" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="ispType" type="string" column="isp_type" length="13" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">low_priority</option>
+      </options>
+    </field>
+    <field name="enableIsp" type="boolean" column="enable_isp" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="boostFpm" type="boolean" column="boost_fpm" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="httpPortsAdd" type="text" column="http_ports_add" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="networkGuaranteedSpeed" type="integer" column="network_guaranteed_speed" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="httpsBroadcastPort" type="integer" column="https_broadcast_port" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">25463</option>
+      </options>
+    </field>
+    <field name="httpsPortsAdd" type="text" column="https_ports_add" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="whitelistIps" type="text" column="whitelist_ips" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="watchdogData" type="text" column="watchdog_data" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="timeshiftOnly" type="boolean" column="timeshift_only" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

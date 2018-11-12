@@ -1,0 +1,73 @@
+{% extends 'AppBundle:themes/default/TechnicalIssues:base.html.twig' %}
+
+{% block title %}{{ "pages.technical_issues.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.technical_issues.index.title" | trans }}{% endblock %}
+
+{% block support_content -%}
+    <div class="box-header with-border">
+        <h3 class="box-title">{{ "pages.technical_issues.sent" | trans }}</h3>
+        {#<div class="box-tools pull-right">#}
+            {#<div class="has-feedback">#}
+                {#<input type="text" class="form-control input-sm" placeholder="{{ "pages.technical_issues.search" | trans }}">#}
+                {#<span class="glyphicon glyphicon-search form-control-feedback"></span>#}
+            {#</div>#}
+        {#</div><!-- /.box-tools -->#}
+    </div><!-- /.box-header -->
+    <div class="box-body no-padding">
+        {% if entities | length > 0 %}
+            <div class="mailbox-controls">
+                <!-- Check all button -->
+                <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm ticket-trash"><i class="fa fa-trash-o"></i></button>
+                </div><!-- /.btn-group -->
+                <div class="pull-right">
+                    1-50/200
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                    </div><!-- /.btn-group -->
+                </div><!-- /.pull-right -->
+            </div>
+        {% endif %}
+        <div class="table-responsive mailbox-messages">
+            {% if entities | length > 0 %}
+                <form id="tickets-form" method="POST" action="{{ path("technical_issues_delete") }}">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                        {% for ticket in entities %}
+                            <tr>
+                                <td class="text-left"><input name="technical_issues[]" value="{{ ticket.id }}" class="checkbox-ticket" type="checkbox"></td>
+                                <td class="mailbox-star"><a href="#"><i class="fa {{ ticket.read? "fa-circle-o text-gray":" fa-circle text-green" }}"></i></a></td>
+                                <td class="mailbox-name"><a href="{{ path('technical_issues_show', {'id': ticket.id}) }}">{{ ticket.toName }}</a></td>
+                                <td class="mailbox-subject"><b>{{ ticket.subject }}</b></td>
+                                <td class="mailbox-date">{{ ticket.createdAt | date("i:s") }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table><!-- /.table -->
+                </form>
+            {% else %}
+                <h4 class="text-muted text-center">{{ "pages.technical_issues.no_technical_issues" | trans }}</h4>
+            {% endif %}
+        </div><!-- /.mail-box-messages -->
+    </div><!-- /.box-body -->
+    <div class="box-footer no-padding">
+        {% if entities | length > 0 %}
+            <div class="mailbox-controls">
+                <!-- Check all button -->
+                <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm ticket-trash"><i class="fa fa-trash-o"></i></button>
+                </div><!-- /.btn-group -->
+                <div class="pull-right">
+                    1-50/200
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                    </div><!-- /.btn-group -->
+                </div><!-- /.pull-right -->
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

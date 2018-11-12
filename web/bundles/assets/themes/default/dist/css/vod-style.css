@@ -1,0 +1,106 @@
+
+#appbundle_vod_coverFile_file {
+    padding-bottom: 40px !important;
+    margin-bottom: 5px;
+}
+
+.select2-selection__choice {
+    background-color: #605ca8 !important;
+}
+
+.select2-selection--multiple {
+    border: 1px solid #d2d6de !important;
+}
+
+.select2-container--open span {
+    border-color: #66afe9 !important;
+}
+
+.card {
+    cursor: pointer;
+    cursor: hand;
+}
+
+#cards > .active, .card:hover {
+    font-weight: 700;
+    color: #605ca8;
+    background-color: transparent;
+    border-left: 2px solid rgb(86, 61, 124);
+}
+
+.show{
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.chart {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    margin: 0px auto;
+    text-align: center;
+}
+.chart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.percent {
+    display: inline-block;
+    line-height: 110px;
+    z-index: 2;
+    margin-top: -32px;
+}
+.percent:after {
+    content: '%';
+    margin-left: 0.1em;
+    font-size: .8em;
+}
+
+/*.btn-watch {*/
+    /*!*font-size: 13px;*!*/
+    /*!*color:white;*!*/
+    /*!*top:1px;*!*/
+    /*!*padding: 1px 5px;*!*/
+    /*!*background-color: #008D4C;*!*/
+    /*!*border-radius: 5px;*!*/
+    /*!*border-color: #898989;*!*/
+/*}*/
+
+/*.btn-watch:hover, .btn-watch:focus {*/
+
+    /*color: white !important;*/
+    /*background-color: #008143 !important;*/
+    /*border-color: #898989 !important;*/
+/*}*/
+
+.color-blue {
+    color: #367FA9 !important;
+}
+
+/*.btn-default.disabled,*/
+/*.btn-default[disabled],*/
+/*fieldset[disabled] .btn-default,*/
+/*.btn-default.disabled:hover,*/
+/*.btn-default[disabled]:hover,*/
+/*fieldset[disabled] .btn-default:hover,*/
+/*.btn-default.disabled:focus,*/
+/*.btn-default[disabled]:focus,*/
+/*fieldset[disabled] .btn-default:focus,*/
+/*.btn-default.disabled.focus,*/
+/*.btn-default[disabled].focus,*/
+/*fieldset[disabled] .btn-default.focus,*/
+/*.btn-default.disabled:active,*/
+/*.btn-default[disabled]:active,*/
+/*fieldset[disabled] .btn-default:active,*/
+/*.btn-default.disabled.active,*/
+/*.btn-default[disabled].active,*/
+/*fieldset[disabled] .btn-default.active {*/
+    /*color: white !important;*/
+    /*background-color: #008143 !important;*/
+    /*border-color: #898989 !important;*/
+/*}*/

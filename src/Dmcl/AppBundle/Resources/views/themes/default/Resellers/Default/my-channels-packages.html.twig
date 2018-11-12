@@ -1,0 +1,51 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.channels_package_purchased.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channels_package_purchased.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.channels_package_purchased.remove_msg" | trans }}";
+{% endblock %}
+
+{% block body -%}
+
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.channels_package_purchased.table.name" | trans }}</th>
+                <th>{{ "pages.channels_package_purchased.table.status" | trans }}</th>
+                <th>{{ "pages.channels_package_purchased.table.channels" | trans }}</th>
+                <th>{{ "pages.channels_package_purchased.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}{% if entity.id in testSubscriptions %} <sup>{{ "pages.channels_package_purchased.table.for_test" | trans }}</sup>{% endif %}</td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.channels_package_purchased.enabled" | trans :"pages.channels_package_purchased.disabled" | trans }}</td>
+                    <td>{{ entity.channels | length }}</td>
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-success show-inner" data-href="{{ path('resellers-channels-package_show', { 'id': entity.id }) }}"><i class="fa fa-plus"></i> {{ "pages.channels_package_purchased.details" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete" data-href="{{ path('resellers_products_remove_subscription', { 'id': entity.id,'type':"channels_package" }) }}">{{ "pages.channels_package_purchased.remove" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channels_package_purchased.no_packages" | trans }}</h4>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <form name='paypal' method='post' action='https://www.paypal.com/cgi-bin/webscr'>
+            <input type='hidden' name='cmd' value='_xclick'>
+            <input type='hidden' name='business' value='{{ paypal.shopIdPublicKey }}'>
+            <input type='hidden' name='item_name' value='{{ project_name() }}'>
+            <input type='hidden' name='item_number' value='{{ order.transactionId }}'>
+            <input type='hidden' name='amount' value='{{ order.amount }}'>
+            <input type='hidden' name='page_style' value='primary'>
+            <input type='hidden' name='no_shipping' value='1'>
+            <input type='hidden' name='return' value='{{ url( 'payments_paypal_succes_for_activation_code' ) }}'>
+            <input type='hidden' name='rm' value='2'>
+            <input type='hidden' name='cancel_return' value='{{ url( 'payments_paypal_error_for_activation_code') }}'>
+            <input type='hidden' name='notify_url' value='{{ url( 'payments_paypal_check_for_activation_code') }}'>
+            <input type='hidden' name='no_note' value='1'>
+            <input type='hidden' name='currency_code' value='{{ config.currency }}'>
+            <input type='hidden' name='cn' value='PP-BuyNowBF'>
+            <input type='hidden' name='custom' value='{{ order.transactionId }}'>
+            <input type='hidden' name='first_name' value='{{ order.customerName }}'>
+            <input type='hidden' name='last_name' value=''>
+            <input type='hidden' name='address1' value=''>
+            <input type='hidden' name='city' value=''>
+            <input type='hidden' name='zip' value=''>
+            <input type='hidden' name='night_phone_a' value=''>
+            <input type='hidden' name='night_phone_b' value=''>
+            <input type='hidden' name='night_phone_c' value=''>
+            <input type='hidden' name='lc' value='en'>
+            <input type='hidden' name='country' value=''>
+        </form>
+        <script type='text/javascript'>
+            document.paypal.submit();
+        </script>
+    </body>
+</html>

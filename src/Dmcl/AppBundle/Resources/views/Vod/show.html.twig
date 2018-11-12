@@ -1,0 +1,175 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set vodNew = path('vod_new', {ip: ip}) %}
+    {% set vodEdit = 'vod_edit' %}
+    {% set vodDelete = 'vod_delete' %}
+{% else %}
+    {% set vodNew = path('resellers-vod_new') %}
+    {% set vodEdit = 'resellers-vod_edit' %}
+    {% set vodDelete = 'resellers-vod_delete' %}
+{% endif %}
+
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.vod.index.title" | trans }}: {{ name }}{% endblock %}
+{% block page_title %}{{ "pages.vod.index.title" | trans }}: {{ name }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+    <link rel="stylesheet"
+          href="{{ asset('bundles/assets/themes/default/plugins/social-share-kit/css/social-share-kit.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/dist/css/vod-style.css') }}"/>
+    <link rel="stylesheet"
+          href="{{ asset('bundles/assets/themes/default/plugins/jquery.json-viewer/json-viewer/jquery.json-viewer.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+
+    <script src="{{ asset('bundles/assets/flowplayer/flowplayer-3.2.13.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/flowplayer/flowplayer.embed-3.2.11.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/flowplayer/flowplayer.ipad-3.2.13.js') }}"></script>
+
+    <script src="{{ asset('bundles/assets/themes/default/plugins/jquery.json-viewer/json-viewer/jquery.json-viewer.js') }}"></script>
+
+    {% include "@App/Vod/progress_bar.html.twig" %}
+{% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.vod.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ vodNew }}">{{ "pages.vod.index.add_vod" | trans }}</a>
+        <a style="margin-right: 10px;" class="pull-right btn btn-default btn-sm" href="{{ path('vod') }}">{{ "back_to_list" | trans }}</a>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered">
+            <thead>
+            <tr>
+                <th class="col-md-1"></th>
+                <th>{{ "pages.vod.index.table.title" | trans }}</th>
+                <th>{{ "pages.vod.index.table.director" | trans }}</th>
+                <th>{{ "pages.vod.index.table.year" | trans }}</th>
+                <th>{{ "pages.vod.index.table.genres" | trans }}</th>
+                <th>{{ "pages.vod.index.table.status" | trans }}</th>
+                <th>{{ "pages.vod.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities | reverse %}
+                {% set status = vod_status(entity, ip) %}
+                {% if status == constant("DOWNLOADING", entity) %}
+                    {% set progress_bar = true %}
+                    {% set class = "text-info" %}
+                    {% set text %}
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <span style="color:#000;">{{ 'pages.vod.index.table.downloading' | trans }}</span>
+                            </div>
+                        </div>
+                    {% endset %}
+                    {% set class_disabled = "disabled" %}
+                {% elseif status == constant("TRANSCODING", entity) %}
+                    {% set progress_bar = true %}
+                    {% set class = "text-info" %}
+                    {% set text %} 
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <span style="color:#000;">{{ "pages.vod.index.table.transcoding" | trans }}</span>
+                            </div>
+                        </div>
+                    {% endset %}
+                    {% set class_disabled = "disabled" %}
+                {% elseif status == constant("ENABLED", entity) %}
+                    {% set progress_bar = false %}
+                    {% set class = "text-success" %}
+                    {% set text %} {{ "pages.vod.index.table.enabled" | trans }} {% endset %}
+                    {% set class_disabled = "" %}
+                {% else %}
+                    {% set progress_bar = false %}
+                    {% set class = "text-danger" %}
+                    {% set text %} {{ "pages.vod.index.table.disabled" | trans }} {% endset %}
+                    {% set class_disabled = "" %}
+                {% endif %}
+
+                <tr>
+                    <td class="col-md-1">
+                        <a id="details-{{ entity.id }}" class="btn btn-default btn-xs show-inner {{ class_disabled }}"
+                           data-href="{{ path('app.route.vod.details', { ip: ip, 'id': entity.id }) }}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                    </td>
+                    <td>{{ entity.title }}</td>
+                    <td>{{ entity.director }}</td>
+                    <td>{{ entity.year }}</td>
+                    <td>
+                        {% for genre in entity.genres %}
+                            {{ genre | genre_name }}
+                        {% endfor %}
+                    </td>
+                    <td class="{{ status }} {{ class }}" data-id="{{ entity.id }}"
+                        data-final-status="{{ entity.enabled ? "enabled" : "disabled" }}">
+                        {{ text }}
+                    </td>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="btn-group">
+                            {% if entity.sources | length > 0 %}
+                            {% if entity.sources.first.video | is_url %}
+                                <a id="watch-{{ entity.id }}"
+                                   class="btn btn-xs btn-success {{ class_disabled }}"
+                                   onclick="showPlayback({{ entity.id }}, 'url', '{{ ip }}')">
+                                    {{ "pages.channel_categories.index.watch" | trans }}
+                                </a>
+                            {% else %}
+                            <a id="watch-{{ entity.id }}"
+                               class="btn btn-xs btn-success dropdown-toggle {{ class_disabled }}"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{ "pages.channel_categories.index.watch" | trans }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li style="cursor: pointer">
+                                    <a onclick="showPlayback({{ entity.id }}, 'http', '{{ ip }}')">
+                                        <i class="fa fa-video-camera color-blue"></i><strong>http stream</strong>
+                                    </a>
+                                </li>
+                                <li style="cursor: pointer">
+                                    <a onclick="showPlayback({{ entity.id }}, 'hls', '{{ ip }}')">
+                                        <i class="fa fa-video-camera color-blue"></i><strong>hls stream</strong>
+                                    </a>
+                                </li>
+                                <li style="cursor: pointer">
+                                    <a onclick="showPlayback({{ entity.id }}, 'rtmp', '{{ ip }}')">
+                                        <i class="fa fa-video-camera color-blue"></i><strong>rtmp stream</strong>
+                                    </a>
+                                </li>
+                                <li style="cursor: pointer">
+                                    <a onclick="showPlayback({{ entity.id }},'dash', '{{ ip }}')">
+                                        <i class="fa fa-video-camera color-blue"></i><strong>dash stream</strong>
+                                    </a>
+                                </li>
+                            </ul>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <a class="btn btn-xs btn-info" href="{{ path(vodEdit, { ip: ip, 'id': entity.id }) }}">
+                            {{ "pages.channel_categories.index.edit" | trans }}
+                        </a>
+                        <a class="btn btn-xs btn-danger delete" data-href="{{ path(vodDelete, { ip: ip, 'id': entity.id }) }}">
+                            {{ "pages.channel_categories.index.delete" | trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% include "AppBundle:Vod:playbackmodal.html.twig" %}
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.vod.index.no_vod" | trans }}</h4>
+    {% endif %}
+
+{% endblock %}

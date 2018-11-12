@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UserActivity" table="user_activity">
+    <indexes>
+      <index name="user_id" columns="user_id"/>
+      <index name="stream_id" columns="stream_id"/>
+      <index name="server_id" columns="server_id"/>
+      <index name="container" columns="container"/>
+      <index name="date_end" columns="date_end"/>
+      <index name="geoip_country_code" columns="geoip_country_code"/>
+      <index name="user_agent" columns="user_agent"/>
+      <index name="user_agent_2" columns="user_agent"/>
+      <index name="user_ip" columns="user_ip"/>
+      <index name="date_start" columns="date_start"/>
+      <index name="isp" columns="isp"/>
+    </indexes>
+    <id name="activityId" type="integer" column="activity_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="userId" type="integer" column="user_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="streamId" type="integer" column="stream_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="serverId" type="integer" column="server_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="userAgent" type="string" column="user_agent" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="userIp" type="string" column="user_ip" length="39" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="container" type="string" column="container" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="dateStart" type="integer" column="date_start" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="dateEnd" type="integer" column="date_end" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="geoipCountryCode" type="string" column="geoip_country_code" length="22" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="isp" type="string" column="isp" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="externalDevice" type="string" column="external_device" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="divergence" type="integer" column="divergence" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

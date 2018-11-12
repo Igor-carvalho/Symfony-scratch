@@ -1,0 +1,233 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.streams_server.new.title" | trans }}{% endblock %}
+{% block page_description %}{% endblock %}
+
+{% block body %}
+    <div class="box-body">
+        <div class="row">
+            {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+            {{ form_start(form) }}  
+            <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
+                <ul class="nav nav-tabs">                   
+                    <li class="active">
+                        <a data-toggle="tab" href="#home">{{ "base_admin.sidebar.menu.admin.general_settings" | trans }}</a>
+                    </li>
+                    
+                    <li>
+                        <a data-toggle="tab" href="#menu1">{{ "pages.settings.attrs.stream_server" | trans }}</a>
+                    </li>
+                    
+                    <li>
+                        <a data-toggle="tab" href="#menu2">{{ "pages.settings.attrs.hls_dash" | trans }}</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(form.name,"pages.streams_server.attrs.name" | trans ) }}
+                                    {{ form_widget(form.name) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.port,"pages.streams_server.attrs.sshport" | trans) }}
+                                    {{ form_widget(form.port) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {{ form_label(form.serverAddress,"pages.streams_server.attrs.serveraddress" | trans ) }}
+                                    {{ form_widget(form.serverAddress) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {{ form_label(form.pass,"pages.streams_server.attrs.password" | trans) }}
+                                    {{ form_widget(form.pass) }}
+                                </div>
+                            </div>                       
+                        </div>     
+                    </div>
+
+                    <div id="menu1" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.broadcastRTMPPort,"pages.streams_server.attrs.broadcast_rtmp_port" | trans) }}
+                                    {{ form_widget(form.broadcastRTMPPort) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.broadcastHTTPPort,"pages.streams_server.attrs.broadcast_http_port" | trans) }}
+                                    {{ form_widget(form.broadcastHTTPPort) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.rtspPort,"pages.streams_server.attrs.rtsp_port" | trans) }}
+                                    {{ form_widget(form.rtspPort) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.broadcastDASHPort,"pages.streams_server.attrs.broadcast_dash_port" | trans) }}
+                                    {{ form_widget(form.broadcastDASHPort) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.nodeJsPort,"pages.streams_server.attrs.nodejsport" | trans) }}
+                                    {{ form_widget(form.nodeJsPort) }}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.trialPeriodoTime,"pages.streams_server.attrs.trial_periodo_time" | trans) }}
+                                    {{ form_widget(form.trialPeriodoTime) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="menu2" class="tab-pane fade">
+                        <div class="row">                   
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.dashPlaylistLength,"pages.streams_server.attrs.dash_playlist_length" | trans) }}
+                                    {{ form_widget(form.dashPlaylistLength) }}
+                                </div>
+                            </div>                   
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.dashFragment,"pages.streams_server.attrs.dash_fragment" | trans) }}
+                                    {{ form_widget(form.dashFragment) }}
+                                </div>
+                            </div>                  
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.hlsSync,"pages.streams_server.attrs.hls_sync" | trans) }}
+                                    {{ form_widget(form.hlsSync) }}
+                                </div>
+                            </div>                
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.hlsFragment,"pages.streams_server.attrs.hls_fragment" | trans) }}
+                                    {{ form_widget(form.hlsFragment) }}
+                                </div>
+                            </div>               
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form_label(form.hlsPlaylistLength,"pages.streams_server.attrs.hls_playlist_length" | trans) }}
+                                    {{ form_widget(form.hlsPlaylistLength) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <fieldset>
+                            <legend>
+                                <small>{{ 'pages.settings.attrs.hls_multi_bitrates'|trans }}</small>
+                            </legend>
+
+                            
+
+                        <fieldset>
+                            <legend>
+                                <small>{{ 'pages.settings.attrs.hls_multi_bitrates'|trans }}</small>
+                            </legend>
+
+                            <div class="row">                   
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.audioBitrate1,"pages.streams_server.attrs.audio_brt1" | trans) }}
+                                        {{ form_widget(form.audioBitrate1) }}
+                                    </div>
+                                </div>                  
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.audioBitrate2,"pages.streams_server.attrs.audio_brt2" | trans) }}
+                                        {{ form_widget(form.audioBitrate2) }}
+                                    </div>
+                                </div>                  
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.audioBitrate3,"pages.streams_server.attrs.audio_brt3" | trans) }}
+                                        {{ form_widget(form.audioBitrate3) }}
+                                    </div>
+                                </div>  
+                            </div>
+
+                            <div class="row"> 
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.videoBitrate1,"pages.streams_server.attrs.video_brt1" | trans) }}
+                                        {{ form_widget(form.videoBitrate1) }}
+                                    </div>
+                                </div>                  
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.videoBitrate2,"pages.streams_server.attrs.video_brt2" | trans) }}
+                                        {{ form_widget(form.videoBitrate2) }}
+                                    </div>
+                                </div>                  
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.videoBitrate3,"pages.streams_server.attrs.video_brt3" | trans) }}
+                                        {{ form_widget(form.videoBitrate3) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset> 
+                        </fieldset> 
+                        
+                        <fieldset>
+                            <legend>
+                                <small>{{ 'pages.settings.attrs.timeshift'|trans }}</small>
+                            </legend>
+
+                            <div class="row">                 
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.hlsFragmentTimeshift,"pages.streams_server.attrs.hls_fragment_timeshift" | trans) }}
+                                        {{ form_widget(form.hlsFragmentTimeshift) }}
+                                    </div>
+                                </div>                  
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.hlsPlaylistLengthTimeshift,"pages.streams_server.attrs.hls_playlist_length_timeshift" | trans) }}
+                                        {{ form_widget(form.hlsPlaylistLengthTimeshift) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="btn btn-default btn-sm pull-left" href="{{ path('streams_server') }}">{{ "pages.streams_server.new.back_to_list" | trans }}</a>
+                    </div>
+
+                    <div class="col-md-6">
+                        {{ form_widget(form.submit,{'attr':{
+                        'class': 'btn btn-success btn-sm pull-right',
+                        }}) }}
+                    </div>
+                </div>           
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

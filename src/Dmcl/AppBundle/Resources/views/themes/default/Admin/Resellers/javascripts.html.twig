@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    $(function () {
+        var container = $("#dealer-info");
+
+        $("#appbundle_dealer_allowDealer").on({
+            ifChecked: function () {
+                container.css({display: ""});
+            },
+            ifUnchecked: function () {
+                container.css({display: "none"});
+            }
+        });
+
+        $("#appbundle_dealer_allowDealer").iCheck('toggle');
+        $("#appbundle_dealer_allowDealer").iCheck('toggle');
+
+        $("#_submit").click(function (e) {
+            if ($("#appbundle_dealer_allowDealer").prop("checked")) {
+                var error = false;
+
+                function validate($el) {
+                    if ($el.val() == "") {
+                        $el.parent().addClass("has-error");
+                        error = true;
+                    } else {
+                        $el.parent().removeClass("has-error");
+                    }
+                }
+
+                validate($("#appbundle_dealer_apk_name"));
+                validate($("#appbundle_dealer_file"));
+                validate($("#appbundle_dealer_company_name"));
+                validate($("#appbundle_dealer_company_address"));
+                validate($("#appbundle_dealer_company_phone"));
+
+                if (error) {
+                    // Make sure the button click doesn't submit the form:
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }
+        });
+    });
+</script>

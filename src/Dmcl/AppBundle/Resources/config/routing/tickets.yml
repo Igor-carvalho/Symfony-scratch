@@ -1,0 +1,31 @@
+tickets_ajax:
+    path:     /ajax
+    defaults: { _controller: "AppBundle:Tickets:ajax" }
+
+tickets_notifications:
+    path:  /ajax/getNotifications
+    defaults: { _controller: "AppBundle:Tickets:getNotifications" }
+
+tickets_send:
+    path:  /send
+    defaults: { _controller: "AppBundle:Tickets:send" }
+    methods:  POST
+
+tickets_messages:
+    path:  /messages
+    defaults: { _controller: "AppBundle:Tickets:getMessages" }
+    methods:  POST
+
+tickets_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Tickets:create" }
+    methods:  POST
+
+tickets_delete:
+    path:     /delete
+    defaults: { _controller: "AppBundle:Tickets:delete" }
+    methods:  [POST, DELETE]
+
+tickets:
+    path:     /show/{id}
+    defaults: { _controller: "AppBundle:Tickets:index", id:'' }

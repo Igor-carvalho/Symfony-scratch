@@ -1,0 +1,45 @@
+vod-package:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/VodPackage:index" }
+
+vod-package_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Admin/VodPackage:show" }
+
+vod-package_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/VodPackage:new" }
+
+vod-package_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/VodPackage:create" }
+    methods:  POST
+
+vod-package_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/VodPackage:edit" }
+
+vod-package_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/VodPackage:update" }
+    methods:  [POST, PUT]
+
+vod-package_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/VodPackage:delete" }
+    methods:  [POST, DELETE]
+
+vod-package_playlist:
+    path:     /{id}/playlist
+    defaults: { _controller: "AppBundle:Admin/VodPackage:playlist" }
+    methods:  GET
+
+vod_package_playback:
+    path: /playback/
+    defaults: { _controller: "AppBundle:Admin/VodPackage:vodPackagePlayback" }
+
+vod_package_playback_info:
+    path: /info/{idVodPackage}/
+    defaults: { _controller: "AppBundle:Admin/VodPackage:vodPackagePlaybackInfo" }
+    options:
+        expose: true

@@ -1,0 +1,578 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.line.index.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+    <script type="text/javascript">
+        var table = '';
+        var tableBouquets = '';
+        var rpp = 100;
+
+        $(document).ready(function () {
+            table = $('#datatable').DataTable({
+                lengthChange: true,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: "<'row'<'col-md-6 pull-left'lB><'col-md-6 pull-right'f>>rt<'row'<'col-md-6 pull-left'i><'col-md-6 pull-right'p>>", 
+                buttons: [
+                    'excel'
+                ],              
+                ajax: {
+                    url: "{{ path('line_ajax') }}",
+                    method: 'POST',
+                    data: {
+                        page: 1,
+                        rpp: rpp
+                    }
+                },
+                columns: [
+                    { "data": "date" },
+                    { "data": "enabled" },
+                    { "data": "owner" },
+                    { "data": "credentials" },
+                    { "data": "remaining" },
+                    { "data": "mac_address" },
+                    { "data": "status" },
+                    { "data": "dashboard" },
+                    { "data": "note" },
+                    { "data": "actions" }
+                ]
+            });
+
+            edit('#datatable tbody');
+            note('#datatable tbody');
+            bouquetsList('#datatable tbody');
+            addMag('#datatable tbody');
+            addE2('#datatable tbody');
+            parentalCode('#datatable tbody');
+            download('#datatable tbody');
+
+            {# setTimeout(function () {
+                search(2, rpp);
+            }, 900); #}
+        })
+
+        function addMag(tbody){
+          $(tbody).on('click', 'p.mag', function(){
+              var data = table.row($(this).parents('tr')).data();
+              var username = data.username;
+              var id = data.id;
+
+              $("#modal-dialog").remove();
+
+              var modal = '<div id="modal-dialog" class="modal fade custom-modal custom-modal-subscribe">\
+                                <div class="modal-dialog" role="document">\
+                                    <button type="button" class="close custom-modal__close" data-dismiss="modal" aria-label="Close">\
+                                    <span aria-hidden="true" class="ua-icon-modal-close"></span>\
+                                    </button>\
+                                    <div class="modal-content">\
+                                        <div class="modal-header custom-modal__image">\
+                                            <img src="../../../imgModal/sweet-alert-info.png" alt="" class="">\
+                                        </div>\
+                                        <div class="modal-body custom-modal__body">\
+                                            <h4 class="custom-modal__body-heading">{{ "pages.line.attrs.mac" | trans }}</h4>\
+                                            <div class="custom-modal__body-desc">('+username+')</div>\
+                                            <div class="custom-modal__form">\
+                                                <div class="row">\
+                                                    <div class="col-lg-12">\
+                                                        <div class="form-group">\
+                                                            <input id="mac-dialog" class="form-control" rows=3 placeholder="{{ "pages.line.msg_mac" | trans }}" />\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                    <div class="row">\
+                                                        <div class="col-lg-12">\
+                                                            <button id="dialog-confirm" type="button" class="btn btn-info btn-md">{{ "pages.line.edit.update" | trans }}</button>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </div>';
+
+              if(! $('#modal-dialog').length>0)
+                $("body").append(modal);
+
+              $('#modal-dialog').modal("show");
+
+              $("#dialog-confirm").on({
+                click: function() {
+                    $.ajax({
+                        url: "{{ path('line_update_mac') }}",
+                        dataType: "json", 
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            mac: $("#mac-dialog")[0].value 
+                        },
+                        success: function(response){
+                            $('#modal-dialog').modal("hide");
+                            $('.modal-backdrop').remove();
+                        }
+                    });
+                }
+            });
+          });
+        }
+
+        function addE2(tbody){
+          $(tbody).on('click', 'p.enigma2', function(){
+              var data = table.row($(this).parents('tr')).data();
+              var username = data.username;
+              var id = data.id;
+
+              $("#modal-dialog").remove();
+
+              var modal = '<div id="modal-dialog" class="modal fade custom-modal custom-modal-subscribe">\
+                                <div class="modal-dialog" role="document">\
+                                    <button type="button" class="close custom-modal__close" data-dismiss="modal" aria-label="Close">\
+                                    <span aria-hidden="true" class="ua-icon-modal-close"></span>\
+                                    </button>\
+                                    <div class="modal-content">\
+                                        <div class="modal-header custom-modal__image">\
+                                            <img src="../../../imgModal/sweet-alert-info.png" alt="" class="">\
+                                        </div>\
+                                        <div class="modal-body custom-modal__body">\
+                                            <h4 class="custom-modal__body-heading">{{ "pages.line.attrs.enigma2" | trans }}</h4>\
+                                            <div class="custom-modal__body-desc">('+username+')</div>\
+                                            <div class="custom-modal__form">\
+                                                <div class="row">\
+                                                    <div class="col-lg-12">\
+                                                        <div class="form-group">\
+                                                            <input id="mac-dialog" class="form-control" rows=3 placeholder="{{ "pages.line.msg_mac" | trans }}" />\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                    <div class="row">\
+                                                        <div class="col-lg-12">\
+                                                            <button id="dialog-confirm" type="button" class="btn btn-info btn-md">{{ "pages.line.edit.update" | trans }}</button>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </div>';
+
+              if(! $('#modal-dialog').length>0)
+                $("body").append(modal);
+
+              $('#modal-dialog').modal("show");
+
+              $("#dialog-confirm").on({
+                click: function() {
+                    $.ajax({
+                        url: "{{ path('line_update_e2') }}",
+                        dataType: "json", 
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            mac: $("#mac-dialog")[0].value 
+                        },
+                        success: function(response){
+                            $('#modal-dialog').modal("hide");
+                            $('.modal-backdrop').remove();
+                        }
+                    });
+                }
+            });
+          });
+        }
+
+        function edit(tbody){
+          $(tbody).on('click', 'a.edit', function(){
+              var data = table.row($(this).parents('tr')).data();
+              var url = $(this).data('href');
+              
+              window.location = $(this).data('href');
+          });
+        }
+
+        function generateUrlFormat(username, password, key, output){
+             $('#url')[0].value = 'http://king-box.club:80/get.php?username='+username+'&password='+password+'&type='+key+'&output='+output;
+        }
+
+        function download(tbody){
+          $(tbody).on('click', 'a.download', function(){
+              var data = table.row($(this).parents('tr')).data();
+              var id = data.id;
+              var username = data.username;
+              var password = data.password;
+              var url = $(this).data('href');
+
+              $("#modal-dialog").remove();
+              
+              $.ajax({
+                    url: "{{ path('line_devices') }}",
+                    dataType: "json", 
+                    type: 'POST',
+                    data: {
+                        id: id,
+                    },
+                    success: function(response){
+                        var datas = response.datas;
+                        var buttons = '';
+
+                       for(var i = 0; i < datas.length; i++)
+                            buttons += '<li style="cursor:pointer;" type="button" class="list-group-item list-group-item-action">'+ datas[i].name +' <span onclick="generateUrlFormat(\''+username+'\', \''+password+'\', \''+datas[i].key+'\', \'m3u8\')" class="pull-right mr-1 hls">HLS</span> <span style="background-color:gray;" class="pull-right mr-5">RTMP</span> <span onclick="generateUrlFormat(\''+username+'\', \''+password+'\', \''+datas[i].key+'\', \'ts\')" class="pull-right mr-5 mpegts">MPEGTS</span></li>';
+
+                        buttons += '</div>';
+
+                        var modal = '<div id="modal-dialog" class="modal fade custom-modal custom-modal-subscribe">\
+                                            <div class="modal-dialog" role="document">\
+                                                <div class="modal-content">\
+                                                    <div class="modal-header custom-modal__image">\
+                                                        <img src="../../../imgModal/sweet-alert-info.png" alt="" class="">\
+                                                    </div>\
+                                                    <div class="modal-body custom-modal__body">\
+                                                        <div class="custom-modal__body-desc"></div>\
+                                                        <div class="custom-modal__form">\
+                                                            <div class="row mt-2">\
+                                                                <div class="col-lg-12">\
+                                                                    <div class="form-group">\
+                                                                        <textarea id="url" class="form-control" rows=3 placeholder="{{ "pages.line.ms_select_format" | trans }}"></textarea>\
+                                                                    </div>\
+                                                                </div>\
+                                                            </div>\
+                                                            <div class="row">\
+                                                                <div class="col-lg-12">\
+                                                                    <ul id="list" class="list-group padre">\
+                                                                        '+buttons+'\
+                                                                    </ul>\
+                                                                </div>\
+                                                            </div>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>';
+
+                        if(! $('#modal-dialog').length>0)
+                            $("body").append(modal);
+
+                        $('#modal-dialog').modal("show");
+                    }
+                });
+          });
+        }
+
+        function note(tbody){
+          $(tbody).on('click', 'a.note', function(){
+              var data = table.row($(this).parents('tr')).data();
+              var id = data.id;
+              var username = data.username;
+
+              $("#modal-dialog").remove();
+
+              var modal = '<div id="modal-dialog" class="modal fade custom-modal custom-modal-subscribe">\
+                                <div class="modal-dialog" role="document">\
+                                    <button type="button" class="close custom-modal__close" data-dismiss="modal" aria-label="Close">\
+                                    <span aria-hidden="true" class="ua-icon-modal-close"></span>\
+                                    </button>\
+                                    <div class="modal-content">\
+                                        <div class="modal-header custom-modal__image">\
+                                            <img src="../../../imgModal/sweet-alert-info.png" alt="" class="">\
+                                        </div>\
+                                        <div class="modal-body custom-modal__body">\
+                                            <h4 class="custom-modal__body-heading">{{ "pages.line.attrs.note" | trans }}</h4>\
+                                            <div class="custom-modal__body-desc">('+username+')</div>\
+                                            <div class="custom-modal__form">\
+                                                <div class="row">\
+                                                    <div class="col-lg-12">\
+                                                        <div class="form-group">\
+                                                            <textarea id="note-dialog" class="form-control" rows=3 placeholder="{{ "pages.line.msg_additional_notes" | trans }}"></textarea>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                    <div class="row">\
+                                                        <div class="col-lg-12">\
+                                                            <button id="dialog-confirm" type="button" class="btn btn-info btn-md">{{ "pages.line.edit.update" | trans }}</button>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </div>';
+
+              if(! $('#modal-dialog').length>0)
+                $("body").append(modal);
+
+              $('#modal-dialog').modal("show");
+
+              $("#dialog-confirm").on({
+                click: function() {
+                    $.ajax({
+                        url: "{{ path('line_update_note') }}",
+                        dataType: "json", 
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            note: $("#note-dialog")[0].value 
+                        },
+                        success: function(response){
+                            $('#modal-dialog').modal("hide");
+                            $('.modal-backdrop').remove();
+                        }
+                    });
+                }
+            });
+          });
+        }
+
+        function parentalCode(tbody){
+          $(tbody).on('click', 'a.parental-code', function(){
+              var data = table.row($(this).parents('tr')).data();
+              var username = data.username;
+              var id = data.id;
+
+              $("#modal-dialog").remove();
+
+              var modal = '<div id="modal-dialog" class="modal fade custom-modal custom-modal-subscribe">\
+                                <div class="modal-dialog" role="document">\
+                                    <button type="button" class="close custom-modal__close" data-dismiss="modal" aria-label="Close">\
+                                    <span aria-hidden="true" class="ua-icon-modal-close"></span>\
+                                    </button>\
+                                    <div class="modal-content">\
+                                        <div class="modal-header custom-modal__image">\
+                                            <img src="../../../imgModal/sweet-alert-info.png" alt="" class="">\
+                                        </div>\
+                                        <div class="modal-body custom-modal__body">\
+                                            <h4 class="custom-modal__body-heading">{{ "pages.line.attrs.parental_code" | trans }}</h4>\
+                                            <div class="custom-modal__body-desc">('+username+')</div>\
+                                            <div class="custom-modal__form">\
+                                                <div class="row">\
+                                                    <div class="col-lg-12">\
+                                                        <div class="form-group">\
+                                                            <input id="code-dialog" class="form-control" rows=3 placeholder="{{ "pages.line.msg_parental_code" | trans }}" />\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                    <div class="row">\
+                                                        <div class="col-lg-12">\
+                                                            <button id="dialog-confirm" type="button" class="btn btn-info btn-md">{{ "pages.line.edit.update" | trans }}</button>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </div>';
+
+              if(! $('#modal-dialog').length>0)
+                $("body").append(modal);
+
+              $('#modal-dialog').modal("show");
+
+              $("#dialog-confirm").on({
+                click: function() {
+                    $.ajax({
+                        url: "{{ path('line_update_parental_code') }}",
+                        dataType: "json", 
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            code: $("#code-dialog")[0].value 
+                        },
+                        success: function(response){
+                            $('#modal-dialog').modal("hide");
+                            $('.modal-backdrop').remove();
+                        }
+                    });
+                }
+            });
+          });
+        }
+
+        function bouquetsList(tbody){
+          $(tbody).on('click', 'a.bouquets', function(){
+                var data = table.row($(this).parents('tr')).data();
+                var id = data.id;
+                var url = $(this).data('href');
+
+                $("#modal-dialog").remove();
+
+                $.ajax({
+                    url: "{{ path('line_bouquets') }}",
+                    dataType: "json", 
+                    type: 'POST',
+                    data: {
+                        id: id,
+                    },
+                    success: function(response){
+                        var bouquets = response.data;
+                        var options = '';
+                        {# var options = '<select class="form-control select2-accessible" multiple=true required name="bouquets[]" aria-required="true">';
+
+                        for(var i = 0; i < bouquets.length; i++){
+                            options += '<option selected value="'+bouquets[i].id+'">'+bouquets[i].name+'</option>';
+                        }
+
+                        options += '</select>' #}
+
+                        for(var i = 0; i < bouquets.length; i++){
+                            options += '<div class="col-md-4">\
+                                            <div class="custom-control custom-checkbox">\
+                                                <input class="custom-control-input" checked="" id="'+bouquets[i].id+'" value="'+bouquets[i].id+'" type="checkbox">\
+                                                <label class="custom-control-label" for="'+bouquets[i].id+'">'+bouquets[i].name+'</label>\
+                                            </div>\
+                                        </div>';
+                        }
+
+                        var modal = '<div id="modal-dialog" class="modal fade custom-modal custom-modal-subscribe">\
+                                <div class="modal-dialog modal-lg" role="document">\
+                                    <button type="button" class="close custom-modal__close" data-dismiss="modal" aria-label="Close">\
+                                    <span aria-hidden="true" class="ua-icon-modal-close"></span>\
+                                    </button>\
+                                    <div class="modal-content">\
+                                        <div class="modal-header custom-modal__image">\
+                                            <img src="../../../imgModal/sweet-alert-info.png" alt="" class="">\
+                                        </div>\
+                                        <div class="modal-body custom-modal__body">\
+                                            <h4 class="custom-modal__body-heading">{{ "pages.line.attrs.bouquets" | trans }}</h4>\
+                                            <div class="custom-modal__form">\
+                                                <form id="form-bouquets" class="mb-3" method="POST" action="'+url+'">\
+                                                    <div class="row">\
+                                                        '+options+'\
+                                                    </div>\
+                                                </form>\
+                                                <div class="row">\
+                                                    <div class="col-lg-12">\
+                                                        <button id="dialog-confirm" type="button" class="btn btn-info btn-md">{{ "pages.line.edit.update" | trans }}</button>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                            </div>';
+
+                        if(! $('#modal-dialog').length>0)
+                            $("body").append(modal);
+
+                        $('#modal-dialog').modal("show");
+
+                        $("#dialog-confirm").on({
+                            click: function() {
+                                var bouquets = Array();
+
+                                $('#form-bouquets input').each(function(index, element){
+                                    if(element.checked)
+                                        bouquets.push(element.value);
+                                });
+
+                                $.ajax({
+                                    url: "{{ path('line_update_bouquets') }}",
+                                    dataType: "json", 
+                                    type: 'POST',
+                                    data: {
+                                        id: id,
+                                        bouquets: bouquets
+                                    },
+                                    success: function(response){
+                                        $('#modal-dialog').modal("hide");
+                                        $('.modal-backdrop').remove();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+          });
+        }
+
+        function showHidePassword(id){
+           if($('#password-'+id).hasClass('hidden')){
+                $('#password-'+id).show();
+                $('#password-'+id).removeClass('hidden');
+                $('#show-'+id).addClass('color-gray');
+                $('#show-'+id).removeClass('color-info');
+           }else{
+               $('#password-'+id).addClass('hidden');
+               $('#password-'+id).hide();
+               $('#show-'+id).removeClass('color-gray');
+               $('#show-'+id).addClass('color-info');
+           }
+        }
+
+        function search(page, rpp){
+            $.ajax({
+                url: "{{ path('line_ajax') }}",
+                dataType: "json", 
+                type: 'POST',
+                data: {
+                    page: page,
+                    rpp: rpp
+                },
+                success: function(response){
+                    var datas = response.data;
+
+                    for(var i = 0; i < datas.length; i++){
+                        table.row.add({
+                            "date": datas[i].date,
+                            "enabled": datas[i].enabled,
+                            "owner": datas[i].owner,
+                            "credentials": datas[i].credentials,
+                            "remaining": datas[i].remaining,
+                            "mac_address": datas[i].mac_address,
+                            "status": datas[i].status,
+                            "dashboard": datas[i].dashboard,
+                            "note": datas[i].note,
+                            "actions": datas[i].actions,
+                            "id": datas[i].id,
+                            "username": datas[i].username,
+                            "password": datas[i].password
+                        }).draw(false);
+                    }
+
+                    if(datas.length)
+                        search(++page, rpp);
+                }
+            });
+        }
+    </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.line.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        <div style="margin-bottom: 20px;" class="col-md-12 no-padding">
+            <a style="float: right;" class="btn btn-warning btn-md" href="{{ path('line_new_trial') }}">
+                {{ "pages.line.index.add_trial" | trans }}
+            </a>
+            <a style="margin-right: 10px; float: right;" class="btn btn-success btn-md" href="{{ path('line_new') }}">
+                {{ "pages.line.index.add_line" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="m-datatable col-md-12">
+            <table id="datatable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:5%;">{{ "pages.line.attrs.date" | trans }}</th>
+                        <th style="width:10%;">{{ "pages.line.attrs.enabled" | trans }}</th>
+                        <th style="width:10%;">Owner</th>
+                        <th style="width:10%;">{{ "pages.line.attrs.credentials" | trans }}</th>
+                        <th style="width:20%;">{{ "pages.line.attrs.remaining" | trans }}</th>
+                        <th style="width:10%;">{{ "pages.line.attrs.mac_address" | trans }}</th>
+                        <th style="width:7%;">{{ "pages.line.attrs.status" | trans }}</th>
+                        <th style="width:8%;">{{ "pages.line.attrs.dashboard" | trans }}</th>
+                        <th style="width:15%;">{{ "pages.line.attrs.note" | trans }}</th>
+                        <th style="width:7%;">{{ "pages.line.index.table.actions" | trans }}</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+{% endblock %}

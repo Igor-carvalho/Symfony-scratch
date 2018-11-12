@@ -1,0 +1,48 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: xtreamcode
+    database_user: xtreamcode
+    database_password: xtreamcode
+
+    database_driver2: pdo_mysql
+    database_host2: 195.181.162.47
+    database_port2: 3306
+    database_name2: xtream_iptvpro
+    database_user2: xtream_iptvpro
+    database_password2: xtream_iptvpro
+
+    mailer_transport: mail
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    prefix: ''
+    theme: default
+    web.dir: '%kernel.root_dir%/../web'
+    backups.dir: '%web.dir%/backups'
+    upload.dir: '%web.dir%/uploads'
+    video.upload.dir: '%upload.dir%/videos'
+    ffmpeg.bin: 'ffmpeg'
+    ffprobe.bin: 'ffprobe'
+    programmes.dir: '%web.dir%/records'
+    iface: eth0
+    medias_support:
+        channel: Channel
+        channels_package: ChannelsPackage
+        vod: Vod
+        vod_package: VodPackage
+    stb_mag:
+        theme: default
+        user_class:
+            - 'AppBundle:Customers'
+    proxy:
+        server: 55558
+        vod_server: 44448
+        http: 55550
+        hls: 55551
+        rtmp: 55553
+        rtsp: 55552
+    vod_upload: '%kernel.root_dir%/../web/uploads/vod'

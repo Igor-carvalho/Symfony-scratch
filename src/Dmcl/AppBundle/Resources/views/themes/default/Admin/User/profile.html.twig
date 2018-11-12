@@ -1,0 +1,152 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.user.profile" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+     <script text="javascript">
+       $(document).ready(function(){
+       });
+
+       function updatePerfil(flag){
+           var params = '';
+
+           $('#button_username').hide();
+           $('#button_username_loading').show();
+
+           $.ajax({
+               url: "{{ path('user_profile_update') }}",
+               type: 'POST',
+               data: {
+                   username: $('#username')[0].value,
+                   email: $('#email')[0].value
+               },
+           }).done(function(response){
+               $('#button_username_loading').hide();
+               $('#button_username').show();
+           });
+       }
+
+       function changePassword(){
+           var params = '';
+
+           $('#button_password').hide();
+           $('#button_password_loading').show();
+
+           $.ajax({
+               url: "{{ path('user_change_password') }}",
+               type: 'POST',
+               data: {
+                   oldPassword: $('#oldPassword')[0].value,
+                   password: $('#password')[0].value
+               },
+           }).done(function(response){
+               $('#button_password_loading').hide();
+               $('#button_password').show();
+           });
+       }
+     </script>
+ {% endblock %}
+
+{% block vars %}
+{% endblock %}
+
+{% block body_parent %}
+    <div class="main-container">
+    <div class="container-tabs">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#settings-account-settings">Account settings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#settings-password">Password</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="settings-account-settings">
+          <div class="container-block">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="settings-user">
+                  <div class="settings-user__wrap">
+                    <img src="{{ app.user.avatar  ? asset("uploads/"~app.user.avatar):asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="{{ app.user.name | default("Anonymous") }}" width="68" height="68" class="rounded-circle settings-user__avatar">
+                    <div class="settings-user__info">
+                        <span class="settings-user__name">{{ app.user.username | default("Anonymous") }}</span>
+                        <span class="settings-user__email">{{ app.user.email }}</span>
+                    </div>
+                    
+                    <div class="settings-user__info ml-5">
+                        <span class="settings-user__name">IP</span>
+                        <span class="settings-user__email">{{ app.user.ip }}</span>
+                    </div>
+                    
+                    <div class="settings-user__info ml-5">
+                        <span class="settings-user__name">Member since</span>
+                        <span class="settings-user__email">{{ app.user.dateRegistered | date('d/m/Y') }}</span>
+                    </div>
+                    
+                    <div class="settings-user__info ml-5">
+                        <span class="settings-user__name">Member Group</span>
+                        <span class="settings-user__email">{{ app.user.memberGroup.groupName }}</span>
+                    </div>
+                    {% if not is_granted('ROLE_ADMIN') %}
+                      <div class="settings-user__info ml-5">
+                          <span class="settings-user__name">Credits</span>
+                          <span class="settings-user__email">{{ app.user.credits }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-block">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="username">{{ 'pages.user.attrs.username' | trans }}</label>
+                  <input class="form-control" id="username" placeholder="" value="{{ app.user.username }}" type="text">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="email">{{ 'pages.user.attrs.email' | trans }}</label>
+                  <input class="form-control" id="email" placeholder="" value="{{ app.user.email }}" type="text">
+                </div>
+              </div>
+              <div class="col-lg-4" style="margin-top: 2rem !important;">
+                    <button id="button_username" onclick="updatePerfil(1)" class="pull-right btn btn-outline-success" type="button">{{ 'pages.user.update' | trans }}</button>
+                    <button id="button_username_loading" class="pull-right hidden btn btn-success is-loading" type="button" disabled="">{{ 'pages.user.update' | trans }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="settings-password">
+          <div class="container-block">
+            <h4 class="container-block__heading">{{ 'pages.user.update_password' | trans }}</h4>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="oldPassword">{{ 'pages.user.current_password' | trans }}</label>
+                  <input class="form-control" id="oldPassword" placeholder="" value="" type="password">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label for="password">{{ 'pages.user.new_password' | trans }}</label>
+                  <input class="form-control" id="password" placeholder="" value="" type="password" required>
+                </div>
+              </div>
+              <div class="col-lg-4" style="margin-top: 2rem !important;">
+                    <button id="button_password" onclick="changePassword()" class="pull-right btn btn-outline-success" type="button">{{ 'pages.user.update' | trans }}</button>
+                    <button id="button_password_loading" class="pull-right hidden btn btn-success is-loading" type="button" disabled="">{{ 'pages.user.update' | trans }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

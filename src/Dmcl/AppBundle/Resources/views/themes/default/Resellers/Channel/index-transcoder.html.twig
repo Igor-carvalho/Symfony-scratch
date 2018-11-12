@@ -1,0 +1,116 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet"
+           href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/transcoder-control.js') }}"></script>
+     <script src="//{{ app.request.getHost() }}:3333/socket.io/socket.io.js"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.channel.msg_delete" | trans }}";
+    var starting = "{{ "pages.channel.index.starting" | trans }}"
+    var start = "{{ "pages.channel.index.start" | trans }}"
+    var stop = "{{ "pages.channel.index.stop" | trans }}"
+    var stopping = "{{ "pages.channel.index.stopping" | trans }}"
+    var transcoderMessages = {
+    404: "{{ "pages.channel.transcoder.404" | trans }}",
+    226: "{{ "pages.channel.transcoder.226" | trans }}",
+    500: "{{ "pages.channel.transcoder.500" | trans }}",
+    400: "{{ "pages.channel.transcoder.400" | trans }}",
+    start: {
+    200:  "{{ "pages.channel.transcoder.start.200" | trans }}"
+    },
+    stop: {
+    200:  "{{ "pages.channel.transcoder.stop.200" | trans }}"
+    }
+    }
+    var warningStop = "{{ "pages.channel.warning.stop" | trans }}"
+{% endblock %}
+
+{% block title %}{{ "pages.channel.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel.index.title" | trans }}{% endblock %}
+
+{% block body -%}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('resellers-channel_new') }}">
+            {{ "pages.channel.index.add_channel" | trans }}
+        </a>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.channel.index.table.name" | trans }}</th>
+                <th>{{ "pages.channel.index.table.category" | trans }}</th>
+                <th>{{ "pages.channel.index.table.live" | trans }}</th>
+                <th>{{ "pages.channel.index.table.status" | trans }}</th>
+                <th>{{ "pages.channel.index.table.transcoder" | trans }}</th>
+                <th>{{ "pages.channel.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.category }}</td>
+                    <td>{{ entity.live }}</td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.channel.index.enabled" | trans :"pages.channel.index.disabled" | trans }}</td>
+                    <td class="{{ entity.allowTranscoder ? "enabled":"disabled" }}">
+                        {% if entity.allowTranscoder %}
+                            <p>
+                                <i id="channel-indicator-in-{{ entity.id }}" style="font-size: 20px"
+                                   class="channel-indicator-{{ entity.id }} fa fa-circle text-off"></i>
+                                <span style="color: black;font-size: 20px;">/</span>
+                                <i id="channel-indicator-out-{{ entity.id }}" style="font-size: 20px"
+                                   class="channel-indicator-{{ entity.id }} fa fa-circle text-off"></i>
+                            </p>
+                        {% else %}
+                            {{ "pages.channel.index.disabled"  | trans }}
+                        {% endif %}
+                    </td>
+                    <td style="text-align: center">
+                        {% if entity.allowTranscoder %}
+                            <a data-id="{{ entity.id }}"
+                               class="btn btn-xs btn-on trascoder-control {{ entity.allowTranscoder ? "start":"" }}"
+                               id="{{ entity.id }}" data-start="{{ path('transcoder_start', { 'id': entity.id }) }}"
+                               data-stop="{{ path('transcoder_stop', { 'id': entity.id }) }}">{{ "pages.channel.index.start" | trans }}</a>
+
+                            <a class="btn btn-xs btn-primary hidden" data-id="{{ entity.id }}"
+                               id="channel-watch-{{ entity.id }}"
+                               onclick="watchChannel('{{ entity.name }}', '{{ entity.live }}','{{ logos[entity.id] }}','{{ entity.protocol }}' )">
+                                {{ "pages.channel_categories.index.watch" | trans }}</a>
+                        {% endif %}
+                        <a class="btn btn-xs btn-info edit" data-id="{{ entity.id }}"
+                           href="{{ path('resellers-channel_edit', { 'id': entity.id }) }}">{{ "pages.channel.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete"
+                           data-href="{{ path('resellers-channel_delete', { 'id': entity.id }) }}">{{ "pages.channel.index.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p>
+            <span style="margin-right: 10px">
+            <i class="fa fa-circle text-on"></i> {{ "pages.channel.index.legend.running" | trans }}
+            </span>
+            <span style="margin-right: 10px">
+            <i class="fa fa-circle text-off"></i> {{ "pages.channel.index.legend.stopped" | trans }}
+            </span>
+            <span style="margin-right: 10px">
+            <i class="fa fa-circle text-error"></i> {{ "pages.channel.index.legend.error" | trans }}
+            </span>
+        </p>
+        {% include 'AppBundle:themes/default/Channels:playbackmodal.html.twig' %}
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channel.index.no_channels" | trans }}</h4>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "base_admin.sidebar.menu.admin.channels" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.streams.msg_delete" | trans }}";
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        var table = '';
+        var rpp = 100;
+
+        $(document).ready(function () {
+            table = $('#datatable').DataTable({
+                lengthChange: true,
+                destroy: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                dom: "<'row'<'col-md-6 pull-left'lB><'col-md-6 pull-right'f>>rt<'row'<'col-md-6 pull-left'i><'col-md-6 pull-right'p>>", 
+                buttons: [
+                    'excel'
+                ],              
+                ajax: {
+                    url: "{{ path('streams_ajax') }}",
+                    method: 'POST',
+                    data: {
+                        page: 1,
+                        rpp: rpp
+                    }
+                },
+                columns: [
+                    { "data": "name" },
+                    { "data": "category" },
+                    { "data": "actions" }
+                ]
+            });
+
+            edit('#datatable tbody');
+
+            setTimeout(function () {
+                search(2, rpp);
+            }, 900);
+        })
+
+        function edit(tbody){
+          $(tbody).on('click', 'a.edit', function(){
+              var data = table.row($(this).parents('tr')).data();
+              var url = $(this).data('href');
+              
+              window.location = $(this).data('href');
+          });
+        }
+
+        function search(page, rpp){
+            $.ajax({
+                url: "{{ path('streams_ajax') }}",
+                dataType: "json", 
+                type: 'POST',
+                data: {
+                    page: page,
+                    rpp: rpp
+                },
+                success: function(response){
+                    var datas = response.data;
+
+                    for(var i = 0; i < datas.length; i++){
+                        table.row.add({
+                            "name": datas[i].name,
+                            "category": datas[i].category,
+                            "actions": datas[i].actions
+                        }).draw();
+                    }
+
+                    if(datas.length)
+                        search(++page, rpp);
+                }
+            });
+        }
+    </script>
+{% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        <div style="margin-bottom: 20px;" class="col-md-12 no-padding">
+            <a class="btn btn-success pull-right" href="{{ path('streams_new') }}">
+                {{ "pages.streams.add" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="m-datatable col-md-6 offset-md-3">
+            <table id="datatable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:5%;">{{ "pages.streams.name" | trans }}</th>
+                        <th style="width:5%;">{{ "pages.streams.category" | trans }}</th>
+                        <th style="width:5%;">{{ "pages.streams.actions" | trans }}</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+{% endblock %}

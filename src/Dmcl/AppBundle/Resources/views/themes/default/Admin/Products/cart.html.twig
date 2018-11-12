@@ -1,0 +1,98 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.packages.cart.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+     <script text="javascript">
+       $(document).ready(function(){
+       });
+     </script>
+ {% endblock %}
+
+{% block vars %}
+{% endblock %}
+
+{% block body_parent %}
+    <div class="row mb-2">
+        <div class="col-sm-4 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+            <div class="main-container table-container">
+                <table class="table table-no-border">
+                    <thead>
+                        {% set color = "#4caf50;" %}
+
+                        {% if package.superReseller %}
+                            {% set color = "#0e84dc;" %}
+                        {% endif %}
+                        
+                        <tr style="background-color:{{ color }}">
+                            <th style="color:black; text-align:left;">{{ 'pages.packages.name' | trans }}</th>
+                            <th style="color:black; text-align:left;">{{ 'pages.packages.superReseller' | trans }}</th>
+                            <th style="color:black; text-align:left;">{{ 'pages.packages.credits' | trans }}</th>
+                            <th style="color:black; text-align:left;">{{ 'pages.packages.price' | trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="text-align:left;">
+                            <td class="table__avatar">
+                                <img src="../../../../uploads/{{ package.logo | default('channel-logo.png') }}" alt="" class="rounded-circle" width="34" height="34">
+                                <span>{{ package.name }}</span>
+                            </td>
+                            <td>
+                               {% if package.superReseller %}
+                                    Yes
+                               {% else %}
+                                    No
+                               {% endif %}
+                            </td>
+                            <td>{{ package.credits }}</td>
+                            <td>{{ package.price }}</td>
+                        </tr>
+                        <tr style="text-align:left;">
+                            <td class="table__avatar">
+                            </td>
+                            <td>
+                            </td>
+                            <td style="background-color: #f4f9fc;"><strong>{{ 'pages.packages.cart.subtotal' | trans }}</strong></td>
+                            <td style="background-color: #f4f9fc;"><strong>{{ package.price }}</strong></td>
+                        </tr>
+                        <tr style="text-align:left;">
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td style="background-color: #f4f9fc;"><strong>{{ 'pages.packages.cart.total' | trans }}</strong></td>
+                            <td style="background-color: #f4f9fc;"><strong>{{ package.price }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+            <form method="POST" action="{{ path("payments_pay") }}">
+                <input name="id" value="{{ package.id }}" type="hidden">
+                <div class="row">
+                    <div class="col-sm-4 col-md-6 col-lg-8">
+                        <select class="form-control select2" name="gateway" id="select-gateway" required>
+                            <option value="">{{ "pages.billing.checkout.select_payment_method" | trans }}</option>
+                            {% for gateway in get_gateways() %}
+                                <option data-logo="{{ asset('bundles/assets/themes/default/dist/img/payments/'~gateway.uniqueName~'.png') }}" value="{{ gateway.uniqueName }}">{{ gateway.displayName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4 col-md-3 col-lg-2">
+                       <a class="pull-right btn btn-secondary icon-left" href="{{ path('packages') }}">{{ "pages.packages.cancel" | trans }} <span class="btn-icon ua-icon-circle-close"></span></a>
+                    </div>
+                    <div class="col-sm-4 col-md-3 col-lg-2">
+                        <button class="pull-right btn btn-success icon-left" type="submit">
+                            {{ "pages.packages.confirm" | trans }} <span class="btn-icon ua-icon-circle-check"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

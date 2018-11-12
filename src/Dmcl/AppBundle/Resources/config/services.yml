@@ -1,0 +1,225 @@
+parameters:
+#Gateways
+    app.payments.paypal.class: Dmcl\AppBundle\Services\Payments\PayPal
+    app.payments.interkassa.class: Dmcl\AppBundle\Services\Payments\Interkassa
+    app.payments.moneybookers.class: Dmcl\AppBundle\Services\Payments\MoneyBookers
+    app.payments.webmoney.class: Dmcl\AppBundle\Services\Payments\WebMoney
+    app.payments.onpay.class: Dmcl\AppBundle\Services\Payments\OnPay
+#Twig
+    app.twig.extension.class:  Dmcl\AppBundle\Twig\Extension\CeilExtension
+    app.twig.extension.slug.class:  Dmcl\AppBundle\Twig\Extension\SlugExtension
+    app.twig.extension.md5.class:  Dmcl\AppBundle\Twig\Extension\Md5Extension
+    app.twig.extension.utils.class:  Dmcl\AppBundle\Twig\Extension\UtilsExtension
+#Services
+    app.user.services.class:  Dmcl\AppBundle\Services\Users
+    app.encoder.services.class:  Dmcl\AppBundle\Services\CryptEncoder
+    app.listener.request.class: Dmcl\AppBundle\EventListener\RequestListener
+    app.ads.services.class: Dmcl\AppBundle\Services\Ads
+    app.util.services.class: Dmcl\AppBundle\Services\Util
+    app.paginator.services.class: Dmcl\AppBundle\Services\Paginator
+    app.config.services.class: Dmcl\AppBundle\Services\Config
+    app.transcoder.services.class: Dmcl\AppBundle\Services\Transcoder
+    app.streamsecurity.services.class: Dmcl\AppBundle\Services\StreamSecurity
+    app.m3u.services.class: Dmcl\AppBundle\Services\M3U
+    app.channelsproxy.services.class: Dmcl\AppBundle\Services\ChannelsProxy
+    app.vodproxy.services.class: Dmcl\AppBundle\Services\VodProxy
+    app.xmltv.services.class: Dmcl\AppBundle\Services\Xmltv
+    app.subscriptions.services.class: Dmcl\AppBundle\Services\Subscription
+
+
+services:
+#Gateways
+    app.payments.paypal:
+        class: %app.payments.paypal.class%
+        
+    app.payments.interkassa:
+        class: %app.payments.interkassa.class%
+
+    app.payments.moneybookers:
+        class: %app.payments.moneybookers.class%
+        
+    app.payments.webmoney:
+        class: %app.payments.webmoney.class%
+
+    app.payments.onpay:
+        class: %app.payments.onpay.class%
+
+#Twig
+    app.twig.extension.ceil:
+            class: %app.twig.extension.class%
+            tags:
+                - { name: twig.extension }
+
+    app.twig.extension.slug:
+            class: %app.twig.extension.slug.class%
+            tags:
+                - { name: twig.extension }
+
+    app.twig.extension.utils:
+            class: %app.twig.extension.utils.class%
+            arguments: [@doctrine.orm.xtreamcode_entity_manager,@service_container,@security.token_storage]
+            tags:
+                - { name: twig.extension }
+
+    app.twig.extension.md5:
+            class: %app.twig.extension.md5.class%
+            tags:
+                - { name: twig.extension }
+
+#Services
+    app.security.crypt_encoder:
+        class: %app.encoder.services.class%
+
+    app.config.services:
+        class: %app.config.services.class%
+        arguments: [@service_container]
+
+    app.transcoder.services:
+        class: %app.transcoder.services.class%
+        arguments: [@service_container]
+
+    app.stream.security.services:
+        class: %app.streamsecurity.services.class%
+        arguments: [@service_container,@router]
+
+    app.m3u.services:
+        class: %app.m3u.services.class%
+        arguments: [@service_container]
+
+    app.channelsproxy.services:
+        class: %app.channelsproxy.services.class%
+        arguments: [@service_container]
+
+    app.vodproxy.services:
+        class: %app.vodproxy.services.class%
+        arguments: [@service_container]
+
+    app.xmltv.services:
+        class: %app.xmltv.services.class%
+        arguments: [@service_container]
+
+
+    app.subscriptions.services:
+        class: %app.subscriptions.services.class%
+        arguments: [@service_container]
+
+    app.users.services:
+        class: %app.user.services.class%
+        arguments: [@service_container]
+
+    app.listener.request:
+        class: %app.listener.request.class%
+        tags:
+           - { name: kernel.event_listener , event: kernel.request, method: onKernelRequest}
+        arguments: [@service_container]
+
+    app.ads.services:
+        class: %app.ads.services.class%
+        arguments: [@service_container]
+
+    app.util.services:
+        class: %app.util.services.class%
+        arguments: [@service_container,@security.token_storage]
+
+    app.paginator.services:
+        class: %app.paginator.services.class%
+        arguments: [@service_container,@security.token_storage]
+
+    # app.services.mailer:
+    #     class: Dmcl\AppBundle\Services\Mailer
+    #     arguments: [@service_container,@mailer,@router,@templating,{confirmation.template: FOSUserBundle:Registration:email.txt.twig , resetting.template: FOSUserBundle:Resetting:email.txt.twig, from_email: {confirmation: %fos_user.registration.confirmation.from_email%, resetting: %fos_user.resetting.email.from_email% }  }]
+
+    app.login.success:
+       class: Dmcl\AppBundle\Services\LoginSuccess
+       arguments: [@security.http_utils,[],@service_container]
+
+    app.logout.success:
+        class: Dmcl\AppBundle\Services\LogoutSuccess
+        arguments: [@security.http_utils,"/",@service_container]
+
+    app.download_vod.service:
+        class: Dmcl\AppBundle\Services\DownloadVodService
+        arguments: [@service_container]
+
+    app.vod_manager:
+        class: Dmcl\AppBundle\Services\VodManager
+        arguments: [@service_container]
+
+    app.form.channel.transcoder:
+        class: Dmcl\AppBundle\Form\ChannelTranscoderType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type, alias: appbundle_channel }
+
+    app.form.settings.system_info:
+        class: Dmcl\AppBundle\Form\SettingsSystemInfoType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.settings.stream_server:
+        class: Dmcl\AppBundle\Form\SettingsStreamsServerType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.settings.hlsdash_settings:
+        class: Dmcl\AppBundle\Form\SettingsHlsdashSettingsType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.settings.email_support:
+        class: Dmcl\AppBundle\Form\SettingsEmailSupportSettingsType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.channles_package:
+        class: Dmcl\AppBundle\Form\ChannelsPackageType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.vods_package:
+        class: Dmcl\AppBundle\Form\VodPackageType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.vods:
+        class: Dmcl\AppBundle\Form\VodType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.vod_series:
+        class: Dmcl\AppBundle\Form\VodSeriesType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.activation_code:
+        class: Dmcl\AppBundle\Form\ActivationCodeType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.timeshift:
+        class: Dmcl\AppBundle\Form\TimeshiftType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.form.activation_code_edit:
+        class: Dmcl\AppBundle\Form\ActivationCodeEditType
+        arguments: [@service_container]
+        tags:
+            - { name: form.type }
+
+    app.service.system_info:
+        class: Dmcl\AppBundle\Services\SystemInfo
+
+    app.statistic_channels:
+        class: Dmcl\AppBundle\Services\StatisticChannels
+        arguments: [@service_container]

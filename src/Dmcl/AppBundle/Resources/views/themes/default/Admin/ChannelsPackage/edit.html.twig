@@ -1,0 +1,53 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.channel_package.new.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel_package.new.title" | trans }}{% endblock %}
+
+{% block body -%}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('channels-package') }}">
+            {{ "pages.channel_categories.new.back_to_list" | trans }}
+        </a>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form_start(edit_form) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form_label(edit_form.enabled,"pages.channel_package.attrs.enabled" | trans ) }}
+                    {{ form_widget(edit_form.enabled) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_label(edit_form.name,"pages.channel_package.attrs.name" | trans ) }}
+                    {{ form_widget(edit_form.name) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_label(edit_form.packageLogoFile,"pages.vod_package.attrs.packageLogoFile" | trans ) }}
+                    {{ form_widget(edit_form.packageLogoFile) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form_label(edit_form.channels,"pages.channel_package.attrs.channels" | trans ) }}
+                    {{ form_widget(edit_form.channels) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xs-12 no-padding">
+            {{ form_widget(edit_form.submit,{'attr':{
+            'class': 'btn btn-success btn-sm pull-right',
+            }}) }}
+        </div>
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+    </div>
+{% endblock %}

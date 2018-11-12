@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Settings" table="settings">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="bouquetName" type="text" column="bouquet_name" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="liveStreamingPass" type="text" column="live_streaming_pass" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="emailVerifySub" type="text" column="email_verify_sub" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="emailVerifyCont" type="text" column="email_verify_cont" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="emailForgotSub" type="text" column="email_forgot_sub" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="emailForgotCont" type="text" column="email_forgot_cont" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="mailFrom" type="text" column="mail_from" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="smtpHost" type="text" column="smtp_host" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="smtpPort" type="integer" column="smtp_port" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="minPassword" type="integer" column="min_password" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">5</option>
+      </options>
+    </field>
+    <field name="usernameStrlen" type="integer" column="username_strlen" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">15</option>
+      </options>
+    </field>
+    <field name="usernameAlpha" type="integer" column="username_alpha" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="allowMultipleAccs" type="integer" column="allow_multiple_accs" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="allowRegistrations" type="integer" column="allow_registrations" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="serverName" type="text" column="server_name" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="smtpUsername" type="text" column="smtp_username" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="smtpPassword" type="text" column="smtp_password" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="emailNewPassSub" type="text" column="email_new_pass_sub" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="logoUrl" type="text" column="logo_url" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="emailNewPassCont" type="text" column="email_new_pass_cont" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="smtpFromName" type="text" column="smtp_from_name" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="confirmationEmail" type="integer" column="confirmation_email" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="smtpEncryption" type="text" column="smtp_encryption" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="uniqueId" type="text" column="unique_id" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="copyrightsRemoved" type="boolean" column="copyrights_removed" nullable="false"/>
+    <field name="copyrightsText" type="text" column="copyrights_text" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="defaultTimezone" type="string" column="default_timezone" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="defaultLocale" type="string" column="default_locale" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">en_GB.utf8</option>
+      </options>
+    </field>
+    <field name="allowedStbTypes" type="text" column="allowed_stb_types" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="clientPrebuffer" type="integer" column="client_prebuffer" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="splitClients" type="string" column="split_clients" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="streamMaxAnalyze" type="integer" column="stream_max_analyze" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">30</option>
+      </options>
+    </field>
+    <field name="showNotOnAirVideo" type="boolean" column="show_not_on_air_video" nullable="false"/>
+    <field name="notOnAirVideoPath" type="text" column="not_on_air_video_path" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="showBannedVideo" type="boolean" column="show_banned_video" nullable="false"/>
+    <field name="bannedVideoPath" type="text" column="banned_video_path" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="showExpiredVideo" type="boolean" column="show_expired_video" nullable="false"/>
+    <field name="expiredVideoPath" type="text" column="expired_video_path" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="magContainer" type="string" column="mag_container" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="probesize" type="integer" column="probesize" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">5000000</option>
+      </options>
+    </field>
+    <field name="blockSvp" type="boolean" column="block_svp" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="allowedIpsAdmin" type="text" column="allowed_ips_admin" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="allowCountries" type="text" column="allow_countries" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="userAutoKickHours" type="integer" column="user_auto_kick_hours" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="showInRedOnline" type="integer" column="show_in_red_online" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="disallowEmptyUserAgents" type="boolean" column="disallow_empty_user_agents" nullable="true">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="showAllCategoryMag" type="boolean" column="show_all_category_mag" nullable="true">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="defaultLang" type="text" column="default_lang" length="16777215" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="autobackupStatus" type="integer" column="autobackup_status" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="autobackupPass" type="text" column="autobackup_pass" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="floodLimit" type="integer" column="flood_limit" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="floodIpsExclude" type="text" column="flood_ips_exclude" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="reshareDenyAddon" type="boolean" column="reshare_deny_addon" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="restartHttp" type="boolean" column="restart_http" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="floodSeconds" type="integer" column="flood_seconds" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">5</option>
+      </options>
+    </field>
+    <field name="floodMaxAttempts" type="integer" column="flood_max_attempts" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="floodApplyClients" type="integer" column="flood_apply_clients" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="floodApplyRestreamers" type="integer" column="flood_apply_restreamers" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="floodGetBlock" type="integer" column="flood_get_block" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="portalBlock" type="integer" column="portal_block" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="streamingBlock" type="integer" column="streaming_block" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="cssLayout" type="string" column="css_layout" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="backupSourceAll" type="integer" column="backup_source_all" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="streamStartDelay" type="integer" column="stream_start_delay" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">20000</option>
+      </options>
+    </field>
+    <field name="hashLb" type="boolean" column="hash_lb" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="vodBitratePlus" type="integer" column="vod_bitrate_plus" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">60</option>
+      </options>
+    </field>
+    <field name="readBufferSize" type="integer" column="read_buffer_size" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">8192</option>
+      </options>
+    </field>
+    <field name="tvChannelDefaultAspect" type="string" column="tv_channel_default_aspect" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">fit</option>
+      </options>
+    </field>
+    <field name="playbackLimit" type="integer" column="playback_limit" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">3</option>
+      </options>
+    </field>
+    <field name="showTvChannelLogo" type="boolean" column="show_tv_channel_logo" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="showChannelLogoInPreview" type="boolean" column="show_channel_logo_in_preview" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="enableConnectionProblemIndication" type="boolean" column="enable_connection_problem_indication" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="vodLimitAt" type="integer" column="vod_limit_at" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="clientAreaPlugin" type="string" column="client_area_plugin" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">flow</option>
+      </options>
+    </field>
+    <field name="persistentConnections" type="boolean" column="persistent_connections" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="showCaptcha" type="integer" column="show_captcha" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="stalkerTheme" type="string" column="stalker_theme" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">digital</option>
+      </options>
+    </field>
+    <field name="rtmpRandom" type="boolean" column="rtmp_random" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="apiIps" type="text" column="api_ips" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="cryptLoadBalancing" type="string" column="crypt_load_balancing" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="useBuffer" type="boolean" column="use_buffer" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="restreamerPrebuffer" type="boolean" column="restreamer_prebuffer" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="audioRestartLoss" type="boolean" column="audio_restart_loss" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="stalkerLockImages" type="text" column="stalker_lock_images" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="channelNumberType" type="string" column="channel_number_type" length="25" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">bouquet</option>
+      </options>
+    </field>
+    <field name="stbChangePass" type="boolean" column="stb_change_pass" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="enableDebugStalker" type="boolean" column="enable_debug_stalker" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="onlineCapacityInterval" type="smallint" column="online_capacity_interval" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">10</option>
+      </options>
+    </field>
+    <field name="alwaysEnabledSubtitles" type="boolean" column="always_enabled_subtitles" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="testDownloadUrl" type="string" column="test_download_url" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="enablePseudoHls" type="boolean" column="enable_pseudo_hls" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="recordMaxLength" type="integer" column="record_max_length" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">180</option>
+      </options>
+    </field>
+    <field name="totalRecordsLength" type="integer" column="total_records_length" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">600</option>
+      </options>
+    </field>
+    <field name="maxLocalRecordings" type="integer" column="max_local_recordings" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">10</option>
+      </options>
+    </field>
+    <field name="allowedStbTypesForLocalRecording" type="text" column="allowed_stb_types_for_local_recording" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="allowedStbTypesRec" type="text" column="allowed_stb_types_rec" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="dynamicTimezone" type="boolean" column="dynamic_timezone" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="xcSupportAllow" type="boolean" column="xc_support_allow" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="e2Arm7a" type="string" column="e2_arm7a" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="e2Mipsel" type="string" column="e2_mipsel" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="e2Mips32el" type="string" column="e2_mips32el" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="e2Sh4" type="string" column="e2_sh4" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="e2Arm" type="string" column="e2_arm" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="apiPass" type="string" column="api_pass" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="messageOfDay" type="text" column="message_of_day" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="doubleAuth" type="boolean" column="double_auth" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="mysqlRemoteSec" type="boolean" column="mysql_remote_sec" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="enableIspLock" type="boolean" column="enable_isp_lock" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="showIsps" type="boolean" column="show_isps" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="userpanelMainpage" type="text" column="userpanel_mainpage" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="saveClosedConnection" type="boolean" column="save_closed_connection" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="clientLogsSave" type="boolean" column="client_logs_save" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="getRealIpClient" type="string" column="get_real_ip_client" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="caseSensitiveLine" type="boolean" column="case_sensitive_line" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="countyOverride1st" type="boolean" column="county_override_1st" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="disallow2ndIpCon" type="boolean" column="disallow_2nd_ip_con" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="firewall" type="boolean" column="firewall" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="newSortingBouquet" type="boolean" column="new_sorting_bouquet" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="splitBy" type="string" column="split_by" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">con</option>
+      </options>
+    </field>
+    <field name="useMdomainInLists" type="boolean" column="use_mdomain_in_lists" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="useHttps" type="text" column="use_https" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="priorityBackup" type="boolean" column="priority_backup" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="useBufferTable" type="boolean" column="use_buffer_table" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tmdbApiKey" type="text" column="tmdb_api_key" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="toggleMenu" type="boolean" column="toggle_menu" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="mobileApps" type="boolean" column="mobile_apps" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="stalkerContainerPriority" type="text" column="stalker_container_priority" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="genContainerPriority" type="text" column="gen_container_priority" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="tmdbDefault" type="string" column="tmdb_default" length="3" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">en</option>
+      </options>
+    </field>
+    <field name="seriesCustomName" type="boolean" column="series_custom_name" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

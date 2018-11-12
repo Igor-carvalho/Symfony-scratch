@@ -1,0 +1,35 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.paypal.new.title" | trans  }}{% endblock %}
+
+{% block body_parent %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary btn-sm pull-right" href="{{ path('paypal') }}">
+                {{ "pages.paypal.new.back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3 col-sm-8 offset-2 col-xs-12">
+            {{ form_start(form) }}
+                <div class="col-md-12 col-xs-12 no-padding mb-2">
+                    {{ form_label(form.paypalName,"pages.paypal.attrs.name" | trans ) }}
+                    {{ form_widget(form.paypalName) }}
+                </div>
+                <div class="col-md-12 col-xs-12 no-padding mb-2">
+                    {{ form_label(form.shopIdPublicKey,"pages.paypal.attrs.shop_id_public_key" | trans ) }}
+                    {{ form_widget(form.shopIdPublicKey) }}
+                </div>
+                <div class="col-md-12 col-xs-12 no-padding mb-2">
+                    {{ form_label(form.secretKey,"pages.paypal.attrs.secret_key" | trans ) }}
+                    {{ form_widget(form.secretKey) }}
+                </div>
+                <div class="col-md-12 col-xs-12 no-padding mb-2">
+                    <button type="submit" class="btn btn-primary pull-right">{{ 'pages.paypal.new.save'|trans }}</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

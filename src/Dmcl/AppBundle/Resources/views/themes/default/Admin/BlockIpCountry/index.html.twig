@@ -1,0 +1,55 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.block_ip_country.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.block_ip_country.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.block_ip_country.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body -%}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('block-ip-country_new') }}">
+            {{ "pages.block_ip_country.index.add_rule" | trans }}
+        </a>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.block_ip_country.index.table.ip" | trans }}</th>
+                <th>{{ "pages.block_ip_country.index.table.country" | trans }}</th>
+                <th>{{ "pages.block_ip_country.index.table.ip_range" | trans }}</th>
+                <th>{{ "pages.block_ip_country.index.table.status" | trans }}</th>
+                <th>{{ "pages.block_ip_country.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.ip }}</td>
+                    <td>{{ entity.country | get_country }}</td>
+                    <td>{{ entity.ipRange }}</td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.block_ip_country.index.enabled" | trans :"pages.block_ip_country.index.disabled" | trans }}</td>
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-info" href="{{ path('block-ip-country_edit', { 'id': entity.id }) }}">{{ "pages.block_ip_country.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete" data-href="{{ path('block-ip-country_delete', { 'id': entity.id }) }}">{{ "pages.block_ip_country.index.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.block_ip_country.index.no_rules" | trans }}</h4>
+    {% endif %}
+{% endblock %}

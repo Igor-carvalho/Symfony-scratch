@@ -1,0 +1,43 @@
+<div id="dealer-info" class="row">
+    <fieldset>
+        <legend>
+            <small>Dealer Info</small>
+        </legend>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group ">
+                    {{ form_label(dealerForm.apk_name) }}
+                    {{ form_widget(dealerForm.apk_name) }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group ">
+                    {{ form_label(dealerForm.file) }}
+                    {{ form_widget(dealerForm.file) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    {{ form_label(dealerForm.company_name) }}
+                    {{ form_widget(dealerForm.company_name) }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group ">
+                    {{ form_label(dealerForm.company_address) }}
+                    {{ form_widget(dealerForm.company_address) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group ">
+                    {{ form_label(dealerForm.company_phone) }}
+                    {{ form_widget(dealerForm.company_phone) }}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

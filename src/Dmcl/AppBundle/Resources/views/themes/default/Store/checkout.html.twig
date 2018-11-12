@@ -1,0 +1,171 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.billing.checkout.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.billing.checkout.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/card-master/lib/js/card.js') }}"></script>
+     <script src="https://js.stripe.com/v1/" type="text/javascript"></script>
+     <script type="text/javascript">
+         new Card({
+             form: document.querySelector('#card-container'),
+             container: '#card-wrapper-channels'
+         });
+         var creditCardFieldRequired = "{{  "pages.billing.checkout.creditcard.fields_required" | trans  }}";
+         {% for gateway in get_gateways() %}
+         {% if gateway.uniqueName == "creditcard" %}
+         {#Stripe.setPublishableKey("{{ gateway.shopIdPublicKey | default('k_test0_BQokikJOvBiI2HlWgH4olfQ2') }}");#}
+         {% endif %}
+         {% endfor %}
+
+     </script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/checkout.js') }}"></script>
+ {% endblock %}
+
+{% block body -%}
+    <div class="col-md-12">
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+            <div class="col-xs-12">
+            <h2 class="page-header">
+            {{ "pages.billing.checkout.title" | trans }}
+            </h2>
+            </div><!-- /.col -->
+            </div>
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ "pages.billing.orders.details.table.image" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.product_name" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.product_type" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.qty" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.unit_cost" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.subtotal" | trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set amount = 0 %}
+                        {% set discount = "0.0" %}
+                        {% for type,products in cart %}
+                            {% if products | length >0 %}
+                                {% for id,product in products %}
+                                    {% set amount = amount+(product['details']['price'] * product['total'] ) %}
+                                    <tr>
+                                        <td><img width="37" height="34" alt="{{ product['details']['name'] }}" src="{{ product['details']['image'] }}"></td>
+                                        <td>{{ product['details']['name'] }}</td>
+                                        <td>{{ types[type] }}</td>
+                                        <td>{{ product['total'] }}</td>
+                                        <td>{{ product['details']['price'] }}</td>
+                                        <td>{{ (product['details']['price'] * product['total'] ) | price_humanize | trans }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="lead">{{ "pages.billing.orders.details.gateway" | trans }}</p>
+                    <div class="col-md-12">
+                        <div class="row well" id="card-container" style="display: none">
+                            <div class="col-md-12">
+                                <div class="demo-container" data-id='1'>
+                                    <div class="card-wrapper-channels" id="card-wrapper-channels"></div>
+                                    <div id="card-container" class="card-container form-container active">
+                                        <div class="row">
+                                            <div class="form-group col-sm-12">
+                                                <label for="cardNumber">{{ "pages.billing.checkout.creditcard.card_number" | trans }}</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-credit-card"></i></span>
+                                                    <input id="cardNumber" data-name="number" class="card-number form-control" placeholder="0000-0000-0000-0000" aria-describedby="basic-addon1" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label for="fullName">{{ "pages.billing.checkout.creditcard.name" | trans }}</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                                    <input id="fullName" value="{{ app.user.name }}" data-name="name" class="card-number form-control" placeholder="{{ "pages.billing.checkout.creditcard.name" | trans }}" aria-describedby="basic-addon1" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 ">
+                                                {{ "pages.billing.checkout.creditcard.cvc" | trans }}
+                                            </div>
+                                            <div class="col-sm-8 ">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-lock"></i></span>
+                                                    <input id="cvc" data-name="cvc" size="4" autocomplete="off" class="card-cvc form-control" placeholder="123" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 ">
+                                                {{ "pages.billing.checkout.creditcard.expiration" | trans }}
+                                            </div>
+                                            <div class="col-sm-8 ">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+                                                    <input id="expiry"  data-name="expiry"  autocomplete="off" class="form-control" placeholder="MM/YY" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <form id="payment-form" method="POST" action="{{ path("payments_pay") }}">
+                            <select class="form-control" name="gateway" id="select-gateway" required>
+                                <option value="">{{ "pages.billing.checkout.select_payment_method" | trans }}</option>
+                                {% for gateway in get_gateways() %}
+                                    <option data-logo="{{ asset('bundles/assets/themes/default/dist/img/payments/'~gateway.uniqueName~'.png') }}" value="{{ gateway.uniqueName }}">{{ gateway.displayName }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" style="display: none" id="btn-subbmit-payment-form"></button>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <img id="gateway-logo" style="width: 150px; height: 80px;" src="" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">{{ "pages.billing.orders.details.table.subtotal" | trans }}:</th>
+                                <td>{{ amount | price_humanize | trans  }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "pages.billing.orders.details.table.discount" | trans }}:</th>
+                                <td>{{ discount | price_humanize | trans  }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "pages.billing.orders.details.table.total" | trans }}:</th>
+                                <td>{{ amount | price_humanize | trans  }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-12">
+                    <button id="btn-confirm" class="btn btn-success cart-controllers pull-right">{{ "pages.billing.checkout.confirm" | trans }}</button>
+                </div>
+            </div><!-- /.row -->
+
+        </section><!-- /.content -->
+    </div>
+{% endblock %}

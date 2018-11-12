@@ -1,0 +1,39 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.servers_zone.edit.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.servers_zone.edit.title" | trans }}{% endblock %}
+
+{% block body -%}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('servers-zone') }}">
+            {{ "pages.servers_zone.new.back_to_list" | trans }}
+        </a>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form_start(edit_form) }}
+        <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+            {{ form_label(edit_form.name,"pages.servers_zone.attrs.name" | trans ) }}
+            {{ form_widget(edit_form.name) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+            {{ form_label(edit_form.hasDefault,"pages.servers_zone.attrs.has_default" | trans ) }}
+            {{ form_widget(edit_form.hasDefault) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+            {{ form_label(edit_form.countries,"pages.servers_zone.attrs.countries" | trans ) }}
+            {{ form_widget(edit_form.countries) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-padding">
+            {{ form_widget(edit_form.submit,{'attr':{
+            'class': 'btn btn-success btn-sm pull-left',
+            }}) }}
+        </div>
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+    </div>
+
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form(delete_form) }}
+    </div>
+{% endblock %}

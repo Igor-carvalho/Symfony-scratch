@@ -1,0 +1,43 @@
+{% extends 'AppBundle:themes/default/base-admin:boostrap.html.twig' %}
+
+
+
+{% block title %}{{ "pages.channel.log.log" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel.log.log" | trans }}{% endblock %}
+
+{% block body_parent -%}
+	{% if logs | length > 0 %}
+        <div class="row product-list">
+			<div class="col-sm-12">
+				{% for log in logs %}
+					<div class="col-md-12 col-sm-12 col-xs-12 margin-bottom-10 animated channel-package">
+						<div class="product-item">
+							<div class="row">
+								<div class="col-sm-6">
+									<span class="pull-left">Channel name: {{channel.name}}</span>
+								</div>
+								<div class="col-sm-6">
+									<span class="pull-right">Date: {{log.date}}</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<span>{{ file_get_contents(log.fls) | raw }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				</div>	
+			</div>
+        </div>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channel.log.no_log" | trans }}</h4>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+	$(document).ready(function () {
+	})
+</script>
+{% endblock %}

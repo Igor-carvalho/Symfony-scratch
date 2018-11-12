@@ -1,0 +1,27 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.technical_issues.new.title" | trans }}{% endblock %}
+
+{% block body_parent %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="row">
+        <div class="col-md-12">
+            <a style="float: right;" class="btn btn-secondary btn-sm" href="{{ path('technical_issues') }}">
+                {{ "pages.channel_categories.new.back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3 col-sm-8 offset-2 col-xs-12">
+            {{ form_start(form) }}
+                <div class="col-md-12 col-xs-12 no-padding mb-1">
+                    {{ form_widget(form.issue) }}
+                </div>
+                <div class="col-md-12 col-xs-12 no-padding">
+                    <button style="float: right;" type="submit" class="btn btn-primary">{{ 'pages.technical_issues.new.save'|trans }}</button>
+                </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

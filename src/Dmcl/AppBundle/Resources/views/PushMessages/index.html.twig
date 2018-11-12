@@ -1,0 +1,62 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "base_admin.sidebar.menu.admin.push_messages" | trans }}{% endblock %}
+{% block page_title %}{{ "base_admin.sidebar.menu.admin.push_messages" | trans }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+{% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.vod.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('app.push_messages.new') }}">
+            {{ "add_message" | trans }}
+        </a>
+    </div>
+    {% if messages | length > 0 %}
+        <table class="datatable table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                {#<th class="col-md-1"></th>#}
+                <th>{{ "pages.vod.index.table.title" | trans }}</th>
+                <th>{{ "content" | trans }}</th>
+                <th>{{ "label.publish_rom" | trans }}
+                <th>{{ "pages.activation_code.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message in messages %}
+                <tr id="{{ message.id }}">
+                    <td>{{ message.title }}</td>
+                    <td>{{ message.content }}</td>
+                    <td>{{ message.date | date }}</td>
+                    <td style="text-align: center">
+
+                        {#<a class="btn btn-xs btn-info {% if message.date <= date() %} disabled {% endif %}" href="{{ path("app.push_messages.edit", {'id': message.id}) }}">#}
+                        <a class="btn btn-xs btn-info" href="{{ path("app.push_messages.edit", {'id': message.id}) }}">
+                            {{ "pages.channel_categories.index.edit" | trans }}
+                        </a>
+                        <a class="btn btn-xs btn-danger delete" data-href="{{ path("app.push_messages.delete", {'id': message.id}) }}">
+                            {{ "pages.channel_categories.index.delete" | trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "not_messages" | trans }}</h4>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+series-package:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:index" }
+
+series-package_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:show" }
+
+series-package_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:new" }
+
+series-package_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:create" }
+    methods:  POST
+
+series-package_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:edit" }
+
+series-package_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:update" }
+    methods:  [POST, PUT]
+
+series-package_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:delete" }
+    methods:  [POST, DELETE]
+
+series_package_playback:
+    path: /playback/
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:vodPackagePlayback" }
+
+series_package_playback_info:
+    path: /info/{idVodPackage}/
+    defaults: { _controller: "AppBundle:Admin/SeriesPackage:vodPackagePlaybackInfo" }
+    options:
+        expose: true

@@ -1,0 +1,40 @@
+products:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:index" }
+
+products_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:new" }
+
+products_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:create" }
+    methods:  POST
+
+products_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:edit" }
+
+products_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:update" }
+    methods:  [POST, PUT]
+
+products_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:delete" }
+    methods:  [POST, DELETE]
+
+products_cart:
+    path:     /{id}/cart
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:cart" }
+
+products_change_super_reseller:
+    path:     /{id}/changeSuperReseller
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:changeSuperReseller" }
+    methods:  POST
+
+products_change_status:
+    path:     /{id}/changeStatus
+    defaults: { _controller: "AppBundle:Admin/PackagesLocal:changeStatus" }
+    methods:  POST

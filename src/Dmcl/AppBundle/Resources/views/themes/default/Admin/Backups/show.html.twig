@@ -1,0 +1,68 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.backup.index.title" | trans }}{% endblock %}
+{% block page_description %}{% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.backup.msg_delete" | trans }}";
+    var restoreMsg = "{{ "pages.backup.restore_msg" | trans }}";
+{% endblock %}
+
+{% block body %} 
+    <div class="row margin-bottom">
+        <div class="col-sm-6 col-md-6 col-xs-12">
+            <a class="btn btn-default pull-left" href="{{ path('backups') }}">
+                {{ "back_to_list" | trans }}
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-xs-12">
+            <a class="btn btn-success pull-right" href="{{ path('backups_new', {'ip':ip}) }}">
+                {{ "pages.backup.create" | trans }}
+            </a>
+        </div>
+    </div> 
+    
+    <div class="row margin-bottom">
+        <div class="col-sm-12 col-md-12 col-xs-12">
+            <form id="form_restore_backup" method="POST" action="{{ path("backups_restore_file", {'ip':ip}) }}" enctype="multipart/form-data">
+                <div class="col-md-3">
+                    <input id="input_file" name="file" required type="file" class="form-control"/>
+                </div>
+                <button title="{{ "pages.backup.restore_btn" | trans }}" type="submit" id="form_restore_backup_btn" class="btn btn-primary"><i class="fa fa-upload"></i></button>
+            </form>
+        </div>
+    </div>
+
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-hover">
+            <thead>
+            <tr class="headings">
+                <th class="column-title">{{ "pages.backup.index.table.create_at" | trans }}</th>
+                <th class="column-title">{{ "pages.backup.index.table.source" | trans }}</th>
+                <th class="column-title no-link last"><span class="nobr">{{ "pages.backup.index.table.actions" | trans }}</span>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr class="even pointer">
+                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{{ entity.source }}</td>
+                    <td>
+                        <div class="row">
+                            <div>
+                                <a class="btn btn-success restore_backup" title="Restore" href="{{ path('backups_restore', { 'ip': ip, 'id': entity.id }) }}"><i class="fa fa-upload"></i></a>
+                                <a target="_blank" class="btn btn-success" title="Download" href="{{ path('backups_download', { 'ip': ip, 'id': entity.id }) }}"><i class="fa fa-download"></i></a>
+                                <a class="btn btn-danger  delete" title="Delete" data-href="{{ path('backups_delete', { 'ip': ip, 'id': entity.id }) }}"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.backup.msg_no_backups" | trans }}</h4>
+    {% endif%}
+
+{% endblock %}

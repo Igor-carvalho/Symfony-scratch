@@ -1,0 +1,49 @@
+technical_issues:
+    path:     /
+    defaults: { _controller: "AppBundle:TechnicalIssues:index" }
+
+technical_issues_sent:
+    path:     /sent
+    defaults: { _controller: "AppBundle:TechnicalIssues:sent" }
+
+technical_issues_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:TechnicalIssues:show" }
+
+technical_issues_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:TechnicalIssues:new" }
+
+technical_issues_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:TechnicalIssues:create" }
+    methods:  POST
+
+technical_issues_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:TechnicalIssues:edit" }
+
+technical_issues_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:TechnicalIssues:update" }
+    methods:  [POST, PUT]
+
+technical_issues_delete:
+    path:     /delete
+    defaults: { _controller: "AppBundle:TechnicalIssues:delete" }
+    methods:  [POST, DELETE]
+
+issue_edit:
+    path:     /{id}/issue_edit
+    defaults: { _controller: "AppBundle:TechnicalIssues:issueEdit" }
+
+issue_delete:
+    path:     /{id}/issue_delete
+    defaults: { _controller: "AppBundle:TechnicalIssues:issueDelete" }
+
+technical_issues_reply:
+    path:  /{id}/reply
+    defaults: { _controller: "AppBundle:TechnicalIssues:reply" }
+    requirements:
+        methods: GET|POST
+

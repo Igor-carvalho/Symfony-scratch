@@ -1,0 +1,395 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.tickets.index.title" | trans }}{% endblock %}
+
+{% block content_class %}
+    container-fluid m-messenger
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        var ticketsTag;
+        var tickets = new Array();
+        var ticketActive;
+        var userId;
+        var newState = false;
+        var ticketId = "{{ id }}";
+
+        $(document).ready(function () {
+            ticketsTag = $('#tickets');
+
+            $('.m-messenger__messages').hide();
+            {# $('.m-messenger__messages-block').empty(); #}
+
+            $('#issue').on({
+                change: function(){
+                    updateIssue();
+                }
+            });
+
+            loadTickets();
+        });
+
+        function loadTickets(){
+            $.ajax({
+                url: "{{ path('tickets_ajax') }}",
+                method: 'POST',
+                data: {},
+                success: function(response){
+                    tickets = response.datas;
+
+                    showTickets();
+                }
+            });
+        }
+
+        function hideMessage(index=0){
+           $('.m-messenger__messages').hide();
+
+           if(!newState && ticketActive)
+               $('#ticket-'+ticketActive.id).removeClass('is-active');
+
+            if(ticketActive){
+                ticketActive = null;
+                ticketId = '';
+            } 
+
+            if(newState && userId){
+                $('#contact-'+userId).removeClass('is-active');
+                userId = '';
+            }
+        }
+
+        function showTickets(filter = ""){
+           ticketsTag.empty();
+           hideMessage();
+
+           if(tickets.length){
+                var index = -1;
+                var ready = false;
+
+               for(var i = 0; i < tickets.length; i++){
+                    var newMessage = tickets[i].newMessage?'<span class="m-messenger__conversation-user-status is-online"></span>':"";
+
+                    if(ticketId != '' && tickets[i].id == ticketId)
+                        index = i;
+
+                    ticketsTag.append('<div id="ticket-'+tickets[i].id+'" onclick="selectTicket(\''+i+'\')" class="m-messenger__conversation" style="cursor:pointer;">\
+                                        <div id="newMessage-'+tickets[i].id+'" class="m-messenger__conversation-avatar">\
+                                            <img src="{{ asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="" width="34" height="34" class="rounded-circle">\
+                                            '+newMessage+'\
+                                        </div>\
+                                        <div class="m-messenger__conversation-wrap">\
+                                            <div class="m-messenger__conversation-header">\
+                                                <span class="m-messenger__conversation-username">'+tickets[i].from.name+'</span>\
+                                                <span class="m-messenger__conversation-date">'+tickets[i].date+'</span>\
+                                            </div>\
+                                            <div class="m-messenger__conversation-message">'+tickets[i].issue+'</div>\
+                                        </div>\
+                                    </div>');
+                }
+
+                if(index != -1){
+                    selectTicket(index);
+                }
+           }
+           else{
+               ticketsTag.append('<div class="mt-5 color-gray" style="text-align:center">{{ "pages.tickets.no_tickets" | trans }}</div>');
+           }
+        }
+
+        function showMessages(){
+            $.ajax({
+                url: "{{ path('tickets_messages') }}",
+                method: 'POST',
+                data: {
+                    id: ticketId
+                },
+                success: function(response){
+                    var messages = response.datas;
+                    var owner = response.owner;
+
+                    for(var i = 0; i < messages.length; i++){
+                        var self = messages[i].admin?'is-self':'is-interlocutor';
+
+                        if(!owner)
+                            self = !messages[i].admin?'is-self':'is-interlocutor';
+
+                        $('.m-messenger__messages-block').append('<div class="m-messenger__messages-message '+self+'">\
+                                                                    <img src="{{ asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="" width="34" height="34" class="rounded-circle m-messenger__messages-avatar">\
+                                                                    <div class="m-messenger__messages-wrap">\
+                                                                        <div class="m-messenger__messages-message-text">'+messages[i].message+'</div>\
+                                                                        <span class="m-messenger__messages-date">'+messages[i].time+'</span>\
+                                                                    </div>\
+                                                                </div>');
+                    }
+
+                    $('.m-messenger__messages').show();
+                }
+            });
+        }
+
+        function selectTicket(index){
+            if(ticketActive){
+                $('#newMessage-'+ticketActive.id).empty();
+                $('#ticket-'+ticketActive.id).removeClass('is-active');
+            }
+
+            ticketActive = tickets[index];
+
+            var username = ticketActive.to.name;
+             userId = ticketActive.to.id;
+
+            if(!ticketActive.owner){
+                username = ticketActive.from.name;
+                userId = ticketActive.from.id;
+            }
+
+            newState = false;
+
+            ticketId = ticketActive.id;
+
+            $('#issue-parent').hide();
+            $('#newMessage-'+ticketActive.id).empty();
+
+            $('#ticket-'+ticketActive.id).addClass('is-active');
+
+            $('.m-messenger__messages-footer').prop('style', "min-height:162px; height:162px;");
+
+            $('#message')[0].value = "";
+
+            updateIssue();
+
+            $('.m-messenger__messages-to').html('To: '+username);
+            $('.m-messenger__messages-block').empty();
+
+            showMessages();
+        }
+
+        function send(){
+            var url = "{{ path('tickets_send') }}";
+
+            var params = {
+                ticketId: ticketId,
+                id: userId,
+                message: $('#message')[0].value,
+            };
+
+            if(newState){
+                url = "{{ path('tickets_create') }}";
+
+                params = {
+                    id: userId,
+                    message: $('#message')[0].value,
+                    issue: $('#issue')[0].value
+                };
+            }
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: params,
+                success: function(response){
+                    var data = response.data;
+
+                    if(newState)
+                        ticketId = data.ticketId;
+
+                    newState = false;
+
+                    $('#issue-parent').hide();
+
+                    $('.m-messenger__messages-footer').prop('style', "min-height:162px; height:162px;");
+
+                    $('.m-messenger__messages-block').append('<div class="m-messenger__messages-message is-self">\
+                                                                    <div class="m-messenger__messages-wrap">\
+                                                                        <div class="m-messenger__messages-message-text">'+$("#message")[0].value+'</div>\
+                                                                        <span class="m-messenger__messages-date">'+data.time+'</span>\
+                                                                    </div>\
+                                                                </div>');
+                }
+            });
+        }
+
+        function updateIssue(){
+            $('.m-messenger__messages-issue').html('Issue: '+$('#issue')[0][$('#issue')[0].selectedIndex].text);
+        }
+
+        function newTicket(id, username){
+            if(userId){
+                $('#contact-'+userId).removeClass('is-active');
+            }
+
+            userId = id;
+
+            newState = true;
+
+            $('#issue-parent').show();
+
+            $('#contact-'+id).addClass('is-active');
+
+            $('.m-messenger__messages-footer').prop('style', "min-height:240px; height:240px;");
+
+            $('#message')[0].value = "";
+
+            updateIssue();
+
+            $('.m-messenger__messages-to').html('To: '+username);
+            $('.m-messenger__messages-block').empty();
+
+            $('.m-messenger__messages').show();
+        }
+    </script>
+ {% endblock %}
+
+{% block body_parent %}
+    <div class="main-container m-messenger__container">
+        <div class="m-messenger__discussions" style="border-right: 2px solid #edf3f7;">
+            <ul class="nav nav-tabs m-messenger__discussions-header">
+                <li onclick="loadTickets()" class="nav-item">
+                    <a class="nav-link active show" id="messenger-recent" data-toggle="tab" href="#messenger-recent-tab">
+                        <span class="tab-icon ua-icon-messages"></span>
+                        <span class="tab-text">Chats</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="messenger-contacts" data-toggle="tab" href="#messenger-contacts-tab">
+                        <span class="tab-icon ua-icon-users tab-icon-contacts"></span>
+                        <span class="tab-text">Contacts</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content m-messenger__discussions-body">
+                <div class="tab-pane active show" id="messenger-recent-tab">
+                    <div class="m-messenger__discussions-search">
+                        <div class="input-group input-group-icon iconfont icon-right mb-0">
+                            <input class="form-control" placeholder="Search users by name..." type="text">
+                            <span class="input-icon ua-icon-search"></span>
+                        </div>
+                    </div>
+                    <div class="m-messenger__discussions-content">
+                        <div class="m-messenger__discussions-scrollpane js-scrollable" data-simplebar="init">
+                            <div class="simplebar-track vertical" style="visibility: visible;">
+                                <div class="simplebar-scrollbar" style="top: 2px; height: 218px;"></div>
+                            </div>
+                            <div class="simplebar-track horizontal" style="visibility: hidden;">
+                                <div class="simplebar-scrollbar"></div>
+                            </div>
+                            <div class="simplebar-scroll-content" style="padding-right: 20px; margin-bottom: -40px;">
+                                <div id="tickets" class="simplebar-content" style="padding-bottom: 20px; margin-right: -20px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="messenger-contacts-tab">
+                    <div class="m-messenger__discussions-search">
+                        <div class="input-group input-group-icon iconfont icon-right mb-0">
+                        <input class="form-control" placeholder="Search users by name..." type="text">
+                        <span class="input-icon ua-icon-search"></span>
+                        </div>
+                    </div>
+                    <div class="m-messenger__contacts-content">
+                        <div class="m-messenger__discussions-scrollpane js-scrollable" data-simplebar="init">
+                            <div class="simplebar-track vertical" style="visibility: visible;">
+                                <div class="simplebar-scrollbar" style="top: 2px; height: 261px;"></div>
+                            </div>
+                            <div class="simplebar-track horizontal" style="visibility: hidden;">
+                                <div class="simplebar-scrollbar"></div>
+                            </div>
+                            <div class="simplebar-scroll-content" style="padding-right: 20px; margin-bottom: -40px;">
+                                <div class="simplebar-content" style="padding-bottom: 20px; margin-right: -20px;">
+                                    {% if owner %}
+                                        <div id="contact-{{ owner.id}}" onclick='newTicket("{{ owner.id }}", "{{ owner.username }}")' class="m-messenger__conversation" style="cursor:pointer;">
+                                            <div class="m-messenger__conversation-avatar">
+                                                <img src="{{ owner.avatar  ? asset("uploads/"~owner.avatar):asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="" width="34" height="34" class="rounded-circle">
+                                            </div>
+                                            <div class="m-messenger__conversation-wrap">
+                                                <div class="m-messenger__conversation-header">
+                                                    <span class="m-messenger__conversation-username">{{ owner.username }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% for contact in contacts %}
+                                        <div id="contact-{{ contact.id}}" onclick='newTicket("{{ contact.id }}", "{{ contact.username }}")' class="m-messenger__conversation" style="cursor:pointer;">
+                                            <div class="m-messenger__conversation-avatar">
+                                                 <img src="{{ contact.avatar  ? asset("uploads/"~contact.avatar):asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="" class="rounded-circle" width="34" height="34">
+                                                {# <span class="m-messenger__conversation-user-status is-online"></span> #}
+                                            </div>
+                                            <div class="m-messenger__conversation-wrap">
+                                                <div class="m-messenger__conversation-header">
+                                                    <span class="m-messenger__conversation-username">{{ contact.username }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="m-messenger__messages">
+            <div class="m-messenger__messages-header">
+                <div class="m-messenger__messages-to"></div>
+                <div class="pull-right m-messenger__messages-issue" style="font-size: 17px; color: #939daa;"></div>
+                <div onclick="hideMessage()" class="pull-right" style="font-size: 17px; color: #939daa;">
+                    <span style="cursor:pointer;" onclick="hideMessage()" title="{{ 'pages.tickets.close' | trans }}" class="ua-icon-close"></span>
+                </div>
+            </div>
+            <div class="m-messenger__messages-body">
+                <div class="m-messenger__messages-body-scrollpane js-scrollable" data-simplebar="init">
+                    <div class="simplebar-track vertical" style="visibility: visible;">
+                        <div class="simplebar-scrollbar" style="top: 2px; height: 276px;"></div>
+                    </div>
+                    <div class="simplebar-track horizontal" style="visibility: hidden;">
+                        <div class="simplebar-scrollbar"></div>
+                    </div>
+                    <div class="simplebar-scroll-content" style="padding-right: 20px; margin-bottom: -40px;">
+                        <div class="simplebar-content" style="padding-bottom: 20px; margin-right: -20px;">
+                            <div class="m-messenger__messages-block">
+                                <div class="m-messenger__messages-message is-interlocutor">
+                                    <img src="img/users/user-8.png" alt="" class="rounded-circle m-messenger__messages-avatar" width="34" height="34">
+                                    <div class="m-messenger__messages-wrap">
+                                        <div class="m-messenger__messages-message-text">Good afternoon, Rebecca! Need an online consultant for the site?</div>
+                                        <span class="m-messenger__messages-date">1:25 am</span>
+                                    </div>
+                                </div>
+ 
+                                <div class="m-messenger__messages-message is-self">
+                                    <img src="img/users/user-9.png" alt="" class="rounded-circle m-messenger__messages-avatar" width="34" height="34">
+                                    <div class="m-messenger__messages-wrap">
+                                        <div class="m-messenger__messages-message-text">Good afternoon, Rebecca! Need an online consultant for the site?</div>
+                                        <span class="m-messenger__messages-date">1:25 am</span>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-messenger__messages-footer" style="min-height:240px; height:240px;">
+                <div id="issue-parent" class="form-group">
+                    <label for="issue" class="fl-label">{{ "pages.tickets.index.issue" | trans }}</label>
+                    <select id="issue" class="form-control select2" aria-required="true">
+                        {% for issue in issues %}
+                            <option value="{{ issue.id }}">{{ issue.issue }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="m-messenger__messages-textarea">
+                    <textarea id="message" class="form-control" placeholder="Type your message here..."></textarea>
+                </div>
+                <div class="m-messenger__messages-footer-actions dropup pull-right">
+                    <button onclick='send()' class="btn btn-info m-messenger__messages-footer-submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.channel_categories.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel_categories.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.channel_categories.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body -%}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('channel-categories_new') }}">
+            {{ "pages.channel_categories.index.add_category" | trans }}
+        </a>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.channel_categories.index.table.name" | trans }}</th>
+                <th>{{ "pages.channel_categories.index.table.created_at" | trans }}</th>
+                <th>{{ "pages.channel_categories.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}</td>
+                    <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-info" href="{{ path('channel-categories_edit', {'id': entity.id }) }}">{{ "pages.channel_categories.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete" data-href="{{ path('channel-categories_delete', {'id': entity.id }) }}">{{ "pages.channel_categories.index.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channel_categories.index.no_category" | trans }}</h4>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,73 @@
+billing_customers:
+    path:  /customers
+    defaults: { _controller: "AppBundle:Admin/Billing:customers" }
+    requirements:
+        methods: GET
+
+billing_customer:
+    path:  /customer
+    defaults: { _controller: "AppBundle:Admin/Billing:customer" }
+    requirements:
+        methods: GET
+
+billing_customers_orders:
+    path:  /customers/{id}/orders
+    defaults: { _controller: "AppBundle:Admin/Billing:customersOrders" }
+    requirements:
+        _method: GET
+
+billing_customers_products:
+    path:  /customer/{id}/products
+    defaults: { _controller: "AppBundle:Admin/Billing:customerProducts" }
+    requirements:
+        methods: GET
+
+billing_orders:
+    path:  /orders
+    defaults: { _controller: "AppBundle:Admin/Billing:orders" }
+    requirements:
+        methods: GET
+
+billing_customer_orders:
+    path:  /customer/orders
+    defaults: { _controller: "AppBundle:Admin/Billing:customerOrders" }
+    requirements:
+        _method: GET
+
+billing_order_details:
+    path:  /{transactionId}/details
+    defaults: { _controller: "AppBundle:Admin/Billing:orderDetails"  }
+    requirements:
+        methods: GET
+
+billing_customer_orders_details:
+    path:  /customer/{customer}/order/{transactionId}/details
+    defaults: { _controller: "AppBundle:Admin/Billing:customerOrderDetails" }
+    requirements:
+        _method: GET
+
+billing_customers_orders_details:
+    path:  /customers/{customer}/order/{transactionId}/details
+    defaults: { _controller: "AppBundle:Admin/Billing:customersOrderDetails" }
+    requirements:
+        _method: GET
+
+billing_statistics:
+    path:  /statistics
+    defaults: { _controller: "AppBundle:Admin/Billing:statistics" }
+    requirements:
+        methods: GET
+
+
+billing_remove_product:
+    path:  /customer/{customer}/remove/{type}/{id}
+    defaults: { _controller: "AppBundle:Admin/Billing:removeProduct" }
+    requirements:
+        methods: POST
+
+billing_add_product:
+    path:  /customer/{customer}/add-products/{type}
+    defaults: { _controller: "AppBundle:Admin/Billing:addProducts" }
+    requirements:
+        methods:  POST
+

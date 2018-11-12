@@ -1,0 +1,30 @@
+channels-package:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/ChannelsPackage:index" }
+
+channels-package_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Admin/ChannelsPackage:show" }
+
+channels-package_new:
+    path:     /new/{id}
+    defaults: { _controller: "AppBundle:Admin/ChannelsPackage:new", id:0 }
+
+channels-package_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/ChannelsPackage:create" }
+    methods:  POST
+
+channels-package_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/ChannelsPackage:edit" }
+
+channels-package_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/ChannelsPackage:update" }
+    methods:  [POST, PUT]
+
+channels-package_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/ChannelsPackage:delete" }
+    methods:  [POST, DELETE]

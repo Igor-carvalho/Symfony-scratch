@@ -1,0 +1,228 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.settings.index.title" | trans }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-10 offset-1 col-sm-10 offset-1 col-xs-12">
+            {% if is_granted('ROLE_ADMIN') %}
+                {% include "AppBundle:themes/default/base-admin:errors.html.twig" with {form : edit_form_system_info} %}
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                {% include "AppBundle:themes/default/base-admin:errors.html.twig" with {form : edit_form_email_support} %}
+            {% endif %}
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-expanded="true">{{ "pages.settings.attrs.system_info" | trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#email_setting" role="tab" aria-controls="email_setting" aria-expanded="false">{{ "pages.settings.attrs.email_setting" | trans }}</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="home" role="tabpanel" aria-expanded="true">
+                    <form method="post" action="{{ path('settings_update') }}" enctype="multipart/form-data">
+                        <input type="hidden" name="form_save" value="system_info">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_system_info.serverName,"pages.settings.attrs.server_name" | trans ) }}
+                                    {{ form_widget(edit_form_system_info.serverName) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_system_info.timeZone,"pages.settings.attrs.time_zone" | trans ) }}
+                                    {{ form_widget(edit_form_system_info.timeZone) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_system_info.companyPhone,"pages.settings.attrs.company_phone" | trans ) }}
+                                    {{ form_widget(edit_form_system_info.companyPhone) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_system_info.companyEmailSupport,"pages.settings.attrs.company_email_support" | trans ) }}
+                                    {{ form_widget(edit_form_system_info.companyEmailSupport) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_system_info.companyAddress,"pages.settings.attrs.company_address" | trans ) }}
+                                    {{ form_widget(edit_form_system_info.companyAddress) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_system_info.aboutUs,"pages.settings.attrs.about_us" | trans ) }}
+                                    {{ form_widget(edit_form_system_info.aboutUs) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_system_info.servicesDescription,"pages.settings.attrs.services_description" | trans ) }}
+                                    {{ form_widget(edit_form_system_info.servicesDescription) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_system_info.news,"pages.settings.attrs.news" | trans ) }}
+                                    {{ form_widget(edit_form_system_info.news) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-footer">
+                            <div class="row">
+                                <div class="col-md-11 offset-1">
+                                    <button style="float:right;" type="submit" class="btn btn-success btn-sm pull-right">{{ 'pages.settings.attrs.update'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_rest(edit_form_system_info) }}
+                    </form>
+                </div>
+                <div class="tab-pane" id="email_setting" role="tabpanel" aria-expanded="false">
+                    <form method="post" action="{{ path('settings_update') }}" enctype="multipart/form-data">
+                        <input type="hidden" name="form_save" value="email_support">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_email_support.emailServiceType,"pages.settings.attrs.email_service_type" | trans ) }}
+                                    {{ form_widget(edit_form_email_support.emailServiceType) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_email_support.emailSender,"pages.settings.attrs.email_sender" | trans ) }}
+                                    {{ form_widget(edit_form_email_support.emailSender) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_email_support.emailHost,"pages.settings.attrs.email_host" | trans ) }}
+                                    {{ form_widget(edit_form_email_support.emailHost) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_email_support.emailPort,"pages.settings.attrs.email_port" | trans ) }}
+                                    {{ form_widget(edit_form_email_support.emailPort) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_email_support.emailUsername,"pages.settings.attrs.email_username" | trans ) }}
+                                    {{ form_widget(edit_form_email_support.emailUsername) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_email_support.emailPassword,"pages.settings.attrs.email_password" | trans ) }}
+                                    {{ form_widget(edit_form_email_support.emailPassword) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_email_support.emailAuthenticationMode,"pages.settings.attrs.email_authentication_mode" | trans ) }}
+                                    {{ form_widget(edit_form_email_support.emailAuthenticationMode) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(edit_form_email_support.emailEncryptionMode,"pages.settings.attrs.email_encryption_mode" | trans ) }}
+                                    {{ form_widget(edit_form_email_support.emailEncryptionMode) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <div class="row">
+                                <div class="col-md-11 offset-1">
+                                    <button style="float:right;" type="submit" class="btn btn-success btn-sm pull-right">{{ 'pages.settings.attrs.update'|trans }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_rest(edit_form_email_support) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+        new Jodit('#appbundle_settings_aboutUs', {
+            height: '100%',
+            uploader: {
+              url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+            },
+            filebrowser: {
+              ajax: {
+                url: 'https://xdsoft.net/jodit/connector/index.php'
+              }
+            }
+          });
+
+          new Jodit('#appbundle_settings_servicesDescription', {
+            height: '100%',
+            uploader: {
+              url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+            },
+            filebrowser: {
+              ajax: {
+                url: 'https://xdsoft.net/jodit/connector/index.php'
+              }
+            }
+          });
+
+          new Jodit('#appbundle_settings_news', {
+            height: '100%',
+            uploader: {
+              url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+            },
+            filebrowser: {
+              ajax: {
+                url: 'https://xdsoft.net/jodit/connector/index.php'
+              }
+            }
+          });
+    });
+  </script>
+
+{% endblock %}

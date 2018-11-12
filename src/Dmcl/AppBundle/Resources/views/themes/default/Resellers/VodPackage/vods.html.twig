@@ -1,0 +1,17 @@
+<div style="padding:0px" class="item col-md-12 info-wrap">
+    <div style="padding-top: 0px;" class="wrap">
+        <div class="list clearfix">
+            {% for vod in entity.vods %}
+                <div class="vod">
+                    {#<a href="{{ path('vod_show', {'id': vod.id}) }}">#}
+					{% if vod.cover | preg_match %}
+					<img data-toggle="tooltip" data-placement="top" title="{{ vod.title }}" style="cursor:pointer;" alt="{{ vod.title }}" src="{{ vod.cover }}" width="160" height="90">
+					{% else %}
+                        <img alt="{{ vod.title }}" src="{{ asset('uploads/') }}{{ vod.cover }}">
+					{% endif %}	
+                    {#</a>#}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

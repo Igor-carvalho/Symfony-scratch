@@ -1,0 +1,30 @@
+#sla:
+#    path:     /
+#    defaults: { _controller: "AppBundle:Admin/Sla:index" }
+#
+sla_show:
+    path:     /{slug}/details
+    defaults: { _controller: "AppBundle:Admin/Sla:show" }
+
+#sla_new:
+#    path:     /new
+#    defaults: { _controller: "AppBundle:Admin/Sla:new" }
+#
+#sla_create:
+#    path:     /create
+#    defaults: { _controller: "AppBundle:Admin/Sla:create" }
+#    methods:  POST
+
+sla_edit:
+    path:     /{slug}/edit
+    defaults: { _controller: "AppBundle:Admin/Sla:edit" }
+
+sla_update:
+    path:     /{slug}/update
+    defaults: { _controller: "AppBundle:Admin/Sla:update" }
+    methods:  [POST, PUT]
+#
+#sla_delete:
+#    path:     /{id}/delete
+#    defaults: { _controller: "AppBundle:Admin/Sla:delete" }
+#    methods:  [POST, DELETE]

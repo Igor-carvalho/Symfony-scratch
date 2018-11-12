@@ -1,0 +1,56 @@
+vod:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Vod:index" }
+
+vod_new:
+    path:     /{ip}/new
+    defaults: { _controller: "AppBundle:Admin/Vod:new" }
+
+vod_show:
+    path:     /{ip}/show
+    defaults: { _controller: "AppBundle:Admin/Vod:show" }
+
+vod_localfiles:
+    path:     /{ip}/localfiles
+    defaults: { _controller: "AppBundle:Admin/Vod:scanFiles", folder:"videos" }
+
+vod_index_localfiles:
+    path:     /{ip}/index_localfiles
+    defaults: { _controller: "AppBundle:Admin/Vod:indexLocalFiles" }
+
+vod_edit:
+    path:     /{ip}/{id}/edit
+    defaults: { _controller: "AppBundle:Admin/Vod:edit" }
+
+vod_delete:
+    path:     /{ip}/{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Vod:delete" }
+    methods:  [POST, DELETE]
+
+vod_transcoding:
+    path:     /{ip}/transcoding_file
+    defaults: { _controller: "AppBundle:Admin/Vod:transcodingFile" }
+
+vod_remove_logs:
+    path:     /{ip}/remove_logs_file
+    defaults: { _controller: "AppBundle:Admin/Vod:removeLogs" }
+
+vod_remove_original:
+    path:     /{ip}/remove_video_file
+    defaults: { _controller: "AppBundle:Admin/Vod:removeOriginal" }
+
+app.route.vod.details:
+    path:     /{ip}/{id}/details
+    defaults: { _controller: "AppBundle:Admin/Vod:details" }
+
+app.route.vod.playback:
+    path:     /{ip}/playback
+    defaults: { _controller: "AppBundle:Admin/Vod:playbackModal" }
+
+app.route.vod.transcoder_logfile:
+    path:     /{ip}/transcoder_logfile
+    defaults: { _controller: "AppBundle:Admin/Vod:readTranscoderLog" }
+
+app.route.vod.download_logfile:
+    path:     /{ip}/download_logfile
+    defaults: { _controller: "AppBundle:Admin/Vod:readDownloadLogfile" }

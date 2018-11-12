@@ -1,0 +1,39 @@
+{% extends "AppBundle:themes/default/FOSUser:base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+    <div class="logo">
+        <a href="{{ path('home') }}">
+            <h1 style="color: white;font-weight: 400">
+                {{ project_name() }}
+            </h1>
+        </a>
+    </div>
+    <div class="content" style="margin-bottom: 25px">
+        <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST">
+            <h3 class="form-title">{{ "pages.resseting_password.reset_your_password" | trans({},"messages") }}</h3>
+            <div class="form-actions" style="margin-top: 0px;padding-bottom: 10px">
+                <label class="control-label">{{ "pages.resseting_password.new_password" | trans({},"messages") }}</label>
+                <div>
+                    {{ form_widget(form.plainPassword.first,{'attr':{
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-actions" style="margin-top: 0px;padding-bottom:10px">
+                <label class="control-label">{{ "pages.resseting_password.repeat_new_password" | trans({},"messages") }}</label>
+                <div >
+                    {{ form_widget(form.plainPassword.second,{'attr':{
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-actions" >
+                <button type="submit" id="_submit"  name="_submit" class="btn blue col-md-12">
+                    {{ 'pages.resseting_password.change_password'|trans({},"messages") }} <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

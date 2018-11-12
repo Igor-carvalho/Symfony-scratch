@@ -1,0 +1,46 @@
+{% if productsAvailable["vod"] | length > 0 %}
+    <div class="col-md-12 margin-bottom-10">
+        <form method="POST" action="{{ path("billing_add_product",{"customer":customer.id,"type":"vod"}) }}">
+            <label for="vod-available">{{ "pages.billing.customer_products.index.vod_available" | trans }}</label>
+            <select style="top: 0px!important;width: 100%!important;" required id="vod-available" class="form-control select2" name="products[]" multiple>
+                {% for entity in  productsAvailable["vod"] %}
+                    <option value="{{ entity.id }}">{{ entity.title }}</option>
+                {% endfor %}
+            </select>
+            <button style="margin-top: 10px" class="btn btn-success pull-right" type="submit">{{ "pages.billing.customer_products.index.add_vod" | trans }}</button>
+        </form>
+    </div>
+{% endif %}
+{% if products["vod"] | length > 0 %}
+    <table class="datatable table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>{{ "pages.billing.customer_products.index.table.vod.title" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod.genre" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod.status" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod.source" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod.year" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod.duration" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod.action" | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in products["vod"] %}
+            <tr>
+                <td>{{ entity.title }}</td>
+                <td>{{ entity.genre }}</td>
+                <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.billing.customer_products.index.enabled" | trans :"pages.billing.customer_products.index.disabled" | trans }}</td>
+                <td>{{ entity.source }}</td>
+                <td>{{ entity.year }}</td>
+                <td>{{ entity.duration }}</td>
+                {#<td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                <td style="text-align: center">
+                    <a class="btn btn-xs btn-danger delete" data-msg-delete="{{ "pages.billing.customer_products.index.msgs.vod.msg_remove" | trans }}" data-href="{{ path('billing_remove_product', {'customer':customer.id,'type':"vod", 'id': entity.id }) }}">{{ "pages.billing.customer_products.index.remove" | trans }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h4 class="text-muted text-center">{{ "pages.billing.customer_products.index.no_vod" | trans }}</h4>
+{% endif %}

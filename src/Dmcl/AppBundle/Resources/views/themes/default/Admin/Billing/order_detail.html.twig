@@ -1,0 +1,127 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.billing.orders.details.title" | trans }}{% endblock %}
+{% block page_description %}#{{ order.transactionId }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#datatable').DataTable({
+                lengthChange: true,
+                select: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+        })
+    </script>
+ {% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary pull-right" href="{{ path('billing_orders') }}">
+                {{ "pages.billing.orders.details.back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="invoice">
+                <!-- title row -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2 class="page-header">
+                            {{ project_name() }}
+                        </h2>
+                    </div><!-- /.col -->
+                </div>
+                <!-- info row -->
+                <div class="row invoice-info">
+                    <div class="col-sm-4 invoice-col">
+                        {{ "pages.billing.orders.details.from" | trans }}
+                        <address>
+                            <strong>{{ project_name() }}</strong><br>
+                            {{ billing_config().salesAddress }}<br>
+                            {{ "pages.billing.orders.details.phone" | trans }}: {{ billing_config().salesPhone }}<br>
+                            {{ "pages.billing.orders.details.email" | trans }}: {{ billing_config().salesEmail }}
+                        </address>
+                    </div><!-- /.col -->
+                    <div class="col-sm-4 invoice-col">
+                        {{ "pages.billing.orders.details.to" | trans }}
+                        <address>
+                            <strong>{{ order.customerName }}</strong><br>
+                            {{ customer.address | default("-") }}<br>
+                            {{ "pages.billing.orders.details.phone" | trans }}: {{ customer.phone | default("-") }}<br>
+                            {{ "pages.billing.orders.details.email" | trans }}: {{ customer.email | default("-") }}
+                        </address>
+                    </div><!-- /.col -->
+                    <div class="col-sm-4 invoice-col">
+                        <b>{{ "pages.billing.orders.details.order_id" | trans }}:</b> {{ order.transactionId }}<br>
+                        <b>{{ "pages.billing.orders.details.payment_create" | trans }}:</b> {% if order.verifiedAt %}{{  order.verifiedAt | date("Y-m-d H:i:s A") }}{% else %}-{% endif %}<br>
+                        <b>{{ "pages.billing.orders.details.payment_due" | trans }}:</b> {% if order.verifiedAt %}{{  order.verifiedAt | date("Y-m-d H:i:s A") }}{% else %}-{% endif %}<br>
+                        <b>{{ "pages.billing.orders.details.status" | trans }}:</b> <span style="color:{{ order.verified ? "green":"red" }}">{{ order.verified ? "pages.billing.orders.details.verified" | trans :"pages.billing.orders.details.no_verified" | trans }}</span>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+                <!-- Table row -->
+                <div class="row">
+                    <div class="m-datatable col-xs-12 table-responsive">
+                        <table id="datatable" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>{{ "pages.billing.orders.details.table.product_name" | trans }}</th>
+                                <th>{{ "pages.packages.superReseller" | trans }}</th>
+                                <th>{{ "pages.billing.orders.details.table.qty" | trans }}</th>
+                                <th>{{ "pages.billing.orders.details.table.unit_cost" | trans }}</th>
+                                <th>{{ "pages.billing.orders.details.table.subtotal" | trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in order.products %}
+                                    <tr>
+                                        <td>{{ product.displayName }}</td>
+                                        <td>{{ product.superReseller }}</td>
+                                        <td>{{ product.count }}</td>
+                                        <td>{{ product.unitPrice }}</td>
+                                        <td>{{ product.unitPrice *  product.count }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+                <div class="row">
+                    <!-- accepted payments column -->
+                    <div class="col-xs-6">
+                        <p class="lead">{{ "pages.billing.orders.details.gateway" | trans }}</p>
+                        <img style="width: 150px; height: 80px;" src="{{ asset('bundles/assets/themes/default/dist/img/payments/'~order.gateway.uniqueName~'.png') }}" alt="{{ order.gateway.displayName }}">
+                    </div><!-- /.col -->
+                    <div class="col-xs-6">
+                        <p class="lead">{{ "pages.billing.orders.details.payment_due" | trans }}: {% if order.verifiedAt %}{{  order.verifiedAt | date("Y-m-d H:i:s A") }}{% else %}-{% endif %}</p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th style="width:50%">{{ "pages.billing.orders.details.table.subtotal" | trans }}:</th>
+                                    <td>{{ order.amountReal }} {{ order.currency }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ "pages.billing.orders.details.table.discount" | trans }}:</th>
+                                    <td>{{ order.discount }} {{ order.currency }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ "pages.billing.orders.details.table.total" | trans }}:</th>
+                                    <td>{{ order.amount }} {{ order.currency }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+            </section><!-- /.content -->
+        </div>
+    </div>
+{% endblock %}

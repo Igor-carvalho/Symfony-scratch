@@ -1,0 +1,149 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.user.index.resellers" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+     <script text="javascript">
+        var table = '';
+        var rpp = 50;
+
+        $(document).ready(function(){
+           table = $('#datatable').DataTable({
+                lengthChange: true,
+                select: false,
+                dom: "<'row'<'col-md-6 pull-left'lB><'col-md-6 pull-right'f>>rt<'row'<'col-md-6 pull-left'i><'col-md-6 pull-right'p>>", 
+                buttons: [
+                    'excel'
+                ],              
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                ajax: {
+                    url: "{{ path('user_resellers_ajax') }}",
+                    method: 'POST',
+                    data: {
+                        page: 1,
+                        rpp: rpp
+                    }
+                },
+                columns: [
+                    { "data": "username" },
+                    { "data": "email" },
+                    { "data": "enabled" },
+                    { "data": "startdate" },
+                    { "data": "lastlogin" },
+                    { "data": "details" }
+                ]
+            });
+
+            //edit('#datatable tbody');
+
+            setTimeout(function () {
+                search(2, rpp);
+            }, 900);
+           
+           $('#user_edit a.verified').click(function(e) {
+                e.preventDefault();  
+                var $this = $(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: $this.data('href'),
+                    dataType: "json",
+                    data: '',
+                    success: function(respuesta) {
+                        if (respuesta.type == 1) {
+                            if(respuesta.verified){
+                                $this.removeClass("label-default");
+                                $this.addClass("label-success");
+                                $this.text('{{ "enabled" | trans }}');                                
+                            }
+                            else{
+                                $this.removeClass("label-success");
+                                $this.addClass("label-default");
+                                $this.text('{{ "disabled" | trans }}');
+                            }                    
+
+                            toastr.success('Success');
+                        } 
+                    },
+                    error: function(respuesta) {
+
+                    }
+                });
+            });
+        })
+
+        {# function edit(tbody){
+          $(tbody).on('click', 'a.edit', function(){
+              var data = table.row($(this).parents('tr')).data();
+              var url = $(this).data('href');
+              
+              window.location = $(this).data('href');
+          });
+        } #}
+
+        function search(page, rpp){
+            $.ajax({
+                url: "{{ path('user_resellers_ajax') }}",
+                dataType: "json", 
+                type: 'POST',
+                data: {
+                    page: page,
+                    rpp: rpp
+                },
+                success: function(response){
+                    var datas = response.data;
+
+                    for(var i = 0; i < datas.length; i++){
+                        table.row.add({
+                            "username": datas[i].username,
+                            "email": datas[i].email,
+                            "enabled": datas[i].enabled,
+                            "startdate": datas[i].startdate,
+                            "lastlogin": datas[i].lastlogin,
+                            "details": datas[i].details
+                        }).draw();
+                    }
+
+                    if(datas.length)
+                        search(++page, rpp);
+                }
+            });
+        }
+     </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.user.msg_delete" | trans }}";
+    var msgVerified = "{% trans %}Are you sure to change verified state to this user?{% endtrans %}";
+{% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        <div class="col-md-12 no-padding">
+            <div class="form-group pull-right">
+                <a class="btn btn-success btn-sm" href="{{ path('user_create') }}">
+                    {{ "pages.user.index.add_user" | trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="m-datatable col-md-10 offset-md-1">
+            <table id="datatable" class="table table-bordered table-striped" id="user_edit">
+                <thead>
+                    <tr>
+                        <th style="width:10%;">{{ "pages.user.attrs.username" | trans }}</th>
+                        <th style="width:10%;">{{ "pages.user.attrs.email" | trans }}</th>
+                        <th style="width:10%;">{{ "pages.user.index.table.enabled" | trans }}</th>
+                        <th style="width:10%;">{{ "pages.user.attrs.startdate" | trans }}</th>
+                        <th style="width:10%;">{{ "pages.user.attrs.lastlogin" | trans }}</th>
+                        <th style="width:8%;">{{ "pages.user.index.table.details" | trans }}</th>
+                    </tr>
+                </thead>
+            </table>
+         </div>
+     </div>
+{% endblock %}

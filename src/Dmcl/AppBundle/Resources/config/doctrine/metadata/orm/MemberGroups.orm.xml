@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="MemberGroups" table="member_groups">
+    <indexes>
+      <index name="is_admin" columns="is_admin"/>
+      <index name="is_banned" columns="is_banned"/>
+      <index name="is_reseller" columns="is_reseller"/>
+      <index name="can_delete" columns="can_delete"/>
+    </indexes>
+    <id name="groupId" type="integer" column="group_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="groupName" type="text" column="group_name" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="groupColor" type="string" column="group_color" length="7" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">#000000</option>
+      </options>
+    </field>
+    <field name="isBanned" type="boolean" column="is_banned" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="isAdmin" type="boolean" column="is_admin" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="isReseller" type="boolean" column="is_reseller" nullable="false"/>
+    <field name="totalAllowedGenTrials" type="integer" column="total_allowed_gen_trials" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="totalAllowedGenIn" type="string" column="total_allowed_gen_in" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="deleteUsers" type="boolean" column="delete_users" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="allowedPages" type="text" column="allowed_pages" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="canDelete" type="boolean" column="can_delete" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="resellerForceServer" type="boolean" column="reseller_force_server" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="createSubResellersPrice" type="float" column="create_sub_resellers_price" precision="10" scale="0" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="createSubResellers" type="boolean" column="create_sub_resellers" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="alterPackagesIds" type="boolean" column="alter_packages_ids" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="alterPackagesPrices" type="boolean" column="alter_packages_prices" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="resellerClientConnectionLogs" type="boolean" column="reseller_client_connection_logs" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="resellerAssignPass" type="boolean" column="reseller_assign_pass" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="allowChangePass" type="boolean" column="allow_change_pass" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="allowImport" type="boolean" column="allow_import" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="allowExport" type="boolean" column="allow_export" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="resellerTrialCreditAllow" type="integer" column="reseller_trial_credit_allow" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="editMac" type="boolean" column="edit_mac" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="editIsplock" type="boolean" column="edit_isplock" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="resetStbData" type="boolean" column="reset_stb_data" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="resellerBonusPackageInc" type="boolean" column="reseller_bonus_package_inc" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="allowDownload" type="boolean" column="allow_download" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

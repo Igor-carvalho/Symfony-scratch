@@ -1,0 +1,11 @@
+proxy_handle:
+    path:  /{server}/handle
+    defaults: { _controller: "AppBundle:Proxy:index" }
+    requirements:
+        _method: POST|GET
+
+proxy_vod_handle:
+    path:  /{server}/vod-handle
+    defaults: { _controller: "AppBundle:Proxy:vodIndex" }
+    requirements:
+        _method: POST|GET

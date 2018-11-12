@@ -1,0 +1,82 @@
+{% extends "AppBundle:themes/default/FOSUser:base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger text-center" style="padding-top: 0px; padding-bottom: 0px;">
+			<span>
+				{{ error.messageKey|trans(error.messageData, 'security') }}
+			</span>
+        </div>
+    {% endif %}
+    <div class="logo">
+        <a href="{{ path('home') }}">
+            <h1 style="color: white;font-weight: 400">
+                {{ project_name() }}
+            </h1>
+        </a>
+    </div>
+    <div class="content" style="margin-bottom: 25px">
+        <!-- BEGIN LOGIN FORM -->
+        <form class="login-form"  action="{{ path("fos_user_security_check") }}" method="POST" >
+            <h3 class="form-title">{{ "pages.login.login_to_your_account" | trans({},"messages") }}</h3>
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+			<span>
+				{{ "pages.login.enter_username_and_pass" | trans({},"messages") }}
+			</span>
+            </div>
+            <div class="form-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">{{ "pages.login.username" | trans({},"messages") }}</label>
+                <div class="input-icon">
+                    <i class="fa fa-user" style="color: white"></i>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="{{ "form.username" | trans  }}" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">{{ "pages.login.password" | trans({},"messages") }}</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock" style="color: white"></i>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" required placeholder="{{ "form.password" | trans }}" name="_password"/>
+                </div>
+            </div>
+            <div class="form-actions" style="padding-left: 50px;">
+                <label class="checkbox">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" style="margin-right: 7px;float: left">
+                    {{ "security.login.remember_me" | trans }}
+                </label>
+                <button type="submit" id="_submit"  name="_submit" class="btn blue pull-right">
+                    {{ 'security.login.submit'|trans }} <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+            </div>
+            <div class="forget-password">
+                <h4>{{ "pages.login.password_lost" | trans({},"messages") }}</h4>
+                <p>
+                    {{ "pages.login.password_lost_no_worries" | trans({},"messages") }}
+                    <strong>
+                        <a style="color: white" href="{{ path('fos_user_resetting_request') }}">
+                            {{ "pages.login.password_lost_no_worries_here" | trans({},"messages") }}
+                        </a>
+                    </strong>
+                    {{ "pages.login.password_lost_no_worries_here_to_reset" | trans({},"messages") }}
+                </p>
+            </div>
+            {% if config_service.getGeneralConfig().allowRegistration %}
+                <div class="create-account">
+                    <p>
+                        {{ "pages.login.new" | trans({},"messages") }}&nbsp;
+                        <strong>
+                            <a style="color: white"  href="{{ path('fos_user_registration_register') }}">
+                                {{ "pages.login.create_account" | trans({},"messages") }}
+                            </a>
+                        </strong>
+                    </p>
+                </div>
+            {% endif %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+        </form>
+    </div>
+
+{% endblock %}

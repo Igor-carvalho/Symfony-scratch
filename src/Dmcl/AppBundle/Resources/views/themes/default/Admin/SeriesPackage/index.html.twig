@@ -1,0 +1,147 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.series_package.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.series_package.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet"
+           href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+     <script type="text/javascript">
+         $(function () {
+             $(".btn-transcoder").on("click", function () {
+                 var btn = $(this);
+                 var url = "";
+                 var flag = false;
+                 if (btn.text() == "{{ "pages.channel.index.start" | trans }}") {
+                     btn.text("{{ "pages.channel.index.starting" | trans }}");
+                     btn.removeClass("btn-success");
+                     url = btn.data("start");
+                     flag = true;
+                 } else if (btn.text() == "{{ "pages.channel.index.stop" | trans }}") {
+                     btn.text("{{ "pages.channel.index.stopping" | trans }}");
+                     btn.removeClass("btn-danger");
+                     url = btn.data("stop");
+                     flag = true;
+                 }
+
+                 if (flag) {
+                     var id = btn.data("id");
+                     $.ajax({
+                         type: "POST",
+                         url: url,
+                         data: {
+                             id: id
+                         }
+                     }).done(function (response) {
+                         if (btn.text() == "{{ "pages.channel.index.starting" | trans }}") {
+                             if (response.status == "200") {
+                                 btn.text("{{ "pages.channel.index.stop" | trans }}");
+                                 btn.attr("data-href", "{{ path('transcoder_vodpackage_stop') }}");
+                                 btn.addClass("btn-danger");
+                                 toastr.success(response.msg)
+                             } else {
+                                 btn.text("{{ "pages.channel.index.start" | trans }}");
+                                 btn.addClass("btn-success");
+                                 toastr.error(response.msg);
+                             }
+                         } else {
+                             if (response.status == 200) {
+                                 btn.text("{{ "pages.channel.index.start" | trans }}");
+                                 btn.attr("data-href", "{{ path('transcoder_vodpackage_start') }}");
+                                 btn.addClass("btn-success");
+                                 toastr.success(response.msg)
+                             } else {
+                                 btn.text("{{ "pages.channel.index.stop" | trans }}")
+                                 btn.addClass("btn-danger");
+                                 toastr.error(response.msg);
+                             }
+                         }
+
+                         var details = $("#details-" + id);
+                         if(details.length > 0) {
+                             $("#btn-details-" + id).click();
+                         }
+
+                         location.href = location.origin+'{{ path('vod-package') }}';  
+                     });
+                 }
+             })
+         });
+     </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.series_package.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+
+        <div class="form-group pull-right">
+            <a class="btn btn-primary btn-sm" href="{{ path('series-package_new') }}">
+                {{ "pages.series_package.index.add_series_package" | trans }}
+            </a>
+        </div>
+
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.series_package.index.table.name" | trans }}</th>
+                <th>{{ "url" | trans }}</th>
+                <th>{{ "pages.series_package.index.table.status" | trans }}</th>
+                <th style="width: 20%">{{ "pages.series_package.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                        {% if entity.packageLogo %}
+                            <img src="../../../uploads/vod_package_logo/{{ entity.packageLogo }}" class="img-responsive img-thumbnail" style="max-width:100px">
+                        {% endif %}
+                        <div class="clearfix"></div>
+                        {{ entity.name }}
+                    </td>
+                    <td class="{{ entity.transcoderRunning ? "enabled":"disabled" }}">
+                        {% if entity.transcoderRunning %}
+                            <a href="{{ entity.live }}" target="_blank">{{ entity.live }}</a>
+                        {% elseif entity.allowTranscoder %}
+                            {{ "pages.vod_package.attrs.stoped" | trans }}
+                        {% else %}
+                            {{ "pages.vod_package.attrs.notAllowTranscoder" | trans }}
+                        {% endif %}
+                    </td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.channel_package.index.enabled" | trans :"pages.channel_package.index.disabled" | trans }}</td>
+                    <td style="text-align: center">
+                        {% if entity.allowTranscoder %}
+                            <a class="btn-transcoder btn btn-xs {{ entity.transcoderRunning != false ? 'btn-danger' : 'btn-success' }}"
+                               data-id="{{ entity.id }}" data-start="{{ path('transcoder_vodpackage_start') }}"
+                               data-stop="{{ path('transcoder_vodpackage_stop') }}"
+                            >{{ entity.transcoderRunning ? "pages.series_package.index.stop" | trans : "pages.series_package.index.start" | trans }}</a>
+                        {% endif %}
+
+                        <a id="btn-details-{{ entity.id }}" class="btn btn-xs btn-success show-inner"
+                           data-href="{{ path('series-package_show', { 'id': entity.id }) }}"><i
+                                    class="fa fa-plus"></i> {{ "pages.series_package.index.details" | trans }}</a>
+                        <a class="btn btn-xs btn-info"
+                           href="{{ path('series-package_edit', { 'id': entity.id }) }}">{{ "pages.series_package.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete"
+                           data-href="{{ path('series-package_delete', { 'id': entity.id }) }}">{{ "pages.series_package.index.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.series_package.index.no_series_package" | trans }}</h4>
+    {% endif %}
+{% endblock %}

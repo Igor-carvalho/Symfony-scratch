@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="utf-8"/>
+    <title> {{ "pages.500.title" | trans }}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+
+    <link href="{{ asset('bundles/assets/themes/default/error/bootstrap.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="{{ asset('bundles/assets/themes/default/error/style-metronic.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/assets/themes/default/error/style.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/assets/themes/default/error/error.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-404-3">
+<div class="page-inner">
+    <img src="{{ asset('bundles/assets/themes/default/error/earth.jpg') }}" class="img-responsive" alt="">
+</div>
+<div class="container error-404">
+    <h1> {{ "pages.500.title" | trans }}</h1>
+    <h2>{{ "pages.500.somethig_wrong" | trans }}</h2>
+    <p>
+        {{ "pages.500.text" | trans }}
+    </p>
+    <p>
+        <a href="{{ path('home') }}">
+           {{ "pages.500.back_home" | trans }}
+        </a>
+        <br>
+    </p>
+</div>
+</body>
+<!-- END BODY -->
+</html>

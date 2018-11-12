@@ -1,0 +1,8 @@
+#Entity
+entity:
+    channel:
+        name:
+            no_blank: "Please,fill Channle's Name"
+            unique: This value already in use
+
+

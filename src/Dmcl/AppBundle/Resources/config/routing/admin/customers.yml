@@ -1,0 +1,37 @@
+admin_customers:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Customers:index" }
+
+admin_customers_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/Customers:new" }
+
+admin_customers_show:
+    path:     /show
+    defaults: { _controller: "AppBundle:Admin/Customers:show" }
+
+admin_customers_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/Customers:create" }
+    methods:  POST
+
+admin_customers_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/Customers:edit" }
+
+admin_customers_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/Customers:update" }
+    methods:  [POST, PUT]
+
+admin_customers_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Customers:delete" }
+    methods:  [POST, DELETE]
+
+admin_customers_generate_playlist:
+    path:  /{id}/generate-playlist
+    defaults: { _controller: "AppBundle:Admin/Customers:generatePlaylist" }
+    requirements:
+        methods: GET|POST
+

@@ -1,0 +1,57 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.paypal.index.title" | trans }}{% endblock %}
+
+
+ {% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#datatable').DataTable({
+                lengthChange: true,
+                select: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+        })
+    </script>
+ {% endblock %}
+
+{% block body_parent %}
+	<div class="row">
+		<div class="col-md-6">
+			<a class="btn btn-secondary btn-sm pull-left" href="{{ path('gateways') }}">
+				{{ "pages.gateways.edit.back_to_gateway" | trans }}
+			</a>
+		</div>
+		<div class="col-md-6">
+			<a class="btn btn-primary btn-sm pull-right" href="{{ path('paypal_new') }}">
+				{{ "pages.paypal.new.title" | trans }}
+			</a>
+		</div>
+	</div>
+	<div class="row" style="margin-top:20px;">	
+		<div class="m-datatable  col-md-12">
+			<table id="datatable" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>{{ "pages.paypal.attrs.name" | trans }}</th>
+						<th>{{ "pages.gateways.index.table.shop_id_public_key" | trans }}</th>
+						<th>{{ "pages.gateways.index.table.secret_key" | trans }}</th>
+						<th>{{ "pages.gateways.index.table.actions" | trans }}</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for entity in entities %}
+					<tr>
+						<td>{{ entity.paypalName  | default("-") }}</td>
+						<td>{{ entity.shopIdPublicKey  | default("-") }}</td>
+						<td>{{ entity.secretKey | default("-") }}</td>
+						<td>
+							<a class="btn btn-xs btn-info" href="{{ path('paypal_edit', { 'id': entity.id }) }}">{{ "pages.gateways.index.edit" | trans }}</a>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>	
+{% endblock %}

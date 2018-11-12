@@ -1,0 +1,87 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+
+
+{% block title %}{{ "pages.channels_package_for_sale.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channels_package_for_sale.title" | trans }}{% endblock %}
+
+{% block body_parent -%}
+    {% if entities | length > 0 %}
+        <div class="row product-list">
+			<div class="col-sm-8">
+			<!-- SELECT2 EXAMPLE -->
+			<div class="box box-default" style="background:#d4deec !important;">
+				<div class="box-header with-border">
+					<h3 class="box-title">Channel package</h3>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-md-12">
+							{% for entity in entities %}
+								<div id="cart-channels-package-{{ entity.id }}" class="col-md-3 col-sm-4 col-xs-6 margin-bottom-10 animated channel-package">
+									<div class="product-item">
+										<div class="pi-img-wrapper">
+											<h2>{{ entity.channels | length }}<span style="font-size: 17px"> {{ "pages.channels_package_for_sale.channels" | trans }}</span></h2>
+											{#<img alt="{{ entity.name }}" class="img-responsive channel" src="{{ asset("uploads/" ~ entity.logo) }}">#}
+										</div>
+										<h3>{{ entity.name }}</h3>
+										<div class="pi-price">{{ entity.price | price_humanize | trans }}
+											<span class="subscription-period">
+												<sup>
+													{{ entity.subscriptionPeriod }} {{ entity.subscriptionInterval }}
+												</sup>
+											</span>
+										</div>
+										{% if(entity.price > 0) %}
+										<a data-parent="#cart-channels-package-{{ entity.id }}" class="btn-default add2cart col-md-12 text-center" href="{{ path('add_to_cart') }}"  data-type="channels_package"  data-name="{{ entity.name }}" data-price="{{ entity.price }}" data-image="{{ asset("bundles/assets/themes/default/dist/img/300x200.gif" ) }}" data-product="{{ entity.id }}">{{ "pages.channels_for_sale.add_to_cart" | trans }}</a>
+										{% else %}
+										<a class="btn-default col-md-12 text-center" href="{{ path('add_subscription', {'id': entity.id, 'type': 'channels_package'}) }}" >{{ "pages.channels_for_sale.subscribe" | trans }}</a>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>		
+			</div>
+			</div>
+			<div class="col-md-4 channelDiv">
+				<div class="box box-default" style="background:#d4deec !important;">
+					<div class="box-header with-border">
+						<h3 class="box-title">Channels</h3>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-12">
+								 {% for entity in entities %}
+									{% for channel in entity.channels %}
+										<div class="col-md-6 col-sm-5 col-xs-6 margin-bottom-10 channel-list cart-channels-package-{{ entity.id }}" style="display:none;">
+											<div class="product-item">
+												<div class="pi-img-wrapper">
+													<span style="font-size: 17px">{{ channel.name }}</span>
+													<img class="img-responsive channel" src="{{ asset("uploads/" ~ channel.logo) }}">
+												</div>
+											</div>
+										</div>
+									{% endfor %}
+								{% endfor %}
+							</div>
+						</div>
+					</div>		
+				</div>	
+			</div>
+        </div>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channels_package_for_sale.no_packages" | trans }}</h4>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('.channel-package').click(function(){
+			$('.channelDiv .channel-list').hide();
+			$('.channelDiv .'+$(this).attr('id')).show();
+		})	
+	})
+</script>
+{% endblock %}

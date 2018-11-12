@@ -1,0 +1,165 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.streams_server.index.title" | trans }}{% endblock %}
+{% block page_description %}{% endblock %}
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/jquery.json-viewer/json-viewer/jquery.json-viewer.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+
+     <script type="text/javascript">
+        $(document).ready(function(){
+            $(".postinstall").on({
+                click: function (e) {
+                    block_screen();
+
+                    $.ajax({
+                        type: "POST",
+                        url: $(this).data("href"),
+                        data: {
+                            'id': $(this).data("id")
+                        },
+                        dataType: "html",
+                        success: function (respuesta) {
+                            toastr.success('Streams Sever configured successfull', toastrSuccess);
+                            
+                            unblock_screen();
+
+                            setTimeout(function () {
+                                location.reload(true);
+                            }, 2000);
+                        },
+                        error: function (respuesta) {
+
+                        }
+                    });
+                }
+            });
+
+            $(function () {
+                var swith = false;
+                $(".daemon_swith").on({
+                    change: function (e) {
+                        if (!swith) {
+                            swith = true;
+                            $.ajax({
+                                type: "POST",
+                                url: $(this).data("action"),
+                                data: {},
+                                dataType: "html",
+                                success: function (respuesta) {
+                                    console.log(respuesta)
+                                    setTimeout(function () {
+                                        location.reload(true);
+                                    }, 1000);
+                                },
+                                error: function (respuesta) {
+
+                                }
+                            });
+                        }
+
+                        return false;
+                    }
+                });
+            })
+        });
+    </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.streams_server.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('streams_server_new') }}">
+            {{ "pages.streams_server.index.add_streams_server" | trans }}
+        </a>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.streams_server.attrs.name" | trans }}</th>
+                <th>{{ "pages.streams_server.attrs.daemons_status" | trans }}</th>
+                <th>{{ "pages.streams_server.attrs.broadcast_rtmp_port" | trans }}</th>
+                <th>{{ "pages.streams_server.attrs.broadcast_http_port" | trans }}</th>
+                <th>{{ "pages.streams_server.attrs.rtsp_port" | trans }}</th>
+                <th>{{ "pages.streams_server.attrs.broadcast_dash_port" | trans }}</th>
+                <th>{{ "pages.streams_server.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                        <i title="{{ "pages.streams_server.tips.server_status" | trans }} {{entity.serverAddress}}" class="fa fa-circle {{ statues[entity.id]['nodejs'] == false?'text-danger':'text-success'}}"></i>                            
+                        {{ entity.name }}
+                    </td>
+                    <td>
+                        {% if statues[entity.id]['nodejs'] != false %}
+                            <div class="row">
+                                <div class="col-md-4" title="{{ "pages.streams_server.tips.daemon_status" | trans }} {{entity.nodejsport}}">
+                                    <div class="form-group">                                        
+                                        <div class="clearfix"></div>
+                                        <input id="nodejs" name="nodejs"
+                                                data-action="{{ path("swith_status",{ip: entity.serveraddress, 'type':"nodejs","action":statues[entity.id]['nodejs'] == "on"?"stop":"start" }) }}" {{ statues[entity.id]['nodejs'] == "on"?"checked":"" }}
+                                                value="{{ statues[entity.id]['nodejs'] == "on"?"stop":"start" }}" type="checkbox"
+                                                class="daemon_swith make-switch switch-mini" data-on="success"
+                                                data-off="danger">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" title="{{ "pages.streams_server.tips.broadcast_status" | trans }}">
+                                    <div class="form-group">                                        
+                                        <div class="clearfix"></div>
+                                        <input id="nginx" name="nginx"
+                                                data-action="{{ path("swith_status",{ip: entity.serveraddress, 'type':"nginx","action":statues[entity.id]['nginx'] == "on"?"stop":"start" }) }}" {{ statues[entity.id]['nginx'] == "on"?"checked":"" }}
+                                                value="{{ statues[entity.id]['nginx'] == "on"?"stop":"start" }}" type="checkbox"
+                                                class="daemon_swith make-switch switch-mini" data-on="success"
+                                                data-off="danger">
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <span class="text-danger">{{ "pages.streams_server.tips.offline" | trans }}</span>
+                        {% endif %} 
+                    </td>
+                    </td>
+                    <td>
+                        {{ entity.broadcastRTMPPort }}
+                    </td>
+                    <td>
+                        {{ entity.broadcastHTTPPort }}
+                    </td>
+                    <td>
+                        {{ entity.rtspPort }}
+                    </td>
+                    <td>
+                        {{ entity.broadcastDASHPort }}
+                    </td>
+                    <td class="txt-center">
+                    {% if not statues[entity.id]['nodejs'] == false %}
+                        <a title="{{ "pages.streams_server.index.config" | trans }}"class="btn btn-xs btn-warning postinstall" data-id="{{ entity.id }}" data-href="{{ path('streams_server_postinstall') }}"><i class="fa fa-gears"></i></a>
+                    {% endif %}
+                    {% if statues[entity.id]['nodejs'] == false %}
+                        <a title="{{ "pages.streams_server.index.install" | trans }}"class="btn btn-xs btn-success" href="{{ path('streams_server_preinstall', { 'id': entity.id }) }}"><i class="fa fa-gear"></i></a>
+                    {% endif %}
+                        <a title="{{ "pages.streams_server.index.edit" | trans }}" class="btn btn-xs btn-info" href="{{ path('streams_server_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i></a>
+                        <a title="{{ "pages.streams_server.index.delete" | trans }}"class="btn btn-xs btn-danger delete" data-href="{{ path('streams_server_delete', { 'id': entity.id }) }}"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.streams_server.index.no_streams_server" | trans }}</h4>
+    {% endif %}
+{% endblock %}

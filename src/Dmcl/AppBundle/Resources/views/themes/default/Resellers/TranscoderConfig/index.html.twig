@@ -1,0 +1,70 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+{% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.transcoder_config.msg_delete" | trans }}"
+{% endblock %}
+
+{% block title %}{{ "pages.transcoder_config.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "base_admin.sidebar.menu.admin.encodes_predefined" | trans }}{% endblock %}
+
+{% block body -%}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <div class="form-group pull-right">
+            <a class="btn btn-primary btn-sm" href="{{ path('resellers_preset_new') }}">
+                {{ "pages.transcoder_config.index.add_preset" | trans }}
+            </a>
+        </div>
+    </div>
+    {% if presets | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.channel.index.table.name" | trans }}</th>
+                <th>{{ "pages.channel.attrs.audio_video_codec" | trans }}</th>
+                <th>{{ "pages.channel.attrs.fps" | trans }}</th>
+                <th>{{ "pages.channel.attrs.bit_rate" | trans }}</th>
+                <th>{{ "pages.channel.attrs.resolution" | trans }}</th>
+                <th>{{ "pages.channel.attrs.profile" | trans }}</th>
+                <th>{{ "pages.channel.attrs.preset" | trans }}</th>
+                <th>{{ "pages.channel.attrs.audio_samplerate" | trans }}</th>
+                <th>{{ "pages.channel.index.table.status" | trans }}</th>
+                <th>{{ "pages.channel.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in presets %}
+                <tr>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.avcodec }}</td>
+                    <td>{{ entity.fps }}</td>
+                    <td>{{ entity.bitrate }}</td>
+                    <td>{{ entity.width }}x{{ entity.height }}</td>
+                    <td>{{ entity.profile }}</td>
+                    <td>{{ entity.preset }}</td>
+                    <td>{{ entity.samplerate }}</td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.channel.index.enabled" | trans :"pages.channel.index.disabled" | trans }}</td>
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-info edit" data-id="{{ entity.id }}"
+                           href="{{ path('resellers_preset_edit', { 'id': entity.id }) }}">{{ "pages.channel.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete"
+                           data-href="{{ path('resellers_preset_delete', { 'id': entity.id }) }}">{{ "pages.channel.index.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.transcoder_config.index.no_presets" | trans }}</h4>
+    {% endif %}
+{% endblock %}

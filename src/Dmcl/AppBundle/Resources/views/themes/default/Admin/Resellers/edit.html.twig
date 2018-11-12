@@ -1,0 +1,109 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.resellers.add.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.resellers.add.title" | trans }}{% endblock %}
+
+ {% block javascripts %}
+     {% include "@App/themes/default/Admin/Resellers/javascripts.html.twig" %}
+     <script type="text/javascript">
+         $(document).ready(function () {
+             var expireAt = moment($('#fos_user_registration_form_playlistExpiration').val())
+                 .format("DD/MM/YYYY hh:mm A");
+             $('#datetimepicker1').datetimepicker();
+             $('#fos_user_registration_form_playlistExpiration').val(expireAt);
+             $('#fos_user_registration_form_plainPassword_first').removeAttr('required');
+             $('#fos_user_registration_form_plainPassword_second').removeAttr('required');
+         });
+     </script>
+ {% endblock %}
+
+{% block body -%}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('reseller') }}">
+            {{ "pages.resellers.add.back_to_list" | trans }}
+        </a>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+        <form method="POST" action="" name="fos_user_registration_form" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                    {{ form_label(form.name,'pages.resellers.attrs.name' | trans) }}
+                    {{ form_widget(form.name,{'attr':{
+                        'placeholder': 'pages.resellers.attrs.name' | trans ,
+                        'class': 'form-control',
+                        'required':''
+                    }}) }}
+                </div>
+                <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                    {{ form_label(form.username,'pages.resellers.attrs.username' | trans) }}
+                    {{ form_widget(form.username,{'attr':{
+                        'placeholder':  'form.username' | trans({},"FOSUserBundle"),
+                        'class': 'form-control',
+                        'required':''
+                    }}) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                    {{ form_label(form.email,'pages.resellers.attrs.email' | trans) }}
+                    {{ form_widget(form.email,{'attr':{
+                        'placeholder':  'form.email' | trans({},"FOSUserBundle"),
+                        'class': 'form-control',
+                        'required':''
+                    }}) }}
+                </div>
+                <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                    {{ form_label(form.plainPassword.first,'pages.resellers.attrs.password' | trans) }}
+                    {{ form_widget(form.plainPassword.first,{'attr':{
+                        'placeholder': 'form.password' | trans({},"FOSUserBundle"),
+                        'class': 'form-control',
+                    }}) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                    {{ form_label(form.country,'pages.resellers.attrs.country' | trans) }}
+                    {{ form_widget(form.country,{'attr':{
+                        'placeholder': 'pages.register.country' | trans({},"messages"),
+                        'class': 'form-control select2',
+                        'required':''
+                    }}) }}
+                </div>
+                <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+                    {{ form_label(form.plainPassword.second,'pages.resellers.attrs.repeat_password' | trans) }}
+                    {{ form_widget(form.plainPassword.second,{'attr':{
+                        'placeholder':  'form.password_confirmation' | trans({},"FOSUserBundle"),
+                        'class': 'form-control',
+                    }}) }}
+                </div>
+            </div>
+			<div class="row">
+            </div>
+			<div class="row">
+				<div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+						{{ form_label(userPaypalForm.paypalId,'pages.paypal.attrs.name' | trans) }}
+						{{ form_widget(userPaypalForm.paypalId)}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 no-pad-left">
+                    <div class="form-group ">
+						<label for="appbundle_dealer_allowDealer">Dealer</label>
+						<input type="checkbox" {{ dealer?'checked':'' }} id="appbundle_dealer_allowDealer" name="appbundle_dealer_allowDealer" value="1" />
+					</div>
+				</div>
+			</div>
+            {% include "@App/themes/default/Admin/Resellers/dealer_form.html.twig" %}
+
+            {% include "@App/themes/default/Admin/Resellers/form.html.twig" %}
+            <div class="col-md-12 col-xs-12 no-padding margin-btm-5" style="margin-top: 10px">
+                <button type="submit" id="_submit" name="_submit" class="btn btn-success btn-sm pull-right">
+                    {{ "pages.resellers.index.update" | trans }}
+                </button>
+            </div>
+            {{ form_widget(form._token) }}
+        </form>
+
+    </div>
+{% endblock %}

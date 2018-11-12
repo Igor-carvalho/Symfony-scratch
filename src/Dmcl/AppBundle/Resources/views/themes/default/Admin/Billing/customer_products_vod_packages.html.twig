@@ -1,0 +1,42 @@
+{% if productsAvailable["vod_package"] | length > 0 %}
+    <div class="col-md-12 margin-bottom-10">
+        <form method="POST" action="{{ path("billing_add_product",{"customer":customer.id,"type":"vod_package"}) }}">
+            <label for="vod-package-available">{{ "pages.billing.customer_products.index.vod_package_available" | trans }}</label>
+            <select style="top: 0px!important;width: 100%!important;" required id="vod-package-available" class="form-control select2" name="products[]" multiple>
+                {% for entity in  productsAvailable["vod_package"] %}
+                    <option value="{{ entity.id }}">{{ entity.name }}</option>
+                {% endfor %}
+            </select>
+            <button style="margin-top: 10px" class="btn btn-success pull-right" type="submit">{{ "pages.billing.customer_products.index.add_vod_packages" | trans }}</button>
+        </form>
+    </div>
+{% endif %}
+{% if products["vod_package"] | length > 0 %}
+    <table class="datatable table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>{{ "pages.billing.customer_products.index.table.vod_packages.name" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod_packages.status" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod_packages.vods" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod_packages.price" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.vod_packages.actions" | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in products["vod_package"] %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.channel_package.index.enabled" | trans :"pages.channel_package.index.disabled" | trans }}</td>
+                <td>{{ entity.vods | length  }}</td>
+                <td>{{ entity.price | price_humanize }}</td>
+                <td style="text-align: center">
+                    <a class="btn btn-xs btn-success show-inner" data-href="{{ path('vod-package_show', { 'id': entity.id }) }}"><i class="fa fa-plus"></i> {{ "pages.billing.customer_products.index.table.vod_packages.details" | trans }}</a>
+                    <a class="btn btn-xs btn-danger delete" data-msg-delete="{{ "pages.billing.customer_products.index.msgs.vod_package.msg_remove" | trans }}" data-href="{{ path('billing_remove_product', {'customer':customer.id,'type':"vod_package", 'id': entity.id }) }}">{{ "pages.billing.customer_products.index.remove" | trans }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h4 class="text-muted text-center">{{ "pages.billing.customer_products.index.no_vod_packages" | trans }}</h4>
+{% endif %}

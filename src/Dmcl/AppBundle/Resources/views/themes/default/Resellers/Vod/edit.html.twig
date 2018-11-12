@@ -1,0 +1,44 @@
+{% set btnLabel = "pages.vod.edit.update" | trans %}
+{% set uploadUrl = url('resellers-vod_upload') %}
+{% set removeFileUrl = url('resellers-vod_remove_file') %}
+
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.vod.edit.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.vod.edit.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/dropzone/css/dropzone.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     {% include "AppBundle:Vod:dropzone.html.twig" %}
+     {% include "@App/Vod/themoviedb.html.twig" %}
+	 <script type="text/javascript">
+		$(document).ready(function(){
+			if($('#file_upload img').length > 0) {
+				var image = $('#file_upload img').attr('src');
+				if (image.indexOf("https://image.tmdb.org/t/p/original") >= 0) {
+					var split = image.split('https://image.tmdb.org/t/p/original/');
+					$('#file_upload img').attr('src', 'https://image.tmdb.org/t/p/original/'+split[1]);
+					$('#file_upload a').attr('href', 'https://image.tmdb.org/t/p/original/'+split[1]);
+				}
+			}
+		});
+	 </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.vod.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body -%}
+    {% include "AppBundle:themes/default/Resellers/Vod:form.html.twig" %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form(delete_form) }}
+        </div>
+    </div>
+{% endblock %}

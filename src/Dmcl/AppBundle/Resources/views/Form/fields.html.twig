@@ -1,0 +1,34 @@
+{%- block _app_user_profile_adminIps_row -%}
+    {% if prototype is defined %}
+        {%- set attr = attr|merge({'data-prototype': form_row(prototype) }) -%}
+    {% endif %}
+    {{ form_label(form) }}
+    <div class="row">
+        <div class="col-xs-12 margin-btm-5">
+            <button class="btn btn-info collection-add-btn">Add more...</button>
+        </div>
+        <div {{ block('widget_container_attributes') }}>
+            {% for value in form %}
+                {{ form_row(value) }}
+            {% endfor %}
+        </div>
+    </div>
+{%- endblock -%}
+
+{%- block _app_user_profile_adminIps_entry_row -%}
+    {% spaceless %}
+        <div class="col-xs-12 col-sm-6 col-md-4 collection-entry">
+            <div class="form-group">
+                <div class="input-group">
+                    {%- set type = type|default('text') -%}
+                    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %}/>
+                    <span class="input-group-btn">
+                    <button class="btn btn-danger collection-remove-btn" type="button">
+                        <i class="glyphicon glyphicon-minus"></i>
+                    </button>
+                </span>
+                </div>
+            </div>
+        </div>
+    {% endspaceless %}
+{%- endblock -%}

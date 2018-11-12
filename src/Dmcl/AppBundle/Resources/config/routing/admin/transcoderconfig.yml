@@ -1,0 +1,40 @@
+transcoder-config:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:index" }
+
+transcoder-config_update:
+    path:     /{ip}/update
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:update" }
+    methods:  [POST, PUT]
+    
+transcoder-config_show:
+    path:     /{ip}/show
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:show" }
+    
+preset_show:
+    path:     /preset/{id}/show
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:showPreset" }
+
+preset_new:
+    path:     /{ip}/preset/new
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:newPreset" }
+
+preset_create:
+    path:     /{ip}/preset/create
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:createPreset" }
+    methods:  POST
+
+preset_edit:
+    path:     /preset/{ip}/{id}/edit
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:editPreset" }
+
+preset_update:
+    path:     /preset/{ip}/{id}/update
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:updatePreset" }
+    methods:  [POST, PUT]
+
+preset_delete:
+    path:     /preset/{ip}/{id}/delete
+    defaults: { _controller: "AppBundle:Admin/TranscoderConfig:deletePreset" }
+
+

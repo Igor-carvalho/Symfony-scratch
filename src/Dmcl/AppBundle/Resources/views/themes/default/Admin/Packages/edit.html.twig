@@ -1,0 +1,124 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.packages.edit.title" | trans }}{% endblock %}
+
+{% block body %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary btn-md pull-right" href="{{ path('packages') }}">
+                {{ "back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+   <div class="row">
+        <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-12">
+            {{ form_start(edit_form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form_label(edit_form.name,"pages.packages.name" | trans ) }}
+                        {{ form_widget(edit_form.name) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form_label(edit_form.credits,"pages.packages.credits" | trans ) }}
+                        {{ form_widget(edit_form.credits) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form_label(edit_form.duration,"pages.packages.duration" | trans ) }}
+                        {{ form_widget(edit_form.duration) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form_label(edit_form.durationIn,"pages.packages.durationin" | trans ) }}
+                        {{ form_widget(edit_form.durationIn) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h4>{{ "pages.line.attrs.bouquet" | trans }}</h4>
+                        <select class="form-control select2" multiple=true required name="bouquets[]" aria-required="true">
+                            {% for bouquet in bouquets %}
+                                <option {{ selected_bouquet(bouquet.id, bouquetsSelected) }} value="{{ bouquet.id }}">{{ bouquet.bouquetName }}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <h4>{{ "pages.packages.outputFormat" | trans }}</h4>
+                        <select class="form-control select2" multiple=true required name="formats[]" aria-required="true">
+                            {% for output in outputFormats %}
+                                <option {{ selected_bouquet(output.id, formatsSelected) }}  value="{{ output.id }}">{{ output.outputName }}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                </div> 
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form_label(edit_form.maxConnections,"pages.packages.maxConnections" | trans ) }}
+                        {{ form_widget(edit_form.maxConnections) }}
+                    </div>
+                </div>               
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="switch-inline">
+                        <span class="switch">
+                            {{ form_widget(edit_form.status) }}
+                            <span class="switch-slider"></span>
+                        </span>
+                        <span class="switch-inline__text">{{ "pages.packages.status" | trans }}</span>
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <label class="switch-inline">
+                        <span class="switch">
+                            {{ form_widget(edit_form.isTrial) }}
+                            <span class="switch-slider"></span>
+                        </span>
+                        <span class="switch-inline__text">{{ "pages.packages.trial" | trans }}</span>
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <label class="switch-inline">
+                        <span class="switch">
+                            {{ form_widget(edit_form.canGenMag) }}
+                            <span class="switch-slider"></span>
+                        </span>
+                        <span class="switch-inline__text">{{ "pages.packages.genMag" | trans }}</span>
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <label class="switch-inline">
+                        <span class="switch">
+                            {{ form_widget(edit_form.canGenE2) }}
+                            <span class="switch-slider"></span>
+                        </span>
+                        <span class="switch-inline__text">{{ "pages.packages.genE2" | trans }}</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_widget(edit_form.submit,{'attr':{
+                    'class': 'btn btn-success btn-sm pull-right mt-2',
+                    }}) }}
+                </div>
+            </div>
+            {{ form_end(edit_form) }}
+        </div>
+    </div>
+{% endblock %}

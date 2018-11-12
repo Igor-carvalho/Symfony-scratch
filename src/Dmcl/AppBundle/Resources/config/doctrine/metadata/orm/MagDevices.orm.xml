@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="MagDevices" table="mag_devices">
+    <indexes>
+      <index name="user_id" columns="user_id"/>
+      <index name="mac" columns="mac"/>
+    </indexes>
+    <id name="magId" type="integer" column="mag_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="userId" type="integer" column="user_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="bright" type="integer" column="bright" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">200</option>
+      </options>
+    </field>
+    <field name="contrast" type="integer" column="contrast" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">127</option>
+      </options>
+    </field>
+    <field name="saturation" type="integer" column="saturation" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">127</option>
+      </options>
+    </field>
+    <field name="aspect" type="text" column="aspect" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="videoOut" type="string" column="video_out" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">rca</option>
+      </options>
+    </field>
+    <field name="volume" type="integer" column="volume" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">50</option>
+      </options>
+    </field>
+    <field name="playbackBufferBytes" type="integer" column="playback_buffer_bytes" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="playbackBufferSize" type="integer" column="playback_buffer_size" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="audioOut" type="integer" column="audio_out" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="mac" type="string" column="mac" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="ip" type="string" column="ip" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="ls" type="string" column="ls" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="ver" type="string" column="ver" length="300" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="lang" type="string" column="lang" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="locale" type="string" column="locale" length="30" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">en_GB.utf8</option>
+      </options>
+    </field>
+    <field name="cityId" type="integer" column="city_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="hd" type="integer" column="hd" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="mainNotify" type="integer" column="main_notify" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="favItvOn" type="integer" column="fav_itv_on" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="nowPlayingStart" type="integer" column="now_playing_start" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="nowPlayingType" type="integer" column="now_playing_type" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="nowPlayingContent" type="string" column="now_playing_content" length="50" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="timeLastPlayTv" type="integer" column="time_last_play_tv" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="timeLastPlayVideo" type="integer" column="time_last_play_video" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="hdContent" type="integer" column="hd_content" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="imageVersion" type="string" column="image_version" length="350" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="lastChangeStatus" type="integer" column="last_change_status" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="lastStart" type="integer" column="last_start" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="lastActive" type="integer" column="last_active" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="keepAlive" type="integer" column="keep_alive" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="playbackLimit" type="integer" column="playback_limit" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">3</option>
+      </options>
+    </field>
+    <field name="screensaverDelay" type="integer" column="screensaver_delay" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">10</option>
+      </options>
+    </field>
+    <field name="stbType" type="string" column="stb_type" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="sn" type="string" column="sn" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="lastWatchdog" type="integer" column="last_watchdog" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="created" type="integer" column="created" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="country" type="string" column="country" length="5" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="plasmaSaving" type="integer" column="plasma_saving" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tsEnabled" type="integer" column="ts_enabled" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tsEnableIcon" type="integer" column="ts_enable_icon" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="tsPath" type="string" column="ts_path" length="35" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="tsMaxLength" type="integer" column="ts_max_length" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">3600</option>
+      </options>
+    </field>
+    <field name="tsBufferUse" type="string" column="ts_buffer_use" length="15" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">cyclic</option>
+      </options>
+    </field>
+    <field name="tsActionOnExit" type="string" column="ts_action_on_exit" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">no_save</option>
+      </options>
+    </field>
+    <field name="tsDelay" type="string" column="ts_delay" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">on_pause</option>
+      </options>
+    </field>
+    <field name="videoClock" type="string" column="video_clock" length="10" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">Off</option>
+      </options>
+    </field>
+    <field name="rtspType" type="integer" column="rtsp_type" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">4</option>
+      </options>
+    </field>
+    <field name="rtspFlags" type="integer" column="rtsp_flags" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="stbLang" type="string" column="stb_lang" length="15" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">en</option>
+      </options>
+    </field>
+    <field name="displayMenuAfterLoading" type="integer" column="display_menu_after_loading" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="recordMaxLength" type="integer" column="record_max_length" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">180</option>
+      </options>
+    </field>
+    <field name="plasmaSavingTimeout" type="integer" column="plasma_saving_timeout" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">600</option>
+      </options>
+    </field>
+    <field name="nowPlayingLinkId" type="integer" column="now_playing_link_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="nowPlayingStreamerId" type="integer" column="now_playing_streamer_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="deviceId" type="string" column="device_id" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="deviceId2" type="string" column="device_id2" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="hwVersion" type="string" column="hw_version" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="parentPassword" type="string" column="parent_password" length="20" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">0000</option>
+      </options>
+    </field>
+    <field name="spdifMode" type="integer" column="spdif_mode" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="showAfterLoading" type="string" column="show_after_loading" length="60" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">main_menu</option>
+      </options>
+    </field>
+    <field name="playInPreviewByOk" type="integer" column="play_in_preview_by_ok" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="hdmiEventReaction" type="integer" column="hdmi_event_reaction" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="magPlayer" type="string" column="mag_player" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="default">ffmpeg</option>
+      </options>
+    </field>
+    <field name="playInPreviewOnlyByOk" type="string" column="play_in_preview_only_by_ok" length="10" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">true</option>
+      </options>
+    </field>
+    <field name="favChannels" type="text" column="fav_channels" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="tvArchiveContinued" type="text" column="tv_archive_continued" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="tvChannelDefaultAspect" type="string" column="tv_channel_default_aspect" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">stretch</option>
+      </options>
+    </field>
+    <field name="lastItvId" type="integer" column="last_itv_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="units" type="string" column="units" length="20" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="default">metric</option>
+      </options>
+    </field>
+    <field name="token" type="string" column="token" length="32" nullable="true">
+      <options>
+        <option name="fixed"/>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="lockDevice" type="boolean" column="lock_device" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="watchdogTimeout" type="integer" column="watchdog_timeout" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

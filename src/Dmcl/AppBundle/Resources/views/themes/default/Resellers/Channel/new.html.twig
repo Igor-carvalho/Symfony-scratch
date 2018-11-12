@@ -1,0 +1,75 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.channel.new.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel.new.title" | trans }}{% endblock %}
+
+{% block body_parent %}
+<div class="box">
+    {{ form_start(form) }}
+
+    <div class="box-body">
+        {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+
+        <div class="col-md-10 col-md-offset-1">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form_label(form.name,"pages.channel.attrs.name" | trans ) }}
+                        {{ form_widget(form.name) }}
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form_label(form.category,"pages.channel.attrs.category" | trans ) }}
+                        {{ form_widget(form.category) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.enabled,"pages.channel.attrs.enabled" | trans ) }}
+                        {{ form_widget(form.enabled) }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.file,"pages.channel.attrs.logo" | trans ) }}
+                        {{ form_widget(form.file) }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.live,"pages.channel.attrs.live" | trans ) }}
+                        {{ form_widget(form.live) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="form-group pull-right">
+                        <a class="btn btn-default btn-sm"
+                           href="{{ path('resellers-channel') }}">{{ "pages.channel.new.back_to_list" | trans }}</a>
+                        {{ form_widget(form.submit,{'attr':{
+                            'class': 'btn btn-success btn-sm',
+                        }}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+    {% endblock %}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="BlockedIps" table="blocked_ips">
+    <indexes>
+      <index name="ip" columns="ip"/>
+      <index name="date" columns="date"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="ip_2" columns="ip"/>
+      <unique-constraint name="ip_3" columns="ip"/>
+      <unique-constraint name="ip_4" columns="ip"/>
+      <unique-constraint name="ip_5" columns="ip"/>
+      <unique-constraint name="ip_6" columns="ip"/>
+      <unique-constraint name="ip_7" columns="ip"/>
+      <unique-constraint name="ip_8" columns="ip"/>
+      <unique-constraint name="ip_9" columns="ip"/>
+      <unique-constraint name="ip_10" columns="ip"/>
+      <unique-constraint name="ip_11" columns="ip"/>
+      <unique-constraint name="ip_12" columns="ip"/>
+      <unique-constraint name="ip_13" columns="ip"/>
+      <unique-constraint name="ip_14" columns="ip"/>
+      <unique-constraint name="ip_15" columns="ip"/>
+      <unique-constraint name="ip_16" columns="ip"/>
+      <unique-constraint name="ip_17" columns="ip"/>
+      <unique-constraint name="ip_18" columns="ip"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ip" type="string" column="ip" length="39" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="notes" type="text" column="notes" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="date" type="integer" column="date" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="attemptsBlocked" type="integer" column="attempts_blocked" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

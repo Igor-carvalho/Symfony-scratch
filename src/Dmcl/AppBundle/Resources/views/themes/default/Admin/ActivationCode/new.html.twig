@@ -1,0 +1,110 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.activation_code.new.title" | trans }}{% endblock %}
+
+{% block page_title %}{{ "pages.activation_code.new.title" | trans }}{% endblock %}
+
+{% block body %}
+    <form method="post" action="{{ path('activationcode_new') }}">
+        <div class="box-body">
+            {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-10">
+                    <div class="form-group">
+                        {{ form_label(form.createUser,"pages.activation_code.attrs.create_user") }}
+                        {{ form_widget(form.createUser) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+                    <div class="form-group">
+                        {{ form_label(form.activation_code_amount, "pages.activation_code.attrs.activation_code_amount" | trans ) }}
+                        {{ form_widget(form.activation_code_amount) }}
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form_label(form.period,"pages.activation_code.attrs.period" | trans ) }}
+                        <div class="input-group">
+                            {{ form_widget(form.period) }}
+                            <span class="input-group-addon">{{ "pages.activation_code.attrs.days" | trans }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_label(form.customer,"pages.activation_code.attrs.customer" | trans ) }}
+                        {{ form_widget(form.customer) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="form-group">
+                        {{ form_label(form.vods_package,"pages.activation_code.attrs.vodsPackage" | trans ) }}
+                        {{ form_widget(form.vods_package) }}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        {{ form_label(form.series_package,"pages.activation_code.attrs.seriesPackage" | trans ) }}
+                        {{ form_widget(form.series_package) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="form-group">
+                        {{ form_label(form.channels_package,"pages.activation_code.attrs.channelsPackage" | trans ) }}
+                        {{ form_widget(form.channels_package) }}
+                    </div>
+                </div>                
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <a class="btn btn-default pull-left" href="{{ path('activationcode') }}">{{ "pages.activation_code.new.back_to_list" | trans }}</a>
+                    <button type="submit" class="btn btn-primary pull-right">{{ 'pages.activation_code.new.save'|trans }}</button>
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+            $(document).ready(function () {
+
+                $("#dmcl_appbundle_activationcode_createUser").on({
+                    ifChecked: function(){
+                        $('#dmcl_appbundle_activationcode_customer').attr('disabled', true);
+                    },
+                    ifUnchecked: function(){
+                        if($('#dmcl_appbundle_activationcode_customer')[0].childElementCount)
+                          $('#dmcl_appbundle_activationcode_customer').attr('disabled', false);
+                        else{
+                            $("#dmcl_appbundle_activationcode_createUser").iCheck('true', function (node) {
+                            });
+                        }  
+                    }
+                });
+
+                $("#dmcl_appbundle_activationcode_createUser").iCheck('toggle', function (node) {
+                });
+                $("#dmcl_appbundle_activationcode_createUser").iCheck('toggle', function (node) {
+                });
+
+            })
+    </script>
+
+{% endblock %}

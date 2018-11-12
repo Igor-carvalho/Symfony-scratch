@@ -1,0 +1,39 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+
+
+{% block title %}{{ "pages.vod_for_sale.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.vod_for_sale.title" | trans }}{% endblock %}
+
+{% block cart %}
+
+{% endblock %}
+
+
+{% block body_parent -%}
+    {% if entities | length > 0 %}
+        <div class="row product-list">
+            {% for entity in entities %}
+                <div id="cart-vod-{{ entity.id }}"  class="col-md-2 col-sm-3 col-xs-6 margin-bottom-10 animated">
+                    <div class="product-item">
+                        <div class="pi-img-wrapper">
+                            <img alt="{{ entity.title }}" class="img-responsive vod" src="{{ asset("uploads/" ~ entity.cover) }}">
+                        </div>
+                        <h3>{{ entity.title }}</h3>
+                        <div class="pi-price">
+                            {{ entity.price | price_humanize | trans }}
+                            <span class="subscription-period">
+                                <sup>
+                                    {{ entity.subscriptionPeriod }} {{ entity.subscriptionInterval }}
+                                </sup>
+                            </span>
+                        </div>
+                        <a data-parent="#cart-vod-{{ entity.id }}" class="btn-default add2cart col-md-12 text-center" href="{{ path('add_to_cart') }}"  data-type="vod" data-name="{{ entity.title }}" data-price="{{ entity.price }}" data-image="{{ asset("uploads/" ~ entity.cover) }}" data-product="{{ entity.id }}">{{ "pages.vod_for_sale.add_to_cart" | trans }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channels_for_sale.no_channels" | trans }}</h4>
+    {% endif %}
+{% endblock %}

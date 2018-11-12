@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="MovieContainers" table="movie_containers">
+    <indexes>
+      <index name="container_extension" columns="container_extension"/>
+    </indexes>
+    <id name="containerId" type="integer" column="container_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="containerExtension" type="string" column="container_extension" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="containerHeader" type="string" column="container_header" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

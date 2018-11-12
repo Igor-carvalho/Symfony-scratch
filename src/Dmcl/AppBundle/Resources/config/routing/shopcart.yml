@@ -1,0 +1,23 @@
+add_to_cart:
+    path:  /add
+    defaults: { _controller: "AppBundle:ShopCart:addProduct" }
+    requirements:
+        methods: POST
+
+remove_from_cart:
+    path:  /remove
+    defaults: { _controller: "AppBundle:ShopCart:removeProduct" }
+    requirements:
+        methods: POST
+
+get_cart:
+    path:  /get
+    defaults: { _controller: "AppBundle:ShopCart:getCar" }
+    requirements:
+        methods: GET
+
+clear_cart:
+    path:  /clear
+    defaults: { _controller: "AppBundle:ShopCart:clearCar" }
+    requirements:
+        methods: POST

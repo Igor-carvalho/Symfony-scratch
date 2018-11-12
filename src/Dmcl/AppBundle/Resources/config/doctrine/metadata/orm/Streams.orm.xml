@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Streams" table="streams">
+    <indexes>
+      <index name="type" columns="type"/>
+      <index name="category_id" columns="category_id"/>
+      <index name="created_channel_location" columns="created_channel_location"/>
+      <index name="enable_transcode" columns="enable_transcode"/>
+      <index name="read_native" columns="read_native"/>
+      <index name="epg_id" columns="epg_id"/>
+      <index name="channel_id" columns="channel_id"/>
+      <index name="transcode_profile_id" columns="transcode_profile_id"/>
+      <index name="order" columns="order"/>
+      <index name="direct_source" columns="direct_source"/>
+      <index name="rtmp_output" columns="rtmp_output"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="type" type="integer" column="type" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="categoryId" type="integer" column="category_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="streamDisplayName" type="text" column="stream_display_name" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="streamSource" type="text" column="stream_source" length="16777215" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="streamIcon" type="text" column="stream_icon" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="notes" type="text" column="notes" length="16777215" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="createdChannelLocation" type="integer" column="created_channel_location" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="enableTranscode" type="boolean" column="enable_transcode" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="transcodeAttributes" type="text" column="transcode_attributes" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="customFfmpeg" type="text" column="custom_ffmpeg" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="moviePropeties" type="text" column="movie_propeties" length="16777215" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="movieSubtitles" type="text" column="movie_subtitles" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="readNative" type="boolean" column="read_native" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="targetContainer" type="text" column="target_container" length="65535" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="streamAll" type="boolean" column="stream_all" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="removeSubtitles" type="boolean" column="remove_subtitles" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="customSid" type="string" column="custom_sid" length="150" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="epgId" type="integer" column="epg_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="channelId" type="string" column="channel_id" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="epgLang" type="string" column="epg_lang" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="order" type="integer" column="order" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="autoRestart" type="text" column="auto_restart" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="transcodeProfileId" type="integer" column="transcode_profile_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="pidsCreateChannel" type="text" column="pids_create_channel" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="cchannelRsources" type="text" column="cchannel_rsources" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="genTimestamps" type="boolean" column="gen_timestamps" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="added" type="integer" column="added" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="seriesNo" type="integer" column="series_no" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="directSource" type="boolean" column="direct_source" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tvArchiveDuration" type="integer" column="tv_archive_duration" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tvArchiveServerId" type="integer" column="tv_archive_server_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tvArchivePid" type="integer" column="tv_archive_pid" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="movieSymlink" type="boolean" column="movie_symlink" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="redirectStream" type="boolean" column="redirect_stream" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="rtmpOutput" type="boolean" column="rtmp_output" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="number" type="integer" column="number" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="allowRecord" type="boolean" column="allow_record" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="probesizeOndemand" type="integer" column="probesize_ondemand" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">512000</option>
+      </options>
+    </field>
+    <field name="customMap" type="text" column="custom_map" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="externalPush" type="text" column="external_push" length="16777215" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="delayMinutes" type="integer" column="delay_minutes" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,248 @@
+<link rel="stylesheet" href="{{asset('bundles/assets/bzplayer/css/font/bzicons.css') }}">
+<link rel="stylesheet" href="{{asset('bundles/assets/bzplayer/css/default.css') }}">
+<link rel="stylesheet" href="{{asset('bundles/assets/bzplayer/css/plugins/plugins-default.css') }}">
+
+<!-- Modal -->
+<div class="modal fade" id="playbackmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="closePlayer" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="playback-title"></h4>
+            </div>
+            <div class="modal-body" id="playback-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div id="playback" style="background-color: black; width:100%; height:300px; display:none;"></div>
+                            <div id="playbackhls" style="background-color: black; width:100%; height:300px; display:none;"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="cards">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <h5>Stream Input:</h5>
+                                <pre id="source"></pre>
+                                <h5>Stream output:</h5>
+                                <pre id="output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('bundles/assets/flowplayer/flowplayer-3.2.13.min.js') }}"></script>
+<script src="{{ asset('bundles/assets/flowplayer/flowplayer.embed-3.2.11.min.js') }}"></script>
+<script src="{{ asset('bundles/assets/flowplayer/flowplayer.ipad-3.2.13.js') }}"></script>
+
+<script type="text/javascript" src="{{asset('bundles/assets/bzplayer/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/bzplayer/js/video.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/bzplayer/js/hls.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/bzplayer/js/dash-load.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/bzplayer/js/dash.min.js') }}"></script>
+
+<script type="text/javascript">
+    var player = '';
+    var playerhls = '';
+    var html = '';
+    var first = true;
+    var rtmp = false;
+
+    function shareLinks(title, url) {
+        $("#facebook").attr("href", encodeURI("http://www.facebook.com/sharer.php?u=" + url));
+        $("#twitter").attr("href", encodeURI("https://twitter.com/share?url=" + url + "&text=" + title + "&hashtags=" + title));
+        $("#google-plus").attr("href", encodeURI("https://plus.google.com/share?url=" + url));
+    }
+
+    function play(card, title, url, protocol) {
+        $('div.card').each(function () {
+            $(this).removeClass('active');
+        });
+                
+        $(card).addClass('active');
+
+        if (protocol == 'rtmp') {
+            $('#playback').html('');
+            $('#playback').show();
+            $('#playbackhls').hide();
+            
+            rtmp = true;
+
+            player = $f("playback",
+                    {
+                        src: "{{ asset('bundles/assets/flowplayer/flowplayer.commercial-3.2.18.swf') }}",
+                        wmode: "opaque"
+                    },
+                    {
+                        plugins: {
+                            rtmp: {
+                                url: "{{ asset('bundles/assets/flowplayer/flowplayer.rtmp-3.2.13.swf') }}",
+                            }
+                        }
+                    }).ipad();
+
+            player ? (player.play(), player.play(), player.play({
+                url: url,
+                scaling: 'scale',
+                provider: 'rtmp'
+            })) : console.log("error");        
+        } else if(protocol == "hls"){
+            $('#playback').hide();
+            $('#playbackhls').show();
+
+            rtmp = false;
+
+            if(first){
+                first = false;
+
+                $('#playbackhls').html('<video id="video" class="video-js vjs-default-skin vjs-big-play-centered" width="350px" height="300px" preload="auto" autoplay="true" playsInline controls></video>');
+                
+                playerhls = videojs('video');
+                playerhls.src({ src: url, label: title, type: 'application/x-mpegURL'});
+            }
+            else{
+                playerhls.src({ src: url, label: title, type: 'application/x-mpegURL'}); 
+                playerhls.play();
+            }            
+        }
+        else{
+            $('#playback').hide();
+            $('#playbackhls').show();
+
+            rtmp = false;
+
+            if(first){
+                first = false;
+
+                $('#playbackhls').html('<video id="video" class="video-js vjs-default-skin vjs-big-play-centered" width="350px" height="300px" preload="auto" autoplay="true" playsInline controls></video>');            
+            
+                playerhls = videojs('video');
+                playerhls.src({ src: url, label: title, type: 'application/dash+xml'});
+            }
+            else{
+                playerhls.src({ src: url, label: title, type: 'application/dash+xml'});
+                playerhls.play();
+            }
+        }
+    }
+
+    var check = false;
+
+    setInterval(function () {
+        if(check){
+            if(!$('body').hasClass('modal-open')){
+                check = false;
+
+                if(!rtmp){
+                    playerhls.pause();
+                    $('#playbackhls').hide();
+                }
+
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        't': idChannelPaying
+                    },
+                    url: urlStopHandler,
+                    dataType: "json", 
+                    success: function (data, textStatus, jqXHR) { 
+                            idChannelPaying = 0;                                      
+                            country = true;  
+                    }, error: function (g) {
+                        idChannelPaying = false;
+                        return 0;   
+                    }
+                });
+            }
+        }    
+    }, 1000); 
+
+    function watchChannel(title, url, cover, protocol, id, mediaType, owner, source) {
+        var imgtag = '<img src="' + cover + '"/>';
+        check = true;
+
+        $('#cards').html('');
+        $('#source').html(source);
+        $('#output').html(url);
+
+        var cliphtml = '<div style="cursor:pointer" class="thumbnail card " onclick="play(this, \'' + title + '\', \'' + url + '\', \'' + protocol + '\')">' +
+                imgtag + '</div>';
+        
+        $('#cards').append(cliphtml);
+
+        var height = $('#playback').css('height');
+        
+        $('#cards').slimScroll({
+            height: height
+        });
+        
+        play($('div.card:first'), title, url, protocol);
+        
+        $('#playback-title').text(title);
+        $('#playbackmodal').modal('toggle');
+
+         $.ajax({
+            type: "POST",
+            url: urlPlayHandler,
+            dataType: "json",
+            data:{
+                'mediaId': id,
+                'mediaType': mediaType,
+                'owner': owner                
+            }, 
+            success: function (data, textStatus, jqXHR) {                           
+               idChannelPaying = id;
+            }, error: function (g) {
+                return 0;                           
+            }
+        });
+    }
+
+    function code(url) {
+        var source = "";
+        if (url.length > 0)
+            source = url[0];
+
+        $('#playback').html('');
+        $f("playback",
+                {
+                    src: "{{ asset('bundles/assets/flowplayer/flowplayer.commercial-3.2.18.swf') }}",
+                    wmode: "opaque"
+                },
+                {
+                    clip: {
+                        url: source,
+                        autoBuffering: true,
+                        scaling: "scale",
+                        autoPlay: true
+                    }
+                }).ipad();
+
+
+        $f("playback").embed({index: 0});
+
+        var embed = $f("playback").getEmbedCode();
+        $('#playback').html('');
+
+        return $('<div/>').html(embed).text();
+    }
+
+     /*function showCode(source, title, url) {
+     var pop = $(source).popover({
+     trigger: 'manual',
+     content: this.code(url),
+     template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div><textarea class="popover-content" contenteditable="false" style="margin: 1px; resize: none;"></textarea></div></div>'
+     });
+     pop.popover('toggle');
+
+     }*/
+</script>

@@ -1,0 +1,35 @@
+app.vod-series:
+    resource: "@AppBundle/Controller/Admin/VodSeriesController.php"
+    type:     annotation
+
+app.route.vod_series.details:
+    path:   /{ip}/{id}/details
+    defaults: { _controller: "AppBundle:Admin/VodSeries:details"}
+
+series_edit:
+    path:   /{ip}/{id}/edit
+    defaults: { _controller: "AppBundle:Admin/VodSeries:edit"}
+
+series_delete:
+    path:   /{ip}/{id}/delete
+    defaults: { _controller: "AppBundle:Admin/VodSeries:delete"}
+
+vod-series:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/VodSeries:index" }
+
+vod-series_new:
+    path:     /{ip}/new
+    defaults: { _controller: "AppBundle:Admin/VodSeries:new" }
+
+vod-series_show:
+    path:     /{ip}/show
+    defaults: { _controller: "AppBundle:Admin/VodSeries:show" }
+
+episodes_show:
+    path:   /{ip}/{id}
+    defaults: { _controller: "AppBundle:Admin/VodSeries:showEpisode"}
+
+episode_new:
+    path:   /{ip}/{id}/episode/new
+    defaults: { _controller: "AppBundle:Admin/VodSeries:newEpisode"}

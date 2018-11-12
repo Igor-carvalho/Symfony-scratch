@@ -1,0 +1,15 @@
+anouncement:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Anouncement:index" }
+
+anouncement_new:
+    path:     /new/
+    defaults: { _controller: "AppBundle:Admin/Anouncement:new" }
+
+anouncement_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "AppBundle:Admin/Anouncement:edit" }
+
+anouncement_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "AppBundle:Admin/Anouncement:delete" }

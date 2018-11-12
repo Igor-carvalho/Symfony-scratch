@@ -1,0 +1,237 @@
+{% extends "AppBundle:themes/default/base-admin:base.html.twig" %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block body_parent %}
+   
+    <div class="row">
+        <div class="col-lg-10">
+            <form style="float:right; min-width:180px;" action="#" metoth="POST">
+                <select id="refreshIntervalLines" class="form-control select2" aria-required="true">
+                    <option value="Last 30 days" selected="selected">Last 30 days</option>
+                    <option value="Last month">Last month</option>
+                    <option value="Last year">Last year</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-lg-10">
+            <div class="chart-widget frappe-chart">
+                <h3 style="text-align:center;">Lines Statistics for <span id="period-lines">Last 30 days</span></h3>
+                <canvas id="linesChart" style="max-height:100%"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <form style="float:right; min-width:180px;" action="#" metoth="POST">
+                <select id="refreshIntervalCredits" class="form-control select2" aria-required="true">
+                    <option value="Last 30 days" selected="selected" >Last 30 days</option>
+                    <option value="Last month">Last month</option>
+                    <option value="Last year">Last year</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-lg-10">
+            <div class="chart-widget frappe-chart">
+                <h3 style="text-align:center;">Credits Statistics for <span id="period-credits">Last 30 days</span></h3>
+                <canvas id="creditsChart" style="max-height:100%"></canvas>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+ <script src="{{ asset('bundles/assets/themes/default/plugins/chart.js') }}"></script>
+
+ <script type="text/javascript">
+        var linesChart;
+        var creditsChart;
+
+        $(document).ready(function () {
+            $("#refreshIntervalLines").on({
+                change: function () {
+                    $('#period-lines').html($(this).val());
+                    linesChart.data.datasets[0].label = $(this).val();
+
+                    periodLines();
+                }
+            });
+
+            $("#refreshIntervalCredits").on({
+                change: function () {
+                    $('#period-credits').html($(this).val());
+                    
+                    creditsChart.data.datasets[0].label = $(this).val();
+
+                    creditsChart.update();
+                }
+            });
+
+            var initLinesChart = function(){
+                var data =  [
+                    '{{ linesStatistic.total[1] }}', '{{ linesStatistic.premium[1] }}', '{{ linesStatistic.trial[1] }}', '{{ linesStatistic.expired[1] }}', '{{ linesStatistic.mag[1] }}',
+                    '{{ linesStatistic.enigma2[1] }}', '{{ linesStatistic.assigned[1] }}'
+                ];
+
+                linesChart = new Chart($("#linesChart"), {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            "{{ 'pages.dashboard.total_lines' | trans }}", "{{ 'pages.dashboard.premium' | trans }}", "{{ 'pages.dashboard.trial' | trans }}", "{{ 'pages.dashboard.expired' | trans }}",
+                            "{{ 'pages.dashboard.mag' | trans }}", "{{ 'pages.dashboard.enigma2' | trans }}", "{{ 'pages.dashboard.assigned' | trans }}"
+                        ],
+                        datasets: [{
+                            label: 'Last 30 days',
+                            data: data,
+                            backgroundColor: [
+                                'rgba(255, 0, 0, 0.2)',
+                                'rgba(0, 255, 0, 0.2)',
+                                'rgba(0, 0, 255, 0.2)',
+                                'rgba(20, 100, 1, 0.2)',
+                                'rgba(255, 255, 100, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 2, 255, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 159, 235, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            };
+
+            var initCreditsChart = function(){
+                var data =  [
+                    '{{ linesStatistic.total[1] }}', '{{ linesStatistic.premium[1] }}', '{{ linesStatistic.trial[1] }}', '{{ linesStatistic.expired[1] }}', '{{ linesStatistic.mag[1] }}',
+                    '{{ linesStatistic.enigma2[1] }}', '{{ linesStatistic.assigned[1] }}', '{{ linesStatistic.assigned[1] }}', '{{ linesStatistic.assigned[1] }}', '{{ linesStatistic.assigned[1] }}',
+                    '{{ linesStatistic.assigned[1] }}'
+                ];
+
+                creditsChart = new Chart($("#creditsChart"), {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            "{{ 'pages.dashboard.total_payments' | trans }}", "{{ 'pages.dashboard.total_bonus' | trans }}", "{{'pages.dashboard.bitcoins' | trans }}", 
+                            "{{ 'pages.dashboard.card' | trans }}", "{{ 'pages.dashboard.redeem' | trans }}", "{{ 'pages.dashboard.new_lines' | trans }}", 
+                            "{{ 'pages.dashboard.extending_lines' | trans }}", "{{ 'pages.dashboard.additionals_connections' | trans }}", "{{ 'pages.dashboard.new_reseller_fees' | trans }}",
+                            "{{ 'pages.dashboard.refund_from_reseller' | trans }}", "{{ 'pages.dashboard.add_to_resellers' | trans }}"
+                        ],
+                        datasets: [{
+                            label: 'Last 30 days',
+                            data: data,
+                            backgroundColor: [
+                                'rgba(255, 0, 0, 0.2)',
+                                'rgba(0, 255, 0, 0.2)',
+                                'rgba(0, 0, 255, 0.2)',
+                                'rgba(20, 100, 1, 0.2)',
+                                'rgba(255, 255, 100, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(20, 20, 255, 0.2)',
+                                'rgba(10, 200, 255, 0.2)',
+                                'rgba(25, 80, 60, 0.2)',
+                                'rgba(255, 0, 45, 0.2)',
+                                'rgba(100, 20, 0, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 159, 235, 1)',
+                                'rgba(255, 159, 235, 1)',
+                                'rgba(255, 159, 235, 1)',
+                                'rgba(255, 159, 235, 1)',
+                                'rgba(255, 159, 235, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            };
+
+            initLinesChart();
+            initCreditsChart();
+        });
+
+        function periodLines(){
+            $.ajax({
+                url: "{{ path('app_dashboard_ajax') }}",
+                type: 'POST',
+                data: {
+                    period: $('#refreshIntervalLines')[0].selectedIndex
+                },
+                dataType: "json"
+            }).done(function(respnse){
+                datas = respnse.data;
+                dataLines = datas.linesStatistic;
+
+                linesChart.data.datasets[0].data[0] = dataLines.total[1];
+                linesChart.data.datasets[0].data[1] = dataLines.premium[1];
+                linesChart.data.datasets[0].data[2] = dataLines.trial[1];
+                linesChart.data.datasets[0].data[3] = dataLines.expired[1];
+                linesChart.data.datasets[0].data[4] = dataLines.mag[1];
+                linesChart.data.datasets[0].data[5] = dataLines.enigma2[1];
+                linesChart.data.datasets[0].data[6] = dataLines.assigned[1];
+
+                linesChart.update();
+            });
+        }
+
+        function periodCredits(){
+            $.ajax({
+                url: "{{ path('app_dashboard_ajax') }}",
+                type: 'POST',
+                data: {
+                    period: $('#refreshIntervalLines')[0].selectedIndex
+                },
+                dataType: "json"
+            }).done(function(respnse){
+                datas = respnse.data;
+                dataLines = datas.linesStatistic;
+
+                linesChart.data.datasets[0].data[0] = dataLines.total[1];
+                linesChart.data.datasets[0].data[1] = dataLines.premium[1];
+                linesChart.data.datasets[0].data[2] = dataLines.trial[1];
+                linesChart.data.datasets[0].data[3] = dataLines.expired[1];
+                linesChart.data.datasets[0].data[4] = dataLines.mag[1];
+                linesChart.data.datasets[0].data[5] = dataLines.enigma2[1];
+                linesChart.data.datasets[0].data[6] = dataLines.assigned[1];
+
+                linesChart.update();
+            });
+        }
+    </script>
+
+{% endblock %}

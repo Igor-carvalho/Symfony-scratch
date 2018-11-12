@@ -1,0 +1,1 @@
+<?php return unserialize('a:2:{i:0;O:48:"Symfony\\Component\\Validator\\Constraints\\NotBlank":3:{s:7:"message";s:42:"entity.resellers_blocked.reseller.no_blank";s:7:"payload";N;s:6:"groups";a:1:{i:0;s:7:"Default";}}i:1;O:30:"Doctrine\\ORM\\Mapping\\ManyToOne":4:{s:12:"targetEntity";s:4:"User";s:7:"cascade";N;s:5:"fetch";s:4:"LAZY";s:10:"inversedBy";s:7:"blocked";}}');

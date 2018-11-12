@@ -1,0 +1,55 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.vods_package_purchased.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.vods_package_purchased.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.vods_package_purchased.remove_msg" | trans }}";
+{% endblock %}
+
+{% block body -%}
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.vods_package_purchased.table.name" | trans }}</th>
+                <th>{{ "pages.vods_package_purchased.table.status" | trans }}</th>
+                <th>{{ "pages.vods_package_purchased.table.vods" | trans }}</th>
+                {#<th>{{ "pages.vod_package.index.table.price" | trans }}</th>#}
+                {#<th>{{ "pages.vod_package.index.table.period" | trans }}</th>#}
+                {#<th>{{ "pages.vod_package.index.table.for_test" | trans }}</th>#}
+                <th>{{ "pages.vods_package_purchased.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}{% if entity.id in testSubscriptions %} <sup>{{ "pages.vods_package_purchased.table.for_test" | trans }}</sup>{% endif %}</td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.vods_package_purchased.enabled" | trans :"pages.vods_package_purchased.disabled" | trans }}</td>
+                    <td>{{ entity.vods | length  }}</td>
+                    {#<td>{{ entity.price | price_humanize }}</td>#}
+                    {#<td>{{ entity.subscriptionPeriod }}  {{ ("pages.vod_package.show.interval."~entity.subscriptionInterval ) | trans }}</td>#}
+                    {#<td>{{ entity.forTest ? "pages.vod_package.index.yes" | trans :"pages.vod_package.index.no" | trans }}</td>#}
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-success show-inner" data-href="{{ path('resellers-vod-package_show', { 'id': entity.id }) }}"><i class="fa fa-plus"></i> {{ "pages.vods_package_purchased.details" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete" data-href="{{ path('resellers_products_remove_subscription', { 'id': entity.id,'type':"vod_package" }) }}">{{ "pages.vods_package_purchased.remove" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.vods_package_purchased.no_packages" | trans }}</h4>
+    {% endif %}
+{% endblock %}

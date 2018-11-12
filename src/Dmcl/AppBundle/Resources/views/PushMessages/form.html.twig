@@ -1,0 +1,65 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% if app.request.requestUri == path("app.push_messages.new") %}
+    {% set title %}{{ "push_message_creation" | trans }}{% endset %}
+    {% set btn %}{{ "btn.create" | trans }}{% endset %}
+{% else %}
+    {% set title %}{{ "push_message_edition" | trans }}{% endset %}
+    {% set btn %}{{ "btn.update" | trans }}{% endset %}
+{% endif %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+ {% block javascripts %}
+     <script type="text/javascript">
+         $(document).ready(function () {
+             $('#datetimepicker1').datetimepicker();
+         });
+     </script>
+ {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+
+        <div class="row">
+            <div class="col-xs-12 m">
+                <a class="btn btn-default btn-sm pull-right" href="{{ path('app.push_messages.index') }}">
+                    {{ "pages.vod.new.back_to_list" | trans }}
+                </a>
+            </div>
+        </div>
+        <br>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+                <div class="form-group ">
+                    {{ form_label(form.title, "label.title" | trans ) }}
+                    {{ form_widget(form.title, {'attr':{'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+                <div class="form-group">
+                    {{ form_label(form.date,"label.publish_rom" | trans ) }}
+                    <div class='input-group date' id='datetimepicker1'>
+                        {{ form_widget(form.date, {'attr':{'class': 'form-control'}}) }}
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="from-group">
+                    {{ form_label(form.content, "label.msg" | trans ) }}
+                    {{ form_widget(form.content, {'attr':{'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success pull-right">{{ btn }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
