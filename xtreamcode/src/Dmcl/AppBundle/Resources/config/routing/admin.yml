@@ -1,0 +1,59 @@
+app_dashboard:
+    path:  /dashboard
+    defaults: { _controller: AppBundle:Admin/Default:index }
+    requirements:
+        methods: GET
+
+app_dashboard_ajax:
+    path:  /dashboard/ajax
+    defaults: { _controller: AppBundle:Admin/Default:ajax }
+    requirements:
+        methods: POST
+
+app_line:
+    resource: "@AppBundle/Resources/config/routing/admin/users.yml"
+    prefix:   /lines
+
+app_streams:
+    resource: "@AppBundle/Resources/config/routing/admin/streams.yml"
+    prefix:   /streams
+
+app_packages:
+    resource: "@AppBundle/Resources/config/routing/admin/packages.yml"
+    prefix:   /packages
+
+app_products:
+    resource: "@AppBundle/Resources/config/routing/admin/products.yml"
+    prefix:   /products
+
+app_logs:
+    resource: "@AppBundle/Resources/config/routing/admin/logs.yml"
+    prefix:   /logs
+
+app_settings:
+    resource: "@AppBundle/Resources/config/routing/admin/settings.yml"
+    prefix:   /settings
+
+app_epg:
+    resource: "@AppBundle/Resources/config/routing/admin/epg.yml"
+    prefix:   /epg
+
+app_billing_system:
+    resource: "@AppBundle/Resources/config/routing/admin/billing.yml"
+    prefix:   /billing
+
+app_billing-configuration:
+    resource: "@AppBundle/Resources/config/routing/admin/billingconfiguration.yml"
+    prefix:   /billing/configuration
+
+app_gateways:
+    resource: "@AppBundle/Resources/config/routing/admin/gateways.yml"
+    prefix:   /billing/gateways
+
+app_statististics_admin:
+    resource: "@AppBundle/Resources/config/routing/admin/statistics.yml"
+    prefix:   /statistics
+
+app_customers:
+    resource: "@AppBundle/Resources/config/routing/admin/customers.yml"
+    prefix:   /customers

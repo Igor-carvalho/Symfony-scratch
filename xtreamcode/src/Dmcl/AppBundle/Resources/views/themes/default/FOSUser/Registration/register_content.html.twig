@@ -1,0 +1,72 @@
+
+<div id="register" class="animate form">
+    <section class="login_content">
+        <form method="POST" action="{{ path("fos_user_registration_register") }}" name="fos_user_registration_form">
+<h3>{{ "layout.register" | trans({},"FOSUserBundle") }}</h3>
+            <div>
+                 {{ form_widget(form.name,{'attr':{
+                     'placeholder': 'name' | trans,
+                     'class': 'form-control',
+                     'required':''
+                   }}) }}
+            </div>
+            <div>
+                 {{ form_widget(form.username,{'attr':{
+                     'placeholder':  'form.username' | trans({},"FOSUserBundle"),
+                     'class': 'form-control',
+                     'required':''
+                   }}) }}
+            </div>
+            <div>
+                {{ form_widget(form.email,{'attr':{
+                'placeholder':  'form.email' | trans({},"FOSUserBundle"),
+                'class': 'form-control',
+                'required':''
+                }}) }}
+            </div>
+            <div>
+               {{ form_widget(form.plainPassword.first,{'attr':{
+                'placeholder': 'form.password' | trans({},"FOSUserBundle"),
+                'class': 'form-control',
+                'required':''
+                }}) }}
+            </div>
+            <div>
+                {{ form_widget(form.plainPassword.second,{'attr':{
+                'placeholder':  'form.password_confirmation' | trans({},"FOSUserBundle"),
+                'class': 'form-control',
+                'required':''
+                }}) }}
+            </div>
+            <div>
+                 {{ form_widget(form.country,{'attr':{
+                 'placeholder': 'country' | trans,
+                 'class': 'form-control',
+                 'required':''
+                   }}) }}
+            </div>
+            <div style="margin-top: 5px;padding: 1px" class="col-md-12">
+                <input type="submit" id="_submit" class="btn btn-default submit col-md-12"   name="_submit" value="{{ 'registration.submit'|trans({},"FOSUserBundle") }}"/>
+            </div>
+            <div class="clearfix"></div>
+            <div class="separator">
+
+                <p class="change_link">{{ "pages.login.already_member" | trans }}
+                    <a href="#tologin" class="to_register">{{ "security.login.submit" | trans({},"FOSUserBundle") }} </a>
+                </p>
+                <div class="clearfix"></div>
+                <br />
+                <div>
+                    <a href="{{ path('home') }}"><h1>{{ project_name() }}</h1></a>
+
+                    <p>&copy; 2015 -  <a href="{{ path('home') }}">{{ project_name() }}</a>.
+                        <a href="#">{{ "base_admin.footer.privacy_policy" | trans({},"messages") }}</a>|<a href="#" style="margin-left: 15px">{{ "base_admin.footer.refund_policy" | trans({},"messages") }}</a>
+                    </p>
+                </div>
+            </div>
+             {{ form_widget(form._token) }}
+        </form>
+        <!-- form -->
+    </section>
+    <!-- content -->
+</div>

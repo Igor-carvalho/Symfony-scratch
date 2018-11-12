@@ -1,0 +1,53 @@
+{
+    "name": "genemu/form-bundle",
+    "type": "symfony-bundle",
+    "description": "Extra form types for your Symfony2 projects",
+    "keywords": ["form", "extra form"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Olivier Chauvel",
+            "email": "olivier@generation-multiple.com"
+        },
+        {
+            "name": "Bilal Amarni",
+            "email": "bilal.amarni@gmail.com"
+        },
+        {
+            "name": "Community contributions",
+            "homepage": "https://github.com/genemu/GenemuFormBundle/contributors"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "~2.6",
+        "symfony/form": "~2.6",
+        "twig/twig": "~1.14"
+    },
+    "require-dev": {
+        "symfony/doctrine-bridge": "~2.6",
+        "symfony/finder": "2.*",
+        "doctrine/orm": "2.*",
+        "doctrine/doctrine-bundle": "1.*",
+        "doctrine/mongodb-odm-bundle": "*",
+        "propel/propel-bundle": "*"
+    },
+    "suggest": {
+        "symfony/twig-bridge": "For integration into Twig templates",
+        "doctrine/doctrine-bundle": "In order to use some form types with Doctrine",
+        "symfony/finder": "For an image type",
+        "doctrine/mongodb-odm-bundle": "For MongoDB integration"
+    },
+    "autoload": {
+        "psr-0": {
+            "Genemu\\Bundle\\FormBundle": ""
+        }
+    },
+    "target-dir": "Genemu/Bundle/FormBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.3-dev"
+        }
+    }
+}

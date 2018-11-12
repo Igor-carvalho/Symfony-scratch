@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AccessOutput" table="access_output">
+    <indexes>
+      <index name="output_key" columns="output_key"/>
+      <index name="output_ext" columns="output_ext"/>
+    </indexes>
+    <id name="accessOutputId" type="integer" column="access_output_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="outputName" type="string" column="output_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="outputKey" type="string" column="output_key" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="outputExt" type="string" column="output_ext" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

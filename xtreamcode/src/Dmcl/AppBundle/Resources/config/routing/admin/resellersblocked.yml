@@ -1,0 +1,30 @@
+resellers-blocked:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/ResellersBlocked:index" }
+
+resellers-blocked_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Admin/ResellersBlocked:show" }
+
+resellers-blocked_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/ResellersBlocked:new" }
+
+resellers-blocked_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/ResellersBlocked:create" }
+    methods:  POST
+
+resellers-blocked_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/ResellersBlocked:edit" }
+
+resellers-blocked_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/ResellersBlocked:update" }
+    methods:  [POST, PUT]
+
+resellers-blocked_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/ResellersBlocked:delete" }
+    methods:  [POST, DELETE]

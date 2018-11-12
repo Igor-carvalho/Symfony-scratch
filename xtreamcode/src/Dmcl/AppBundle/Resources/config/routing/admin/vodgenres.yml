@@ -1,0 +1,30 @@
+vod-genres:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/VodGenres:index" }
+
+vod-genres_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Admin/VodGenres:show" }
+
+vod-genres_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/VodGenres:new" }
+
+vod-genres_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/VodGenres:create" }
+    methods:  POST
+
+vod-genres_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/VodGenres:edit" }
+
+vod-genres_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/VodGenres:update" }
+    methods:  [POST, PUT]
+
+vod-genres_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/VodGenres:delete" }
+    methods:  [POST, DELETE]

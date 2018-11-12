@@ -1,0 +1,60 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.servers.show.title" | transchoice(0,{"%name%":entity.name}) }}{% endblock %}
+{% block page_title %}{{ "pages.servers.show.title" | transchoice(0,{"%name%":entity.name}) }}{% endblock %}
+
+{% block body -%}
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Domain</th>
+                <td>{{ entity.domain }}</td>
+            </tr>
+            <tr>
+                <th>Ipaddress</th>
+                <td>{{ entity.ipAddress }}</td>
+            </tr>
+            <tr>
+                <th>Maxconnections</th>
+                <td>{{ entity.maxConnections }}</td>
+            </tr>
+            <tr>
+                <th>Serverzone</th>
+                <td>{{ entity.serverZone }}</td>
+            </tr>
+            <tr>
+                <th>Sshport</th>
+                <td>{{ entity.sshPort }}</td>
+            </tr>
+            <tr>
+                <th>Sshusername</th>
+                <td>{{ entity.sshUsername }}</td>
+            </tr>
+            <tr>
+                <th>Sshpassword</th>
+                <td>{{ entity.sshPassword }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('server') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('server_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

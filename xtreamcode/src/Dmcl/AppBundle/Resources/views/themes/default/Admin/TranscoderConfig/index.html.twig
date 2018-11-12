@@ -1,0 +1,41 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.transcoder_config.index.title" | trans }}{% endblock %}
+{% block page_description %}{% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.transcoder_config.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body %}
+{% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-hover">
+            <thead>
+            <tr class="headings">
+                <th class="column-title">{{ "server_client" | trans }}</th>
+                <th class="column-title">{{ "pages.transcoder_config.index.table.total" | trans }}</th>
+                <th class="column-title no-link last"><span class="nobr">{{ "pages.transcoder_config.index.table.actions" | trans }}</span>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr class="even pointer">
+                    <td>{{ entity.server_name }}({{ entity.streams_server }})</td>
+                    <td>
+                    {{ entity.total }}
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div>
+                                <a class="btn btn-success" title="{{ "pages.transcoder_config.msg_show_transcoder_config" | trans }}" href="{{ path('transcoder-config_show', { 'ip': entity.streams_server }) }}"><i class="fa fa-eye"></i></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% else %}
+    <h1 class="text-center">{{ "servers_off" | trans }}</h1>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.vod_package_for_sale.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.vod_package_for_sale.title" | trans }}{% endblock %}
+
+{% block body_parent -%}
+    {% if entities | length > 0 %}
+        <div class="row product-list">
+            {% for entity in entities %}
+                <div id="cart-vod-package-{{ entity.id }}" class="col-md-2 col-sm-3 col-xs-6 margin-bottom-10 animated">
+                    <div class="product-item">
+                        <div class="pi-img-wrapper">
+                          <h2>{{ entity.vods | length }}<span style="font-size: 17px"> {{ "pages.vod_package_for_sale.vods" | trans }}</span></h2>
+                            {#<img alt="{{ entity.name }}" class="img-responsive channel" src="{{ asset("uploads/" ~ entity.logo) }}">#}
+                        </div>
+                        <h3>{{ entity.name }}</h3>
+                        <div class="pi-price">{{ entity.price | price_humanize | trans }}
+                            <span class="subscription-period">
+                                <sup>
+                                    {{ entity.subscriptionPeriod }} {{ entity.subscriptionInterval }}
+                                </sup>
+                            </span>
+                        </div>
+						{% if(entity.price > 0) %}
+                        <a data-parent="#cart-vod-package-{{ entity.id }}" class="btn-default add2cart col-md-12 text-center" href="{{ path('add_to_cart') }}"  data-type="vod_package" data-name="{{ entity.name }}" data-price="{{ entity.price }}" data-image="{{ asset("bundles/assets/themes/default/dist/img/300x200.gif" ) }}" data-product="{{ entity.id }}">{{ "pages.vod_package_for_sale.add_to_cart" | trans }}</a>
+						{% else %}
+						<a class="btn-default col-md-12 text-center" href="{{ path('add_subscription', {'id': entity.id, 'type': 'vod_package'}) }}" >{{ "pages.channels_for_sale.subscribe" | trans }}</a>
+						{% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.vod_package_for_sale.no_packages" | trans }}</h4>
+    {% endif %}
+{% endblock %}

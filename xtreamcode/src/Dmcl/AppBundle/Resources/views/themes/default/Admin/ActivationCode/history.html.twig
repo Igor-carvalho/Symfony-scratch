@@ -1,0 +1,66 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+ {% block stylesheets %}
+     <link rel="stylesheet"
+           href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+{% block title %}{{ "pages.activation_code.history.history" | trans }}{% endblock %}
+
+{% block page_title %}{{ "pages.activation_code.history.history" | trans }}{% endblock %}
+
+{% block body_parent %}
+    <div class="box">
+        <div class="box-body">
+			<div class="row">
+                <div class="col-md-12 col-md-pull-right-1">
+                    <a class="btn btn-default pull-right" href="{{ path('activationcode') }}">{{ "pages.activation_code.new.back_to_list" | trans }}</a>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-xs-12">
+                    {% if entities | length > 0 %}
+                        <div class="table-responsive">
+                            <table class="datatable table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>{{ "pages.activation_code.index.table.code" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.mac" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.device_model" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.model_number" | trans }}</th>
+                                    <th>{{ "pages.activation_code.index.table.serial_number" | trans }}</th>
+                                    <th>{{ "pages.activation_code.history.reset_login" | trans }}</th>
+									<th>{{ "pages.activation_code.history.reset_date" | trans }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for entity in entities %}
+                                    <tr>
+                                        <td>{{ entity.activationCode }}</td>
+                                        <td>{{ entity.mac }}</td>
+                                        <td>{{ entity.deviceModel }}</td>
+                                        <td>{{ entity.modelNumber }}</td>
+                                        <td>{{ entity.serialNumber }}</td>
+                                        <td>{{ entity.resetLogin }}</td>
+                                        <td>{{ entity.resetDate | date('Y-m-d H:i:s') }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <h4 class="text-muted text-center">{{ "pages.activation_code.history.no_history" | trans }}</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+    <script src="{{ asset('bundles/assets/themes/default/dist/js/transcoder-control.js') }}"></script>
+    <script src="//{{ app.request.getHost() }}:3333/socket.io/socket.io.js"></script>
+{% endblock %}

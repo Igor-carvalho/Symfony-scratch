@@ -1,0 +1,11 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% if app.user == user %}
+    {% set title =   "pages.profile.details.my_profile" | trans %}
+{% else %}
+    {% set title =  "pages.profile.details.user_profile" | transchoice(0,{"%name%":user.name})  %}
+{% endif %}
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+{% block body %}
+    {% include "AppBundle:themes/default/FOSUser/Profile:edit_content.html.twig" %}
+{% endblock %}

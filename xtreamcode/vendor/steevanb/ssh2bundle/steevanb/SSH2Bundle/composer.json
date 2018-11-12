@@ -1,0 +1,17 @@
+{
+    "name": "steevanb/ssh2bundle",
+    "license": "MIT",
+    "type": "bundle",
+    "description": "Use SSH2 PHP extension with Symfony2",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "steevanb\\SSH2Bundle\\": "" }
+    },
+    "target-dir": "steevanb/SSH2Bundle",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/steevanb/ssh2bundle.git"
+        }
+    ]
+}

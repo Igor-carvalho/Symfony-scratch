@@ -1,0 +1,185 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.channel.show.title" | transchoice(0,{"%name%":entity.name}) }}{% endblock %}
+{% block page_title %}{{ "pages.channel.show.title" | transchoice(0,{"%name%":entity.name}) }}{% endblock %}
+
+{% block body -%}
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Agerestriction</th>
+                <td>{{ entity.ageRestriction }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ entity.category }}</td>
+            </tr>
+            <tr>
+                <th>Live</th>
+                <td>{{ entity.live }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+            <tr>
+                <th>Totalplayback</th>
+                <td>{{ entity.totalPlayback }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Allowloadbalancig</th>
+                <td>{{ entity.allowLoadBalancig }}</td>
+            </tr>
+
+            <tr>
+                <th>Logo</th>
+                <td>{{ entity.logo }}</td>
+            </tr>
+            <tr>
+                <th>Allowtranscoder</th>
+                <td>{{ entity.allowTranscoder }}</td>
+            </tr>
+            <tr>
+                <th>Keeporiginal</th>
+                <td>{{ entity.keepOriginal }}</td>
+            </tr>
+            <tr>
+                <th>Onlyaudio</th>
+                <td>{{ entity.onlyAudio }}</td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>{{ entity.source }}</td>
+            </tr>
+            <tr>
+                <th>Protocol</th>
+                <td>{{ entity.protocol }}</td>
+            </tr>
+            <tr>
+                <th>audioVideoCodec</th>
+                <td>{{ entity.audioVideoCodec }}</td>
+            </tr>
+            <tr>
+                <th>Fps</th>
+                <td>{{ entity.fps }}</td>
+            </tr>
+            <tr>
+                <th>Width</th>
+                <td>{{ entity.width }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ entity.height }}</td>
+            </tr>
+            <tr>
+                <th>Bitrate</th>
+                <td>{{ entity.bitRate }}</td>
+            </tr>
+            <tr>
+                <th>Profile</th>
+                <td>{{ entity.profile }}</td>
+            </tr>
+            <tr>
+                <th>Preset</th>
+                <td>{{ entity.preset }}</td>
+            </tr>
+            <tr>
+                <th>Deinterlace</th>
+                <td>{{ entity.deinterlace }}</td>
+            </tr>
+            <tr>
+                <th>Allowsnapshot</th>
+                <td>{{ entity.allowSnapShot }}</td>
+            </tr>
+            <tr>
+                <th>Videopids</th>
+                <td>{{ entity.videoPids }}</td>
+            </tr>
+            <tr>
+                <th>Audiomode</th>
+                <td>{{ entity.audioMode }}</td>
+            </tr>
+            <tr>
+                <th>Audiosamplerate</th>
+                <td>{{ entity.audioSamplerate }}</td>
+            </tr>
+            <tr>
+                <th>Audiopids</th>
+                <td>{{ entity.audioPids }}</td>
+            </tr>
+            <tr>
+                <th>Allowwatermark</th>
+                <td>{{ entity.allowWaterMark }}</td>
+            </tr>
+            <tr>
+                <th>Waterposition</th>
+                <td>{{ entity.waterPosition }}</td>
+            </tr>
+            <tr>
+                <th>Waterimage</th>
+                <td>{{ entity.waterImage }}</td>
+            </tr>
+            <tr>
+                <th>Allowtextoverlay</th>
+                <td>{{ entity.allowTextOverlay }}</td>
+            </tr>
+            <tr>
+                <th>Textoverlaysource</th>
+                <td>{{ entity.textOverlaySource }}</td>
+            </tr>
+            <tr>
+                <th>Textoverlaysize</th>
+                <td>{{ entity.textOverlaySize }}</td>
+            </tr>
+            <tr>
+                <th>Textoverlaytop</th>
+                <td>{{ entity.textOverlayTop }}</td>
+            </tr>
+            <tr>
+                <th>Textoverlayleft</th>
+                <td>{{ entity.textOverlayLeft }}</td>
+            </tr>
+            <tr>
+                <th>Textoverlaycolor</th>
+                <td>{{ entity.textOverlayColor }}</td>
+            </tr>
+            <tr>
+                <th>Transcodelib</th>
+                <td>{{ entity.transcoderLib }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('channel') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('channel_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.billing.orders.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.billing.orders.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block body -%}
+    {% if orders | length > 0 %}
+    <table class="datatable table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>{{ "pages.billing.orders.index.table.transaction_id" | trans }}</th>
+            <th>{{ "pages.billing.orders.index.table.amount" | trans }}</th>
+            {#<th>{{ "pages.billing.orders.index.table.discount" | trans }}</th>#}
+            <th>{{ "pages.billing.orders.index.table.status" | trans }}</th>
+            <th>{{ "pages.billing.orders.index.table.date_verified" | trans }}</th>
+            <th>{{ "pages.billing.orders.index.table.actions" | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in orders %}
+            <tr>
+                <td>{{ entity.transactionId | default("-") }}</td>
+                <td>{{ entity.amount | default(0) | price_humanize }}</td>
+                {#<td>{{ entity.disconut | default("-") }}</td>#}
+                <td class="{{ entity.verified ? "enabled":"disabled" }}">{{ entity.verified ? "pages.billing.orders.index.verified" | trans :"pages.billing.orders.index.no_verified" | trans }}</td>
+                <td>{% if entity.verifiedAt %}{{ entity.verifiedAt | date('Y-m-d H:i:s') }}{% else %}-{% endif %}</td>
+                <td>
+                    <a class="btn btn-xs btn-info" href="{{ path('reseller_billing_order_details', { 'transactionId': entity.transactionId }) }}">{{ "pages.billing.orders.index.details" | trans }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.billing.orders.index.no_orders" | trans }}</h4>
+    {% endif %}
+
+{% endblock %}

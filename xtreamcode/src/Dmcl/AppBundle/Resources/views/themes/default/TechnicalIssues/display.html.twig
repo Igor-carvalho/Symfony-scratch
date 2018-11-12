@@ -1,0 +1,29 @@
+{% if results | length > 0 %}
+	<div class="table-responsive">
+		<table class="datatable table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Issue</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					{% for result in results %}
+					<tr>
+						<td>{{result.issue}}</td>
+						<td>
+							<a class="btn btn-success btn-xs"
+							   href="{{ path('issue_edit', {'id': result.id}) }}">Edit</a>
+							<a class="btn btn-danger btn-xs delete"
+							   data-href="{{ path('issue_delete', {'id': result.id}) }}">Delete</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+{% else %}
+	<h4 class="text-muted text-center">{{ "pages.activation_code.index.no_activation_code" | trans }}</h4>
+{% endif %}

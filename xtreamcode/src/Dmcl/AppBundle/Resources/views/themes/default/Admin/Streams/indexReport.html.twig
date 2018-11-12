@@ -1,0 +1,170 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "base_admin.sidebar.menu.channel.new_report" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+    <script type="text/javascript">
+        var root = '';
+
+        $(document).ready(function () {
+            root = $('#channelsList');
+
+            $('#searchForm').on({
+                submit: function(e){
+                    findChannels(this[0].value);
+
+                    e.preventDefault();
+                }
+            });
+
+            root.empty();
+        });
+
+        function select(id){
+            $('.'+id).removeClass('hide');
+            $('.'+id).removeClass('hide');
+            $('.'+id).removeClass('hide');
+            $('.'+id).removeClass('hide');
+
+            $('#select-'+id).addClass('hidden');
+            $('#submit-'+id).removeClass('hidden');
+
+            $('#alertSubmit').html('');
+        }  
+
+        function unSelect(id){
+            $('.'+id).addClass('hide');
+            $('.'+id).addClass('hide');
+            $('.'+id).addClass('hide');
+            $('.'+id).addClass('hide');
+
+            $('#select-'+id).removeClass('hidden');
+            $('#submit-'+id).addClass('hidden');
+
+            $('#alertSubmit').html('<div class="col-md-12">\
+                                        <div class="alert alert-success" role="alert">\
+                                            <span class="alert-icon ua-icon-info"></span>\
+                                            <strong>Well done!</strong> You successfully send the report channel '+id+'\
+                                            <span class="close alert__close ua-icon-alert-close" data-dismiss="alert"></span>\
+                                        </div>\
+                                    </div>');
+
+            $('#sound-'+id).prop("checked", "");
+            $('#picture-'+id).prop("checked", "");
+            $('#down-'+id).prop("checked", "");
+            $('#wrong-'+id).prop("checked", "");
+        }  
+
+        function submit(id, name){
+            var sound = $('#sound-'+id).prop("checked")?1:0;
+            var picture = $('#picture-'+id).prop("checked")?1:0;
+            var down = $('#down-'+id).prop("checked")?1:0;
+            var wrong = $('#wrong-'+id).prop("checked")?1:0;
+
+            $.ajax({
+                url: "{{ path('streams_submit') }}",
+                dataType: "json", 
+                data: {
+                    id: id,
+                    name: name,
+                    sound: sound,
+                    picture: picture,
+                    down: down,
+                    wrong: wrong
+                },
+                type: 'POST'
+            }).done(function(response){
+               unSelect(id);
+            });
+        }  
+
+        function findChannels(name){
+            root.empty();
+
+            search(name, 1, 100);
+       };
+
+       function search(name, page, rpp){
+           $.ajax({
+                url: "{{ path('streams_search') }}",
+                dataType: "json", 
+                data: {
+                    name: name,
+                    page: page,
+                    rpp: rpp
+
+                },
+                type: 'POST'
+            }).done(function(response){
+                var datas = response.datas;
+
+                for(var i = 0; i < datas.length; i++){
+                    var path = "{{ path('streams_submit') }}";
+
+                    root.append('<div class="widget widget-payment-account">\
+                                    <div class="widget-payment-account__item">\
+                                        <span class="widget-payment-account__value">'+datas[i].id+'</span>\
+                                    </div>\
+                                    <div class="widget-payment-account__item">\
+                                        <span class="widget-payment-account__value">'+datas[i].name+'</span>\
+                                    </div>\
+                                    <div class="widget-payment-account__item '+datas[i].id+' hide">\
+                                        <div class="custom-control custom-checkbox">\
+                                            <input type="checkbox" class="custom-control-input" id="sound-'+datas[i].id+'" value="0">\
+                                            <label class="custom-control-label" for="sound-'+datas[i].id+'">{{"pages.streams.sound" | trans}}</label>\
+                                        </div>\
+                                    </div>\
+                                    <div class="widget-payment-account__item '+datas[i].id+' hide">\
+                                        <div class="custom-control custom-checkbox">\
+                                            <input type="checkbox" class="custom-control-input" id="picture-'+datas[i].id+'" value="0">\
+                                            <label class="custom-control-label" for="picture-'+datas[i].id+'">{{"pages.streams.picture" | trans}}</label>\
+                                        </div>\
+                                    </div>\
+                                    <div class="widget-payment-account__item '+datas[i].id+' hide">\
+                                        <div class="custom-control custom-checkbox">\
+                                            <input type="checkbox" class="custom-control-input" id="down-'+datas[i].id+'" value="0">\
+                                            <label class="custom-control-label" for="down-'+datas[i].id+'">{{"pages.streams.down" | trans}}</label>\
+                                        </div>\
+                                    </div>\
+                                    <div class="widget-payment-account__item '+datas[i].id+' hide">\
+                                        <div class="custom-control custom-checkbox">\
+                                            <input type="checkbox" class="custom-control-input" id="wrong-'+datas[i].id+'" value="0">\
+                                            <label class="custom-control-label" for="wrong-'+datas[i].id+'">{{"pages.streams.wrong" | trans}}</label>\
+                                        </div>\
+                                    </div>\
+                                    <div class="widget-payment-account__item">\
+                                        <a id="select-'+datas[i].id+'" onclick="select(\''+datas[i].id+'\')" class="btn btn-xs btn-success" href="#">{{"pages.streams.select" | trans}}</a>\
+                                        <a id="submit-'+datas[i].id+'" onclick="submit(\''+datas[i].id+'\',\''+datas[i].name+'\')" class="btn btn-xs btn-warning hidden" href="#">{{"pages.streams.submit" | trans}}</a>\
+                                    </div>\
+                                </div>');
+                }
+
+                if(datas.length)
+                    search(name, ++page, rpp);
+            });
+       }
+    </script>
+ {% endblock %}
+
+{% block body_parent %}
+    <div class="row mb-1">
+        <div class="col-md-6 offset-md-3">
+            <form id="searchForm">
+                <div class="input-group">
+                    <input class="form-control" placeholder="{{ "pages.streams.type" | trans }}" aria-label="{{ "base_admin.sidebar.streams.type" | trans }}" type="text">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit"><span class="ua-icon-search"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="alertSubmit" class="row mb-1"></div>
+
+    <div clss="row">
+        <div id="channelsList" class="col-md-12"></div>
+    </div>
+{% endblock %}

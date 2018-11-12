@@ -1,0 +1,124 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.series_package.playback.title" | trans }}{% endblock %}
+
+{% block page_title %}{{ "pages.series_package.playback.title" | trans }}{% endblock %}
+
+{% block body %}
+
+    {% if vodGenres|length > 0 %}
+        <div class="row">
+            <div class="col-md-4">
+                <div id="vod-category-container">
+                    {% for vodGenre in vodGenres %}
+                        <div class="box box-primary collapsed-box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">{{ vodGenre.name }}</h3>
+                                <div class="box-tools pull-right">
+                                    <span class="badge bg-light-blue">{{ vodGenre.vodPackages|length }}</span>
+                                    <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div><!-- /.box-header -->
+
+                            <div class="box-body" style="padding: 0px">
+                                <ul class="nav nav-pills nav-stacked">
+                                    {% for vodPackage in vodGenre.vodPackages %}
+                                        <li class="vod-package-item" data-view="{{ vodPackage.id }}">
+                                            <a href="javascript:;">
+                                                <span class="glyphicon glyphicon-play-circle"></span> {{ vodPackage.name }}
+                                                <ul class="list-unstyled">
+                                                    {{ vodPackage|format_video_list_element }}
+                                                </ul>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div><!-- /.box-body -->
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div id="player"></div>
+            </div>
+        </div>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.series_package.playback.no_series_package" | trans }}</h4>
+    {% endif %}
+
+{% endblock %}
+
+ {% block javascripts %}
+
+     <script src="{{ asset('bundles/assets/flowplayer/flowplayer-3.2.13.min.js') }}" type="text/javascript"></script>
+     <script src="{{ asset('bundles/assets/flowplayer/flowplayer.ipad-3.2.13.js') }}" type="text/javascript"></script>
+
+     <script type="text/javascript">
+
+         jQuery(document).ready(function () {
+
+             var height = $('#player').css('height');
+             $('#vod-category-container').slimScroll({
+                 height: height
+             });
+
+             $(document).on('click', 'li.vod-package-item', function () {
+
+                 $(document).find('li.vod-package-item').each(function () {
+                     $(this).removeClass('active');
+                 });
+
+                 $(this).addClass('active');
+
+                 {% if is_granted('ROLE_SUPER_ADMIN') %}
+                 var url = Routing.generate('vod_package_playback_info', {
+                     idseriesPackage: $(this).data('view'),
+                     _locale: '{{ app.request.locale }}'
+                 });
+                 {% else %}
+                 var url = Routing.generate('resellers-series_package_playback_info', {
+                     idVodPackage: $(this).data('view'),
+                     _locale: '{{ app.request.locale }}'
+                 });
+                 {% endif %}
+
+                 $.ajax({
+                     type: "post",
+                     url: url,
+                     beforeSend: block_screen
+                 }).done(function (data) {
+                     var live = atob(data.code);
+                     $('#player').html('');
+                     var TVPlayer = flowplayer("player",
+                         {
+                             src: "{{ asset('bundles/assets/flowplayer/flowplayer.commercial-3.2.18.swf') }}",
+                             wmode: "direct"
+                         },
+                         {
+                             plugins: {
+                                 flashls: {
+                                     // load the flashls plugin
+                                     url: "{{ asset('bundles/assets/flowplayer/flashlsFlowPlayer.swf') }}",
+                                     hls_maxbufferlength: 40
+                                 }
+                             }
+                         }).ipad();
+                     TVPlayer ? (TVPlayer.play(), TVPlayer.play(), TVPlayer.play({
+                             url: live,
+                             ipadUrl: live,
+                             live: true,
+                             provider: "flashls",
+                             urlResolvers: "flashls",
+                             accelerated: true,
+                             scaling: "fit",
+                             autoPlay: true
+                         })) : console.log("error");
+                 }).always(function () {
+                     unblock_screen();
+                 });
+             });
+         });
+     </script>
+ {% endblock %}

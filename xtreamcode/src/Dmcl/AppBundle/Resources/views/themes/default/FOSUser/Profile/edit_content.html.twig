@@ -1,0 +1,79 @@
+<div class="row">
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-3">
+        <!-- Profile Image -->
+        <div class="box box-primary">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="{{ app.user.avatar  ? asset("uploads/"~app.user.avatar):asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="User profile picture">
+                <h3 class="profile-username text-center"> {{ user.name | default("Anonymous") }}</h3>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+
+        <!-- About Me Box -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ "pages.profile.details.contact" | trans }}</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <p><i class="fa fa-phone"></i> {{ user.phone | default("-") }}</p>
+                <p><i class="fa fa-envelope"></i> {{ user.email | default("-") }}</p>
+                <p><i class="fa fa-map-marker"></i> {{ user.address | default("-") }}</p>
+                <hr>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+    <div class="col-md-9">
+        <div class="col-md-12">
+            {{ form_start(form) }}
+            <div class="col-md-6 margin-btm-5">
+                {{ form_label(form.name,"pages.profile.details.full_name" | trans) }}
+                {{ form_widget(form.name,{'attr':{
+                'class': 'form-control'
+                }}) }}
+            </div>
+            <div class="col-md-6 margin-btm-5">
+                {{ form_label(form.username,"pages.profile.details.username" | trans) }}
+                {{ form_widget(form.username,{'attr':{
+                'class': 'form-control',
+                'readonly': ''
+                }}) }}
+            </div>
+            <div class="col-md-6 margin-btm-5">
+                {{ form_label(form.email,"pages.profile.details.email_address" | trans) }}
+                {{ form_widget(form.email,{'attr':{
+                'class': 'form-control'
+                }}) }}
+            </div>
+            <div class="col-md-6 margin-btm-5">
+                {{ form_label(form.phone,"pages.profile.details.phone_number" | trans) }}
+                {{ form_widget(form.phone,{'attr':{
+                'class': 'form-control'
+                }}) }}
+            </div>
+            <div class="col-md-6 margin-btm-5">
+                 {{ form_label(form.country,"pages.user.attrs.country" | trans ) }}
+                 {{ form_widget(form.country) }}
+            </div>
+            <div class="col-md-6 margin-btm-5">
+                {{ form_label(form.file,"pages.profile.details.avatar" | trans) }}
+                {{ form_widget(form.file,{'attr':{
+                'class': 'form-control'
+                }}) }}
+            </div>
+            <div class="col-md-12 margin-btm-5">
+                {{ form_label(form.address,"pages.profile.details.address" | trans) }}
+                {{ form_widget(form.address,{'attr':{
+                'class': 'form-control',
+                'style': 'resize:none;height:100px'
+                }}) }}
+            </div>
+            <div class="clearfix"></div>
+            {{ form_rest(form) }}
+            <div class="col-md-12 margin-btm-5">
+                <input type="submit" class="btn btn-success pull-right" value="{{ 'pages.profile.update'|trans }}" />
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+ 

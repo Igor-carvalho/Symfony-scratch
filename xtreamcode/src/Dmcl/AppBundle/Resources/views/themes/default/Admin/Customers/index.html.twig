@@ -1,0 +1,64 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.customers.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.customers.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.customers.msg_delete" | trans }}";
+{% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block body -%}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('admin_customers_new') }}">
+            {{ "pages.customers.index.add_customer" | trans }}
+        </a>
+    </div>
+	<div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive" style="overflow-x:visible !important;">
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.customers.index.table.name" | trans }}</th>
+                <th>{{ "pages.customers.index.table.email" | trans }}</th>
+                <th>{{ "pages.customers.index.table.status" | trans }}</th>
+                <th>{{ "pages.customers.index.table.country" | trans }}</th>
+                <th>{{ "pages.customers.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.email }}</td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.customers.index.enabled" | trans :"pages.customers.index.disabled" | trans }}</td>
+                    <td>{{ entity.country | get_country }}</td>
+                    <td style="text-align: center">
+                        {#<a class="btn btn-xs btn-success" data-id="{{ entity.id }}" href="{{ path('admin_customers_generate_playlist', {'id': entity.id }) }}">{{ "pages.customers.index.get_playlists" | trans }}</a>#}
+                        <a class="btn btn-xs btn-info edit" data-id="{{ entity.id }}" href="{{ path('admin_customers_edit', {'id': entity.id }) }}">{{ "pages.customers.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete"  data-href="{{ path('admin_customers_delete', {'id': entity.id }) }}">{{ "pages.customers.index.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.customers.index.no_customers" | trans }}</h4>
+    {% endif %}
+	</div>
+	</div>
+	</div>
+{% endblock %}

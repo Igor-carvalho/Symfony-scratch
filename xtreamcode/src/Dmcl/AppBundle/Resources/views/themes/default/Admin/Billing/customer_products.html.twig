@@ -1,0 +1,47 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.billing.customer_products.index.title" | transchoice(0,{"%name%":customer.name}) }}{% endblock %}
+{% block page_title %}{{ "pages.billing.customer_products.index.title" | transchoice(0,{"%name%":customer.name}) }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block body -%}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('billing_customers') }}">
+            {{ "pages.billing.customer_products.index.back_to_list" | trans }}
+        </a>
+    </div>
+
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#channels" data-toggle="tab">{{ "pages.billing.customer_products.index.channels" | trans }}</a></li>
+            <li><a href="#channels_packages" data-toggle="tab">{{ "pages.billing.customer_products.index.channels_packages" | trans }}</a></li>
+            <li><a href="#vod" data-toggle="tab">{{ "pages.billing.customer_products.index.vod" | trans }}</a></li>
+            <li><a href="#vod_packages" data-toggle="tab">{{ "pages.billing.customer_products.index.vod_packages" | trans }}</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="active tab-pane" id="channels">
+             {% include "AppBundle:themes/default/Admin/Billing:customer_products_channel.html.twig" %}
+            </div>
+            <div class="tab-pane" id="channels_packages">
+                {% include "AppBundle:themes/default/Admin/Billing:customer_products_channels_packages.html.twig" %}
+            </div>
+            <div class="tab-pane" id="vod">
+                {% include "AppBundle:themes/default/Admin/Billing:customer_products_vod.html.twig" %}
+            </div>
+            <div class="tab-pane" id="vod_packages">
+                {% include "AppBundle:themes/default/Admin/Billing:customer_products_vod_packages.html.twig" %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

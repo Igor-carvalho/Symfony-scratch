@@ -1,0 +1,78 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.packages.index.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+     <script text="javascript">
+        var table = '';
+        var tableBouquets = '';
+        var rpp = 50;
+
+        $(document).ready(function(){
+            table = $('#datatable').DataTable({
+                lengthChange: true,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+            
+        });
+     </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.packages.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        <div style="margin-bottom: 20px;" class="col-md-12 no-padding">
+            <a class="btn btn-success btn-md pull-right" href="{{ path('packages_new') }}">
+                {{ "pages.packages.add_package" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="m-datatable col-md-10 offset-md-1">
+            <table id="datatable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:15%;">{{ "pages.packages.name" | trans }}</th>
+                        <th style="width:4%;">{{ "pages.packages.credits" | trans }}</th>
+                        <th style="width:5%;">{{ "pages.packages.duration" | trans }}</th>
+                        <th style="width:5%;">{{ "pages.packages.trial" | trans }}</th>
+                        <th style="width:5%;">{{ "pages.packages.status" | trans }}</th>
+                        <th style="width:6%;">{{ "pages.packages.actions" | trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>{{ entity.name }}</td>
+                            <td>{{ entity.credits }}</td>
+                            <td>{{ entity.duration }} {{ entity.durationIn }}</td>
+                            <td>
+                                {% if entity.isTrial %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if entity.status %}
+                                    <span class="color-success">{{ 'enabled' | trans }}</span>
+                                {% else %}
+                                    <span class="color-danger">{{ 'disabled' | trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a class="btn btn-xs btn-info" href="{{ path('packages_edit', { 'id': entity.id }) }}">{{ "pages.packages.index.edit" | trans }}</a>
+                                <a class="btn btn-xs btn-danger delete" data-href="{{ path('packages_delete', { 'id': entity.id }) }}">{{ "pages.packages.delete" | trans }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'AppBundle:themes/default/TechnicalIssues:base.html.twig' %}
+
+{% block title %}{{ "pages.technical_issues.show.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.technical_issues.show.title" | trans }}{% endblock %}
+
+{% block support_content -%}
+    <div class="box-body no-padding">
+        <div class="mailbox-read-info">
+            <h3>{{ entity.subject }}</h3>
+            <h5>{{ "pages.technical_issues.show.from" | trans }}: {{ entity.fromEmail == "system" ? company_email_support() :entity.fromEmail }} <span class="mailbox-read-time pull-right">{{ entity.createdAt | date("d M. Y H:m A") }}</span></h5>
+        </div><!-- /.mailbox-read-info -->
+        <div class="mailbox-controls with-border text-center">
+            <div class="btn-group">
+                <form id="tickets-form" method="POST" action="{{ path("technical_issues_delete") }}">
+                    <div style="display: none">
+                    <input  checked name="technical_issues[]" value="{{ entity.id }}" class="checkbox-ticket" type="checkbox">
+                    </div>
+                    <button class="btn btn-default btn-sm ticket-trash" data-toggle="tooltip" title="{{ "pages.technical_issues.delete" | trans }}"><i class="fa fa-trash-o"></i></button>
+                <a href="{{ path('technical_issues_reply', {'id': entity.id}) }}" class="btn btn-default btn-sm" data-toggle="tooltip" title="{{ "pages.technical_issues.reply" | trans }}"><i class="fa fa-reply"></i></a>
+                </form>
+            </div><!-- /.btn-group -->
+        </div><!-- /.mailbox-controls -->
+        <div class="mailbox-read-message">
+            {{ entity.message | raw }}
+        </div><!-- /.mailbox-read-message -->
+    </div><!-- /.box-body -->
+
+{% endblock %}

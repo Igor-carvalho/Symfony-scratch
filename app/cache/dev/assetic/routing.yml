@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: 'E:\freelancer_project\max_sweden\xtreamcode\app/config/routing_dev.yml'

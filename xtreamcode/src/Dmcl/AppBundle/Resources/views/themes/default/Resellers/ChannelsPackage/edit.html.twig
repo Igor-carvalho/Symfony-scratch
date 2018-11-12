@@ -1,0 +1,82 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.channel_package.edit.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel_package.edit.title" | trans }}{% endblock %}
+{% block vars %}
+    var msgDelete = "{{ "pages.channel_package.msg_delete" | trans }}";
+{% endblock %}
+{% block body -%}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('resellers-channels-package') }}">
+            {{ "pages.channel_categories.new.back_to_list" | trans }}
+        </a>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form_start(edit_form) }}
+        <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+            {{ form_label(edit_form.name,"pages.channel_package.attrs.name" | trans ) }}
+            {{ form_widget(edit_form.name) }}
+        </div>
+        {#<div class="col-md-4 col-xs-12 no-pad-right margin-btm-5">#}
+            {#{{ form_label(edit_form.price,"pages.channel_package.attrs.price" | trans ) }}#}
+            {#{{ form_widget(edit_form.price) }}#}
+        {#</div>#}
+        {#<div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">#}
+            {#{{ form_label(edit_form.allowDiscount,"pages.channel_package.attrs.allow_discount" | trans ) }}#}
+            {#{{ form_widget(edit_form.allowDiscount) }}#}
+        {#</div>#}
+        {#<div class="clearfix"></div>#}
+        {#<div class="col-md-4 col-xs-12 no-pad-left margin-btm-5">#}
+            {#{{ form_label(edit_form.discountCode,"pages.channel_package.attrs.discount_code" | trans ) }}#}
+            {#{{ form_widget(edit_form.discountCode) }}#}
+        {#</div>#}
+        {#<div class="col-md-4 col-xs-12 no-pad-left margin-btm-5">#}
+            {#{{ form_label(edit_form.discountValue,"pages.channel_package.attrs.discount_value" | trans ) }}#}
+            {#{{ form_widget(edit_form.discountValue) }}#}
+        {#</div>#}
+        {#<div class="clearfix"></div>#}
+        {#<div class="col-md-12 col-xs-12 no-padding margin-btm-5">#}
+            {#{{ form_label(edit_form.discountMessage,"pages.channel_package.attrs.discount_message" | trans ) }}#}
+            {#{{ form_widget(edit_form.discountMessage) }}#}
+        {#</div>#}
+        {#<div class="col-md-8 col-xs-12 no-pad-left margin-btm-5">#}
+            {#<div class="col-md-6 col-xs-6 no-pad-left margin-btm-5">#}
+                {#{{ form_label(edit_form.subscriptionPeriod,"pages.channel_package.attrs.subscription_period" | trans ) }}#}
+                {#{{ form_widget(edit_form.subscriptionPeriod) }}#}
+            {#</div>#}
+            {#<div class="col-md-6 col-xs-6 no-pad-right margin-btm-5">#}
+                {#{{ form_label(edit_form.subscriptionInterval,"pages.channel_package.attrs.subscription_interval" | trans ) }}#}
+                {#{{ form_widget(edit_form.subscriptionInterval) }}#}
+            {#</div>#}
+        {#</div>#}
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5" style="padding-top: 30px">
+            <div class="col-md-6 col-xs-6 no-pad-left margin-btm-5">
+                {{ form_label(edit_form.enabled,"pages.channel_package.attrs.enabled" | trans ) }}
+                {{ form_widget(edit_form.enabled) }}
+            </div>
+            {#<div class="col-md-6 col-xs-6 no-pad-right margin-btm-5">#}
+                {#{{ form_label(edit_form.forTest,"pages.channel_package.attrs.for_test" | trans ) }}#}
+                {#{{ form_widget(edit_form.forTest) }}#}
+            {#</div>#}
+        </div>
+        <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+            {{ form_label(edit_form.channels,"pages.channel_package.attrs.channels" | trans ) }}
+            {{ form_widget(edit_form.channels) }}
+        </div>
+        {#<div class="col-md-12 col-xs-12 no-padding margin-btm-5">#}
+            {#{{ form_label(edit_form.description,"pages.channel_package.attrs.description" | trans ) }}#}
+            {#{{ form_widget(edit_form.description) }}#}
+        {#</div>#}
+        <div class="col-md-12 col-xs-12 no-padding">
+            {{ form_widget(edit_form.submit,{'attr':{
+            'class': 'btn btn-success btn-sm pull-left',
+            }}) }}
+        </div>
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form(delete_form) }}
+    </div>
+{% endblock %}

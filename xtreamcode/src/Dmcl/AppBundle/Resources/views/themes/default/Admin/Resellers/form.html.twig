@@ -1,0 +1,26 @@
+<div class="row">
+    <fieldset>
+        <legend>
+            <small>Playlists</small>
+        </legend>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+                <div class="form-group">
+                    {{ form_label(form.playlistAssigned,'pages.dashboard.playlists' | trans) }}
+                    {{ form_widget(form.playlistAssigned) }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+                <div class="form-group">
+                    {{ form_label(form.playlistExpiration,"pages.playlist.attrs.expire_at" | trans ) }}
+                    <div class='input-group date' id='datetimepicker1'>
+                        {{ form_widget(form.playlistExpiration) }}
+                        <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

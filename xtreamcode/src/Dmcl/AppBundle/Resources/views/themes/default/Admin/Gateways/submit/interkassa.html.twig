@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <form name='interkassa' method='POST' action='https://sci.interkassa.com'>
+            <input type='hidden' name='ik_shop_id' value='{{ gateway.shopIdPublicKey }}'>
+            <input type='hidden' name='ik_payment_amount' value='{{ order.amount }}'>
+            <input type='hidden' name='ik_payment_id' value='{{ order.transactionId }}'>
+            <input type='hidden' name='ik_payment_desc' value='{{ project_name() }}'>
+            <input type='hidden' name='ik_paysystem_alias' value=''> 
+            <input type='hidden' name='ik_baggage_fields' value='{{ gateway.shopIdPublicKey }}'>
+            <input type='hidden' name='ik_success_url' value='{{ url( 'payments_success') }}'>
+            <input type='hidden' name='ik_success_method' value='GET'>
+            <input type='hidden' name='ik_fail_url' value='{{ url( 'payments_error') }}'>
+            <input type='hidden' name='ik_fail_method' value='GET'>
+            <input type='hidden' name='ik_status_url' value='{{ url( 'payments_interkassa_check') }}'> 
+            <input type='hidden' name='ik_status_method' value='POST'> 
+            <input type='hidden' name='ik_currency_exch' value='{{ config.currency }}'>
+        </form>
+        <script type='text/javascript'>
+            document.interkassa.submit();
+        </script>
+    </body>
+</html>

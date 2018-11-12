@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="736f5bf6-23d8-453b-8576-b8c83d0e195c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Controller/ChangePasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Controller/ChangePasswordController.php" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-544767030">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.9" value="3" />
+          <entry key="project.opened" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="cache" value="1" />
+          <entry key="console" value="1" />
+          <entry key="dist" value="1" />
+          <entry key="doctrine" value="1" />
+          <entry key="doctrine-dbal" value="1" />
+          <entry key="env" value="2" />
+          <entry key="htaccess" value="1" />
+          <entry key="js" value="1" />
+          <entry key="log" value="11" />
+          <entry key="php" value="60" />
+          <entry key="png" value="4" />
+          <entry key="sql" value="1" />
+          <entry key="twig" value="22" />
+          <entry key="yml" value="45" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Image" value="4" />
+          <entry key="JavaScript" value="1" />
+          <entry key="PHP" value="63" />
+          <entry key="PLAIN_TEXT" value="15" />
+          <entry key="SQL" value="1" />
+          <entry key="Twig" value="22" />
+          <entry key="YAML" value="45" />
+          <entry key="htaccess" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="console" value="1" />
+          <entry key="dummy" value="2" />
+          <entry key="log" value="21" />
+          <entry key="php" value="2686" />
+          <entry key="twig" value="435" />
+          <entry key="yml" value="233" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PHP" value="2687" />
+          <entry key="PLAIN_TEXT" value="23" />
+          <entry key="Twig" value="435" />
+          <entry key="YAML" value="233" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/config/routing/admin/line.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" column="50" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/ResellersController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
+              <folding>
+                <element signature="e#5340#8474#0#PHP" />
+                <element signature="e#8480#9506#0#PHP" />
+                <element signature="e#9512#10552#0#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/UserController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="303">
+              <caret line="297" column="41" selection-start-line="297" selection-start-column="41" selection-end-line="297" selection-end-column="41" />
+              <folding>
+                <element signature="e#51#92#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/PackagesController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/LogsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
+              <folding>
+                <element signature="e#51#110#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Entity/RegUserlog.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
+              <folding>
+                <element signature="e#238#397#0#PHP" />
+                <element signature="e#420#539#0#PHP" />
+                <element signature="e#568#687#0#PHP" />
+                <element signature="e#843#955#0#PHP" />
+                <element signature="e#1172#1314#0#PHP" />
+                <element signature="e#1320#1375#0#PHP" />
+                <element signature="e#1380#1441#0#PHP" />
+                <element signature="e#1447#1549#0#PHP" />
+                <element signature="e#1554#1664#0#PHP" />
+                <element signature="e#1670#1730#0#PHP" />
+                <element signature="e#1735#1808#0#PHP" />
+                <element signature="e#1814#1916#0#PHP" />
+                <element signature="e#2037#2097#0#PHP" />
+                <element signature="e#2102#2175#0#PHP" />
+                <element signature="e#2181#2276#0#PHP" />
+                <element signature="e#2281#2375#0#PHP" />
+                <element signature="e#2381#2438#0#PHP" />
+                <element signature="e#2443#2508#0#PHP" />
+                <element signature="e#2514#2608#0#PHP" />
+                <element signature="e#2613#2707#0#PHP" />
+                <element signature="e#2713#2769#0#PHP" />
+                <element signature="e#2774#2839#0#PHP" />
+                <element signature="e#2845#2941#0#PHP" />
+                <element signature="e#2946#3040#0#PHP" />
+                <element signature="e#3109#3174#0#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Repository/RegUserLogRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
+              <folding>
+                <element signature="e#45#79#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Logs/index.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1615">
+              <caret line="85" column="28" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Repository/RegUsersRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="22" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Repository/UserRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="22" selection-end-column="26" />
+              <folding>
+                <element signature="e#45#76#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>dmcl_appbundle_user</find>
+      <find>credits</find>
+      <find>50</find>
+      <find>credit</find>
+      <find>pro</find>
+      <find>pages</find>
+      <find>twig</find>
+      <find>button_password</find>
+      <find>user_change_password</find>
+      <find>datatable</find>
+      <find>stre</find>
+      <find>$routeEdit</find>
+      <find>getUser</find>
+      <find>owner</find>
+      <find>body_parent</find>
+      <find>user</find>
+      <find>logs</find>
+      <find>getU</find>
+      <find>dateRegistered</find>
+      <find>$credits</find>
+      <find>setPassword</find>
+      <find>find</find>
+      <find>row</find>
+      <find>Pass</find>
+      <find>msg_user_delete_success</find>
+      <find>resellers</find>
+      <find>date</find>
+      <find>transaction</find>
+      <find>Edit</find>
+      <find>color=\&quot;green\&quot;</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+    <dirStrings>
+      <dir>E:\freelancer_project\max_sweden\xtreamcode\app</dir>
+      <dir>E:\freelancer_project\max_sweden\xtreamcode</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/config/config.yml" />
+        <option value="$PROJECT_DIR$/parameters.yml" />
+        <option value="$PROJECT_DIR$/app/config/parameters.yml" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/app/console" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/DefaultController.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/register.html.twig" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/PackagesLocalController.php" />
+        <option value="$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/Kernel.php" />
+        <option value="$PROJECT_DIR$/app/logs/dev.log" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Entity/Setting.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/SettingsController.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Entity/Settings.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/resellers.html.twig" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Form/UsersType.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Entity/RegUsers.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Products/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Form/RegUsersType.php" />
+        <option value="$PROJECT_DIR$/app/config/config_dev.yml" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/profile.html.twig" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Streams/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/StreamsController.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/translations/messages.en.yml" />
+        <option value="$PROJECT_DIR$/app/logs/prod.log" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Logs/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Repository/UserRepository.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/PackagesController.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Repository/RegUserLogRepository.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/LogsController.php" />
+        <option value="$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/UserController.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/plugins/card-master/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/plugins/jquery.json-viewer/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/Flot/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/FooTable/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/awesome-bootstrap-checkbox/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/bootstrap-treeview/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/components-font-awesome/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/eonasdan-bootstrap-datetimepicker/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/eve/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/filament-tablesaw/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/ion.rangeSlider/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/jquery-countTo/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/jquery-slimscroll/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/jquery-toast-plugin/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/jquery-ui/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/jquery.easy-pie-chart/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/jszip/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/morris.js/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/owl.carousel/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/peity/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/respond/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/select2/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/simpleWeather/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/sparklines/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/summernote/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/sweetalert/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/switchery/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/transitionize/package.json" />
+      <path value="$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/typeahead.js/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/behat/transliterator" />
+      <path value="$PROJECT_DIR$/vendor/vich/uploader-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/mpdf/mpdf" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/willdurand/jsonp-callback-validator" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/nelmio/api-doc-bundle" />
+      <path value="$PROJECT_DIR$/vendor/stripe/stripe-php" />
+      <path value="$PROJECT_DIR$/vendor/beberlei/DoctrineExtensions" />
+      <path value="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle" />
+      <path value="$PROJECT_DIR$/vendor/friendsofsymfony/jsrouting-bundle" />
+      <path value="$PROJECT_DIR$/vendor/jms/parser-lib" />
+      <path value="$PROJECT_DIR$/vendor/jms/serializer" />
+      <path value="$PROJECT_DIR$/vendor/ocramius/proxy-manager" />
+      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
+      <path value="$PROJECT_DIR$/vendor/genemu/form-bundle" />
+      <path value="$PROJECT_DIR$/vendor/jms/metadata" />
+      <path value="$PROJECT_DIR$/vendor/jms/translation-bundle" />
+      <path value="$PROJECT_DIR$/vendor/jms/serializer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
+      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
+      <path value="$PROJECT_DIR$/vendor/liip/imagine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
+      <path value="$PROJECT_DIR$/vendor/gedmo/doctrine-extensions" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/twig/extensions" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/widop/phpbb-bundle" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/urvin/m3u" />
+      <path value="$PROJECT_DIR$/vendor/michelf/php-markdown" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/ideup/simple-paginator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/steevanb/ssh2bundle" />
+      <path value="$PROJECT_DIR$/vendor/imagine/imagine" />
+      <path value="$PROJECT_DIR$/vendor/tfox/mpdf-port-bundle" />
+      <path value="$PROJECT_DIR$/vendor/phpcollection/phpcollection" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sensio/generator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sensio/distribution-bundle" />
+      <path value="$PROJECT_DIR$/vendor/kriswallsmith/assetic" />
+      <path value="$PROJECT_DIR$/vendor/stof/doctrine-extensions-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/assetic-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="745" />
+    <option name="y" value="65" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="logs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="routing" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="routing" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="themes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="themes" type="462c0819:PsiDirectoryNode" />
+              <item name="default" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="themes" type="462c0819:PsiDirectoryNode" />
+              <item name="default" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xtreamcode" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xtreamcode" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Dmcl" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="themes" type="462c0819:PsiDirectoryNode" />
+              <item name="default" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Logs" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="usercontroll&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Controller/Admin/UserController.php&#10;inde&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Logs/index.html.twig&#10;log.ht&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Channel/log.html.twig&#10;reguserlogre&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Repository/RegUserLogRepository.php&#10;newaction&#9;null&#9;null&#10;newAc&#9;null&#9;null&#10;message&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/translations/messages.en.yml&#10;logs&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/config/routing/admin/logs.yml&#10;reguserlog&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Entity/RegUserlog.php&#10;reguser&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Entity/RegUsers.php&#10;reguers&#9;null&#9;null&#10;regusers&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Entity/RegUsers.php&#10;logscon&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Controller/Admin/LogsController.php&#10;register&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/register.html.twig&#10;resellers.html&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/resellers.html.twig&#10;usercon&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Controller/Admin/UserController.php&#10;resellercon&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Controller/Admin/ResellersController.php&#10;INDEX.HTML.TW&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Resellers/index.html.twig&#10;regusers.php&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Entity/RegUsers.php&#10;resellerscon&#9;null&#9;null&#10;reguserl&#9;null&#9;null&#10;messag&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/translations/messages.en.yml&#10;streams&#9;null&#9;null&#10;profil&#9;null&#9;null&#10;profile&#9;null&#9;null&#10;streamcont&#9;null&#9;null&#10;profile.&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/profile.html.twig&#10;reguse&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Entity/RegUsers.php&#10;settings&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Entity/Settings.php&#10;settingscontroller&#9;null&#9;null&#10;packagelo&#9;null&#9;null&#10;packageslo&#9;null&#9;null&#10;base-ad&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/themes/default/base-admin&#10;base.&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/base.html.twig&#10;errors.&#9;FILE&#9;file://E:/freelancer_project/max_sweden/xtreamcode/src/Dmcl/AppBundle/Resources/views/themes/default/base-admin/errors.html.twig&#10;defaulcon&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../giuliano/app-master" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\freelancer_project\max_sweden\xtreamcode\app" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="736f5bf6-23d8-453b-8576-b8c83d0e195c" name="Default Changelist" comment="" />
+      <created>1539517294010</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1539517294010</updated>
+      <workItem from="1539517296645" duration="16911000" />
+      <workItem from="1539542003128" duration="7915000" />
+      <workItem from="1539566813782" duration="43771000" />
+      <workItem from="1539655871262" duration="1612000" />
+      <workItem from="1539780886257" duration="22000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="70231000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <layout>
+      <window_info id="Favorites" order="0" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.26308724" />
+      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49932885" weight="0.34893617" />
+      <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50067115" side_tool="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="5" />
+      <window_info anchor="bottom" id="Find" order="6" />
+      <window_info anchor="bottom" id="Run" order="7" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="right" id="Database" order="0" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/translations/messages.es.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/translations/messages.ru.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/translations/validators.en.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/translations/validators.es.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/auth.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/check.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-494">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/config/routing/admin/users.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/ContainerInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="56" column="39" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="249" column="34" selection-start-line="249" selection-start-column="34" selection-end-line="249" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Products/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="122" column="77" selection-start-line="122" selection-start-column="77" selection-end-line="122" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Form/UsersType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="179" selection-start-line="179" selection-end-line="179" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bundles/assets/themes/default/snoopy/vendors/bower_components/sweetalert/lib/sweetalert.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="818">
+          <caret line="298" column="22" selection-start-line="298" selection-start-column="22" selection-end-line="298" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config_prod.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/base-admin/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="28" column="105" selection-start-line="28" selection-start-column="99" selection-end-line="28" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/profile.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-226">
+          <caret line="85" column="56" selection-start-line="85" selection-start-column="56" selection-end-line="85" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config_dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/Packages.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/ProfileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Form/RegUsersType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="27" column="63" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Entity/Streams.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-741">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/config/routing/admin/streams.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38">
+          <caret line="4" column="12" selection-start-line="4" selection-end-line="4" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Streams/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="45" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Resellers/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-421">
+          <caret line="13" column="70" selection-start-line="13" selection-start-column="70" selection-end-line="13" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/logs/dev.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/logs/prod.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2725">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/doctrine/orm/lib/Doctrine/ORM/Tools/Pagination/Paginator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="62" column="20" selection-start-line="62" selection-start-column="20" selection-end-line="62" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/register.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="26" column="47" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/User/resellers.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="92" column="30" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Entity/RegUsers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1539">
+          <caret line="160" selection-start-line="160" selection-end-line="160" />
+          <folding>
+            <element signature="e#375#538#0#PHP" />
+            <element signature="e#561#676#0#PHP" />
+            <element signature="e#705#821#0#PHP" />
+            <element signature="e#850#963#0#PHP" />
+            <element signature="e#991#1100#0#PHP" />
+            <element signature="e#1123#1236#0#PHP" />
+            <element signature="e#1271#1391#0#PHP" />
+            <element signature="e#1421#1528#0#PHP" />
+            <element signature="e#1558#1664#0#PHP" />
+            <element signature="e#1699#1823#0#PHP" />
+            <element signature="e#1856#1971#0#PHP" />
+            <element signature="e#2002#2106#0#PHP" />
+            <element signature="e#2139#2262#0#PHP" />
+            <element signature="e#2306#2426#0#PHP" />
+            <element signature="e#2463#2569#0#PHP" />
+            <element signature="e#2603#2727#0#PHP" />
+            <element signature="e#2764#2885#0#PHP" />
+            <element signature="e#3017#3201#0#PHP" />
+            <element signature="e#3233#3336#0#PHP" />
+            <element signature="e#3633#3688#0#PHP" />
+            <element signature="e#3693#3754#0#PHP" />
+            <element signature="e#3760#3860#0#PHP" />
+            <element signature="e#3865#3975#0#PHP" />
+            <element signature="e#3981#4041#0#PHP" />
+            <element signature="e#4046#4119#0#PHP" />
+            <element signature="e#4125#4225#0#PHP" />
+            <element signature="e#4230#4340#0#PHP" />
+            <element signature="e#4346#4406#0#PHP" />
+            <element signature="e#4411#4484#0#PHP" />
+            <element signature="e#4490#4584#0#PHP" />
+            <element signature="e#4589#4687#0#PHP" />
+            <element signature="e#4693#4750#0#PHP" />
+            <element signature="e#4755#4822#0#PHP" />
+            <element signature="e#4828#4916#0#PHP" />
+            <element signature="e#4921#5007#0#PHP" />
+            <element signature="e#5013#5067#0#PHP" />
+            <element signature="e#5072#5133#0#PHP" />
+            <element signature="e#5139#5252#0#PHP" />
+            <element signature="e#5257#5391#0#PHP" />
+            <element signature="e#5397#5464#0#PHP" />
+            <element signature="e#5469#5554#0#PHP" />
+            <element signature="e#5560#5662#0#PHP" />
+            <element signature="e#5667#5781#0#PHP" />
+            <element signature="e#5787#5848#0#PHP" />
+            <element signature="e#5853#5928#0#PHP" />
+            <element signature="e#5934#6037#0#PHP" />
+            <element signature="e#6042#6156#0#PHP" />
+            <element signature="e#6162#6224#0#PHP" />
+            <element signature="e#6310#6411#0#PHP" />
+            <element signature="e#6416#6526#0#PHP" />
+            <element signature="e#6532#6593#0#PHP" />
+            <element signature="e#6598#6671#0#PHP" />
+            <element signature="e#6677#6774#0#PHP" />
+            <element signature="e#6779#6885#0#PHP" />
+            <element signature="e#6891#6949#0#PHP" />
+            <element signature="e#7031#7125#0#PHP" />
+            <element signature="e#7130#7228#0#PHP" />
+            <element signature="e#7234#7291#0#PHP" />
+            <element signature="e#7296#7363#0#PHP" />
+            <element signature="e#7369#7466#0#PHP" />
+            <element signature="e#7471#7573#0#PHP" />
+            <element signature="e#7579#7638#0#PHP" />
+            <element signature="e#7643#7712#0#PHP" />
+            <element signature="e#7718#7824#0#PHP" />
+            <element signature="e#7829#7951#0#PHP" />
+            <element signature="e#7957#8020#0#PHP" />
+            <element signature="e#8025#8104#0#PHP" />
+            <element signature="e#8110#8216#0#PHP" />
+            <element signature="e#8417#8496#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/config/routing/admin/logs.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/translations/messages.en.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="156" column="31" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/EpgController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Entity/Enigma2Actions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-399" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/StreamsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2619">
+          <caret line="345" column="20" selection-start-line="345" selection-start-column="20" selection-end-line="345" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/CustomersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Channel/log.html.twig">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/config/routing/admin/user.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="874">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/config/routing/admin/line.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="50" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/ResellersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
+          <folding>
+            <element signature="e#5340#8474#0#PHP" />
+            <element signature="e#8480#9506#0#PHP" />
+            <element signature="e#9512#10552#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/PackagesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/LogsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#51#110#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Entity/RegUserlog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
+          <folding>
+            <element signature="e#238#397#0#PHP" />
+            <element signature="e#420#539#0#PHP" />
+            <element signature="e#568#687#0#PHP" />
+            <element signature="e#843#955#0#PHP" />
+            <element signature="e#1172#1314#0#PHP" />
+            <element signature="e#1320#1375#0#PHP" />
+            <element signature="e#1380#1441#0#PHP" />
+            <element signature="e#1447#1549#0#PHP" />
+            <element signature="e#1554#1664#0#PHP" />
+            <element signature="e#1670#1730#0#PHP" />
+            <element signature="e#1735#1808#0#PHP" />
+            <element signature="e#1814#1916#0#PHP" />
+            <element signature="e#2037#2097#0#PHP" />
+            <element signature="e#2102#2175#0#PHP" />
+            <element signature="e#2181#2276#0#PHP" />
+            <element signature="e#2281#2375#0#PHP" />
+            <element signature="e#2381#2438#0#PHP" />
+            <element signature="e#2443#2508#0#PHP" />
+            <element signature="e#2514#2608#0#PHP" />
+            <element signature="e#2613#2707#0#PHP" />
+            <element signature="e#2713#2769#0#PHP" />
+            <element signature="e#2774#2839#0#PHP" />
+            <element signature="e#2845#2941#0#PHP" />
+            <element signature="e#2946#3040#0#PHP" />
+            <element signature="e#3109#3174#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Repository/RegUserLogRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#45#79#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Resources/views/themes/default/Admin/Logs/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="85" column="28" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Repository/RegUsersRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="22" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Repository/UserRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="22" selection-end-column="26" />
+          <folding>
+            <element signature="e#45#76#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dmcl/AppBundle/Controller/Admin/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="297" column="41" selection-start-line="297" selection-start-column="41" selection-end-line="297" selection-end-column="41" />
+          <folding>
+            <element signature="e#51#92#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

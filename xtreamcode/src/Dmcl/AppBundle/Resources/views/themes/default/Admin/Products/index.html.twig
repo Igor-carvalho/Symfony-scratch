@@ -1,0 +1,166 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.products.index.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+     <script text="javascript">
+       $(document).ready(function(){
+           $('.switch input[class="sp"]').click(function(e) {
+                var $this = $(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: $this.data('href'),
+                    dataType: "json",
+                    data: {},
+                    success: function(response) {
+                       
+                    },
+                    error: function(response) {
+
+                    }
+                }).done(function(response) {
+                        if (response.type == 1) {
+                            if(response.status){
+                                if(response.change){
+                                    $('#card-widget-'+$this.data('id')).prop('style', 'background-color:#0e84dc;');
+                                }
+                                else{
+                                    $('#card-widget-'+$this.data('id')).prop('style', 'background-color:#4caf50;');
+                                } 
+                            }                   
+                        } 
+                    });
+            });
+
+           $('.switch input[class="status"]').click(function(e) {
+                var $this = $(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: $this.data('href'),
+                    dataType: "json",
+                    data: {},
+                    success: function(response) {
+                       
+                    },
+                    error: function(response) {
+
+                    }
+                }).done(function(response) {
+                        if (response.type == 1) {
+                            if(response.change){
+                                if(response.sp)
+                                    $('#card-widget-'+$this.data('id')).prop('style', 'background-color:#0e84dc;');
+                                else
+                                    $('#card-widget-'+$this.data('id')).prop('style', 'background-color:#4caf50;');
+                            }
+                            else{
+                                $('#card-widget-'+$this.data('id')).prop('style', 'background-color:#939daa;');
+                            }                    
+                        } 
+                    });
+            });
+       });
+     </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.products.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body_parent %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <a class="btn btn-primary btn-md pull-right" href="{{ path('products_new') }}">
+                    {{ "pages.products.add_package" | trans }}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+            {% if entities | length > 0 %}
+                {% for entity in entities %}
+                    <div class="col-sm-12 col-md-4 col-lg-2">
+                        <div class="card-widget card-widget-b" style="max-width:250px;">
+                            {% set color = "#939daa;" %}
+
+                            {% if entity.status %}
+                                {% if entity.superReseller %}
+                                    {% set color = "#0e84dc;" %}
+                                {% else %}
+                                    {% set color = "#4caf50;" %}
+                                {% endif %}
+                            {% endif %}
+                            
+                            <div id="card-widget-{{ entity.id }}" class="card-widget-l__user" style="background-color: {{ color }}">
+                                <a class="card-widget-l__user-avatar">
+                                    <img src="../../../uploads/{{ entity.logo | default('channel-logo.png') }}" alt="" class="card-widget-l__user-image rounded-circle">
+                                </a>
+                                <div class="card-widget-l__user-info">
+                                    <a class="card-widget-l__user-name">{{ entity.name }}</a>
+                                    <a class="card-widget-l__user-desc">{{ entity.period }} {{ 'months' | trans }}</a>
+                                </div>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="card-widget-b__controls">
+                                        <div class="dropdown">
+                                            <span data-toggle="dropdown" aria-expanded="false">
+                                                <span class="ua-icon-dots-h-alt card-widget-b__control"></span>
+                                            </span>
+                                            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-144px, 21px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                <a class="dropdown-item" href="{{ path('products_edit', {id: entity.id }) }}">{{ 'pages.products.index.edit' | trans }}</a>
+                                                <a data-href="{{ path('products_delete', {id: entity.id }) }}" class="delete dropdown-item" href="">{{ 'pages.products.delete' | trans }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <ul class="card-widget-l__stats">
+                                <li class="card-widget-l__stats-item">
+                                    <span class="card-widget-l__stats-title">{{ 'pages.products.credits' | trans }}</span>
+                                    <span class="card-widget-l__stats-value color-info">{{ entity.credits }}</span>
+                                </li>
+                                <li class="card-widget-l__stats-item">
+                                    <span class="card-widget-l__stats-title">{{ 'pages.products.price' | trans }}</span>
+                                    <span class="card-widget-l__stats-value color-success">{{ entity.price }}</span>
+                                </li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="card-widget-l__stats-item">
+                                        <span class="card-widget-l__stats-title">{{ 'pages.products.superReseller' | trans }}</span>
+                                        <label class="switch switch--sm">
+                                            <input class="sp" id="sp" data-id="{{entity.id }}" data-href="{{ path('products_change_super_reseller', {id: entity.id}) }}" {% if entity.superReseller %}checked=""{% endif %} type="checkbox">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                    </li>
+                                    <li class="card-widget-l__stats-item">
+                                        <span class="card-widget-l__stats-title">{{ 'pages.products.status' | trans }}</span>
+                                        <label class="switch switch--sm">
+                                            <input class="status" id="status" data-id="{{entity.id }}" data-href="{{ path('products_change_status', {id: entity.id}) }}" {% if entity.superReseller %}checked=""{% endif %} type="checkbox">
+                                            <span class="switch-slider"></span>
+                                        </label>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                <div class="card-widget-m__controls">
+                                    <a class="card-widget-m__control">
+                                        <span class="ua-icon-cart card-widget-m__control-icon"></span>
+                                    </a>
+                                    <a href="{{ path('products_cart', {id: entity.id }) }}" class="card-widget-m__control">
+                                        <span class="card-widget-m__control-text">{{ 'pages.products.order' | trans }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-sm-12">
+                    <h4 class="text-muted text-center">{{ "pages.products.no_products" | trans }}</h4>
+                </div>
+            {% endif %}
+    </div>
+{% endblock %}

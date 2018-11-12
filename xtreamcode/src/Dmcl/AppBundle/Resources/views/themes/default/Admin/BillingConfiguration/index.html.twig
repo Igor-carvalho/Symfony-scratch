@@ -1,0 +1,43 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.billing_config.index.title" | trans }}{% endblock %}
+
+{% block body %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-12">
+        {{ form_start(edit_form) }}
+        <div class="col-md-12 col-xs-12 no-pad-left mb-2">
+            {{ form_label(edit_form.currency,"pages.billing_config.attrs.currency" | trans ) }}
+            {{ form_widget(edit_form.currency) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-pad-left mb-2">
+            {{ form_label(edit_form.ordersTtl,"pages.billing_config.attrs.orders_ttl" | trans ) }}
+            {{ form_widget(edit_form.ordersTtl) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-pad-right mb-2">
+            {{ form_label(edit_form.ordersTtlInterval,"pages.billing_config.attrs.orders_ttl_interval" | trans ) }}
+            {{ form_widget(edit_form.ordersTtlInterval) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-pad-left mb-2">
+            {{ form_label(edit_form.salesEmail,"pages.billing_config.attrs.sales_email" | trans ) }}
+            {{ form_widget(edit_form.salesEmail) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-pad-right mb-2">
+            {{ form_label(edit_form.salesPhone,"pages.billing_config.attrs.sales_phone" | trans ) }}
+            {{ form_widget(edit_form.salesPhone) }}
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12 col-xs-12 no-padding mb-2">
+            {{ form_label(edit_form.salesAddress,"pages.billing_config.attrs.sales_address" | trans ) }}
+            {{ form_widget(edit_form.salesAddress) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-padding">
+            {{ form_widget(edit_form.submit,{'attr':{
+            'class': 'btn btn-success btn-sm',
+            'style': 'float: right'
+            }}) }}
+        </div>
+        {{ form_rest(edit_form) }}
+        {{ form_end(edit_form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+<script type="text/javascript">
+    $(function () {
+        setInterval(function () {
+            $(".downloading").each(function (index, element) {
+                var id = $(element).attr('data-id');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('app.route.vod.download_logfile', {ip: ip}) }}",
+                    data: {
+                        id: id,
+                    }
+                }).done(function (response) {
+                    var html = '<div class="progress">\
+                                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' + response + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + response + '%">\
+                                    '+ response +'%\
+                                  </div>\
+                                </div>'; 
+
+                    $(element).html(html);
+                    
+                    if (response == 100) {
+                        $(element).text("{{ "pages.vod.index.table.transcoding" | trans }}");
+                        $(element).attr("class", "text-info");
+                    }
+                });
+            });
+
+            $(".transcoding").each(function (index, element) {
+                var id = $(element).attr('data-id');
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('app.route.vod.transcoder_logfile', {ip: ip}) }}",
+                    data: {
+                        id: id,
+                    }
+                }).done(function (response) {
+                    var html = '<div class="progress">\
+                                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' + response + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + response + '%">\
+                                    '+ response +'%\
+                                  </div>\
+                                </div>'; 
+                    
+                    $(element).html(html);
+
+                    if (response == 100) {
+                        if ($(element).data("final-status") == "enabled") {
+                            $(element).text("{{ "enabled" | trans }}");
+                            $(element).addClass("enabled");
+                            $(element).addClass("text-success");
+                        } else {
+                            $(element).text("{{ "disabled" | trans }}");
+                            $(element).addClass("disabled");
+                            $(element).addClass("text-danger");
+                        }
+
+                        $("#details-" + id).removeClass('disabled');
+                        $("#watch-" + id).removeClass('disabled');
+                        $(element).removeClass("transcoding");
+                        $(element).removeClass("text-info");
+                    }
+                });
+            });
+        }, 1000);
+    });
+</script>

@@ -1,0 +1,63 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.technical_issues.index.title" | trans }}{% endblock %}
+
+ {% block javascripts %}
+     <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#datatable').DataTable({
+                lengthChange: true,
+                select: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+            
+        });
+    </script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.technical_issues.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+		<div style="margin-bottom: 20px" class="col-md-12 no-padding">
+			<a style="float: right;" class="btn btn-primary btn-sm" href="{{ path('technical_issues_new') }}">
+				{{ "pages.technical_issues.index.new" | trans }}
+			</a>
+		</div>
+	</div>
+    {% if results | length > 0 %}
+		<div class="row">
+			<div class="m-datatable col-md-4 offset-md-4 col-sm-8 offset-sm-1 col-xs-12">
+				<table id="datatable" class="table table-bordered table-striped">
+					<thead>
+						<tr style="text-align:center;">
+							<th>{{ "pages.technical_issues.attrs.issue" | trans }}</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for result in results %}
+						<tr>
+							<td>{{result.issue}}</td>
+							<td class="table__cell-actions">
+								<div class="table__cell-actions-wrap">
+									<a href="{{ path('issue_edit', {'id': result.id}) }}" class="table__cell-actions-item table__cell-actions-icon">
+										<span class="ua-icon-pencil"></span>
+									</a>
+									<a href="" data-href="{{ path('issue_delete', {'id': result.id}) }}" class="delete table__cell-actions-item table__cell-actions-icon">
+										<span class="ua-icon-trash"></span>
+									</a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.technical_issues.index.no_technical_issues" | trans }}</h4>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "AppBundle:themes/default/FOSUser:base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+    <div class="logo">
+        <a href="{{ path('home') }}">
+            <h1 style="color: white;font-weight: 400">
+                {{ project_name() }}
+            </h1>
+        </a>
+    </div>
+    <div class="content" style="margin-bottom: 25px">
+        <!-- BEGIN LOGIN FORM -->        
+        <form method="POST" action="{{ path("fos_user_registration_register") }}" name="fos_user_registration_form">              
+            <h3>{{ "layout.register" | trans({},"FOSUserBundle") }}</h3>
+            <div class="form-group">
+                {{ form_widget(form.name,{'attr':{
+                'placeholder': 'pages.register.name' | trans({},"messages"),
+                'class': 'form-control',
+                'required':''
+                }}) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.username,{'attr':{
+                'placeholder':  'form.username' | trans({},"FOSUserBundle"),
+                'class': 'form-control',
+                'required':''
+                }}) }}
+                {{ form_errors(form.username) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.email,{'attr':{
+                'placeholder':  'form.email' | trans({},"FOSUserBundle"),
+                'class': 'form-control',
+                'required':''
+                }}) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.plainPassword.first,{'attr':{
+                'placeholder': 'form.password' | trans({},"FOSUserBundle"),
+                'class': 'form-control',
+                'required':''
+                }}) }}
+                {{ form_errors(form.plainPassword) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.plainPassword.second,{'attr':{
+                'placeholder':  'form.password_confirmation' | trans({},"FOSUserBundle"),
+                'class': 'form-control',
+                'required':''
+                }}) }}
+                {{ form_errors(form.plainPassword) }}
+            </div>
+            <div>
+                {{ form_widget(form.country,{'attr':{
+                'placeholder': 'pages.register.country' | trans({},"messages"),
+                'class': 'form-control select2',
+                'required':''
+                }}) }}
+                {{ form_errors(form.country) }}
+            </div>
+            <div class="form-actions" >
+                <button style="width: 100%;" type="submit" id="_submit"  name="_submit" class="btn blue">
+                    {{ 'registration.submit'|trans({},"FOSUserBundle") }}<i class="m-icon-swapright m-icon-white"></i>
+                </button>
+            </div>
+            <div class="clearfix"></div>
+
+            {{ form_widget(form._token) }}
+        </form>
+
+    </div>
+{% endblock %}

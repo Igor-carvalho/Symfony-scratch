@@ -1,0 +1,87 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.billing.shopping_cart.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.billing.shopping_cart.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+ {% endblock %}
+
+{% block body -%}
+      <div class="col-md-12">
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                    {{ "pages.billing.shopping_cart.products_in_cart" | trans }}
+                    </h2>
+                </div><!-- /.col -->
+            </div>
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ "pages.billing.orders.details.table.image" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.product_name" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.product_type" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.qty" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.unit_cost" | trans }}</th>
+                            <th>{{ "pages.billing.orders.details.table.subtotal" | trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set amount = 0 %}
+                        {% set discount = "0.0" %}
+                        {% for type,products in cart %}
+                            {% if products | length >0 %}
+                                {% for id,product in products %}
+                                    {% set amount = amount+(product['details']['price'] * product['total'] ) %}
+                                    <tr>
+                                        <td><img width="37" height="34" alt="{{ product['details']['name'] }}" src="{{ product['details']['image'] }}"></td>
+                                        <td>{{ product['details']['name'] }}</td>
+                                        <td>{{ types[type] }}</td>
+                                        <td>{{ product['total'] }}</td>
+                                        <td>{{ product['details']['price'] }}</td>
+                                        <td>{{ (product['details']['price'] * product['total'] ) | price_humanize | trans }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-6">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">{{ "pages.billing.orders.details.table.subtotal" | trans }}:</th>
+                                <td>{{ amount | price_humanize | trans  }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "pages.billing.orders.details.table.discount" | trans }}:</th>
+                                <td>{{ discount | price_humanize | trans  }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ "pages.billing.orders.details.table.total" | trans }}:</th>
+                                <td>{{ amount | price_humanize | trans  }}</td>
+                            </tr>
+                        </table>
+                        <a class="btn btn-success cart-controllers pull-right" href="{{ path('store_checkout') }}">{{ "cart.check_out" | trans }}</a>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+        </section><!-- /.content -->
+    </div>
+{% endblock %}

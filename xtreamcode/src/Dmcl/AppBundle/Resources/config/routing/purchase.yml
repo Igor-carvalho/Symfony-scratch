@@ -1,0 +1,73 @@
+payments_success:
+    path:  /success
+    defaults: { _controller: AppBundle:Payments:success }
+    requirements:
+        methods: POST|GET
+
+add_subscription:
+    path:  /add-subscription/{type}/{id}
+    defaults: { _controller: AppBundle:Payments:addSubscriptions }
+    requirements:
+        methods: POST|GET
+
+payments_error:
+    path:  /cancel
+    defaults: { _controller: AppBundle:Payments:error }
+    requirements:
+        methods: POST|GET
+
+payments_paypal_check:
+    path:  /paypal
+    defaults: { _controller: AppBundle:Payments:paypalCheck }
+    requirements:
+        methods:  GET|POST
+
+payments_moneybookers_check:
+    path:  /moneybookers
+    defaults: { _controller: AppBundle:Payments:moneybookersCheck }
+    requirements:
+        methods: POST
+
+payments_interkassa_check:
+    path:  /interkassa
+    defaults: { _controller: AppBundle:Payments:interkassaCheck }
+    requirements:
+        methods: POST
+
+payments_webmoney_check:
+    path:  /webmoney
+    defaults: { _controller: AppBundle:Payments:webmoneyCheck }
+    requirements:
+        methods: POST
+
+payments_onpay_check:
+    path:  /onpay
+    defaults: { _controller: AppBundle:Payments:onPayCheck }
+    requirements:
+        methods: POST
+
+payments_creditcard_check:
+    path:  /credicard/{token}/{method}
+    defaults: { _controller: AppBundle:Payments:creditCardCheck, token : null , method : null}
+    requirements:
+        methods: POST|GET
+
+payments_paypal_succes_for_activation_code:
+    path: /paypal/success-for-activation-code
+    defaults: { _controller: AppBundle:Payments:paymentSuccessForActivationCode }
+
+payments_paypal_error_for_activation_code:
+    path: /paypal/error-for-activation-code
+    defaults: { _controller: AppBundle:Payments:paymentErrorForActivationCode }
+
+payments_paypal_check_for_activation_code:
+    path: /paypal/check-for-activation-code
+    defaults: { _controller: AppBundle:Payments:paypalCheckForActivationCode }
+
+payments_paypal_pay_for_activation_code:
+    path: /paypal/pay-for-activation-code
+    defaults: { _controller: AppBundle:Payments:payActivationCode }
+
+payments_credit_card__pay_for_activation_code:
+    path: /credit-card/pay-for-activation-code
+    defaults: { _controller: AppBundle:Payments:payCreditCardActivationCode }

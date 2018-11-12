@@ -1,0 +1,85 @@
+<script src="{{ asset('bundles/assets/themes/default/plugins/dropzone/dropzone.min.js') }}"></script>
+<script type="text/javascript">
+    $(function () {
+        Dropzone.autoDiscover = false;
+        var existingFileCount = 0; // The number of files already uploaded
+        var myDropzone = new Dropzone("form#form-upload", {
+            acceptedFiles: "video/*",
+            url: "{{ path('vod_file_upload', {ip: ip, "type": "video"}) }}",
+            previewsContainer: ".dropzone-previews",
+            maxFilesize: {{ pos_max_size }},
+            init: function () {
+                this.on("maxfilesexceeded", function (file) {
+                    this.removeAllFiles();
+                    this.addFile(file);
+                    existingFileCount = 1;
+                });
+            },
+            maxFiles: 1
+        });
+
+        myDropzone.on("error", function (file) {
+            if (!file.accepted)
+                this.removeFile(file);
+        });
+        myDropzone.on("success", function (file, response) {
+            // Parse response
+            response = JSON.parse(response);
+
+            // Increment file number.
+            existingFileCount++;
+            // Create the remove button
+            var removeButton = Dropzone.createElement("<button class='btn btn-sm btn-block btn-danger'>Remove file</button>");
+            // Capture the Dropzone instance as closure.
+            var _this = this;
+            // Listen to the click event
+            removeButton.addEventListener("click", function (e) {
+                // Make sure the button click doesn't submit the form:
+                e.preventDefault();
+                e.stopPropagation();
+                // Remove the file preview.
+                _this.removeFile(file);
+                // If you want to the delete the file on the server as well,
+                // you can do the AJAX request here.
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('vod_file_remove') }}", // Send the info to this page
+                    data: {
+                        file: response['file'],
+                        type: 'video',
+                        temporal: response['temporal']
+                    }
+                });
+
+                //Decrement file number
+                existingFileCount--;
+            });
+            // Add the button to the file preview element.
+            file.previewElement.appendChild(removeButton);
+
+            //Adding uploaded vod into form
+            if (response['temporal']) {
+                $("#upload-vod").val(response['file']);
+            }
+        });
+
+        var vodInput = $("#url-vod");
+        var vodLocal = $("#selectedLocalFiles");
+        $("#btn-submit").click(function (e) {
+            var vodUrl = vodInput.val();
+            var selectedFiles = vodLocal.val();
+            if (existingFileCount == 0 && vodUrl == "" && selectedFiles == "" && view == "new") {
+                vodInput.css("border-color", "#a94442");
+                $(".dropzone-previews").css("border-color", "#a94442");
+                vodLocal.css("border-color", "#a94442");
+                // Make sure the button click doesn't submit the form:
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });        
+
+        $('#datetimepicker1').datetimepicker({
+            format: "YYYY"
+        });
+    });
+</script>

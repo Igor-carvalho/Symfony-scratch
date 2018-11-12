@@ -1,0 +1,44 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.backup.index.title" | trans }}{% endblock %}
+{% block page_description %}{% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.backup.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body %}
+{% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-hover">
+            <thead>
+            <tr class="headings">
+                <th class="column-title">{{ "pages.backup.index.table.stream_sever" | trans }}</th>
+                <th class="column-title">{{ "pages.backup.index.table.last_backup" | trans }}</th>
+                <th class="column-title">{{ "pages.backup.index.table.total_backups" | trans }}</th>
+                <th class="column-title no-link last"><span class="nobr">{{ "pages.backup.index.table.actions" | trans }}</span>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr class="even pointer">
+                    <td>{{ entity.server_name }}({{entity.streams_server}})</td>
+                    <td>{% if entity.last %}{{ entity.last|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>
+                    {{ entity.total }}
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div>
+                                <a class="btn btn-success" title="{{ "pages.backup.msg_show_backups" | trans }}" href="{{ path('backups_show', { 'ip': entity.streams_server }) }}"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-danger  delete" title="Delete" data-href="{{ path('backups_deleteall', { 'ip': entity.streams_server }) }}"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% else %}
+    <h1 class="text-center">{{ "servers_off" | trans }}</h1>
+{% endif %}
+{% endblock %}

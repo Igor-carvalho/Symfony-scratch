@@ -1,0 +1,31 @@
+packages:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Packages:index" }
+
+packages_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/Packages:new" }
+
+packages_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/Packages:create" }
+    methods:  POST
+
+packages_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/Packages:edit" }
+
+packages_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/Packages:update" }
+    methods:  [POST, PUT]
+
+packages_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Packages:delete" }
+    methods:  [POST, DELETE]
+
+packages_bouquets:
+    path:     /bouquets
+    defaults: { _controller: "AppBundle:Admin/Packages:bouquets" }
+    methods:  POST

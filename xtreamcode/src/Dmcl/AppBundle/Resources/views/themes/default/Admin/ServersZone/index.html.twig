@@ -1,0 +1,51 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.servers_zone.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.servers_zone.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block body -%}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('servers-zone_new') }}">
+            {{ "pages.servers_zone.index.add_server_zone" | trans }}
+        </a>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Countries</th>
+                <th>Servers</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.countries | length }}</td>
+                    <td>{{ entity.servers | length }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-info" href="{{ path('servers-zone_edit', { 'id': entity.id }) }}">{{ "pages.channel_package.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger" href="{{ path('servers-zone_show', { 'id': entity.id }) }}">{{ "pages.channel_package.index.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.servers_zone.index.no_servers_zone" | trans }}</h4>
+    {% endif %}
+{% endblock %}

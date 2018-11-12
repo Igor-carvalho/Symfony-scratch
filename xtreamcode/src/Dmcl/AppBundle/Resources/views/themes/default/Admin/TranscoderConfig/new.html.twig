@@ -1,0 +1,75 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.transcoder_config.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.transcoder_config.new.title" | trans }}{% endblock %}
+{% block body -%}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form_start(form) }}
+
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.name,"pages.transcoder_config.attrs.name" | trans ) }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.avcodec,"pages.transcoder_config.attrs.avcodec" | trans ) }}
+            {{ form_widget(form.avcodec) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.fps,"pages.transcoder_config.attrs.fps" | trans ) }}
+            {{ form_widget(form.fps) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.profile,"pages.transcoder_config.attrs.profile" | trans ) }}
+            {{ form_widget(form.profile) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.width,"pages.transcoder_config.attrs.width" | trans ) }}
+            {{ form_widget(form.width) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.bitrate,"pages.transcoder_config.attrs.bitrate" | trans ) }}
+            {{ form_widget(form.bitrate) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.height,"pages.transcoder_config.attrs.height" | trans ) }}
+            {{ form_widget(form.height) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.preset,"pages.transcoder_config.attrs.preset" | trans ) }}
+            {{ form_widget(form.preset) }}
+        </div> 
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">           
+           {{ form_label(form.audio) }}
+           {{ form_widget(form.audio) }} 
+        </div>       
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.video) }}
+            {{ form_widget(form.video) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.mode,"pages.transcoder_config.attrs.mode" | trans ) }}
+            {{ form_widget(form.mode) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.samplerate,"pages.transcoder_config.attrs.samplerate" | trans ) }}
+            {{ form_widget(form.samplerate) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-pad-right margin-btm-5">           
+            {{ form_label(form.crf,"pages.channel.attrs.crf" | trans ) }}
+            {{ form_widget(form.crf) }}
+        </div>
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5">
+            {{ form_label(form.deinterlace,"pages.transcoder_config.attrs.deinterlace" | trans ) }}
+            {{ form_widget(form.deinterlace) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-padding">
+            <a class="btn btn-default btn-sm"
+                 href="{{ path('transcoder-config') }}">{{ "back_to_list" | trans }}</a>
+            {{ form_widget(form.submit,{'attr':{
+                'class': 'btn btn-success btn-sm pull-right',
+            }}) }}
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

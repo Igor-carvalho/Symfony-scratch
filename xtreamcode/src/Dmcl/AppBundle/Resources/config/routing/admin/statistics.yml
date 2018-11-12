@@ -1,0 +1,18 @@
+admin_channels_statistics:
+    path:  /channels-statistics
+    defaults: { _controller: "AppBundle:Admin/Statistics:channels" }
+    requirements:
+        methods: GET|POST
+
+admin_vod_statistics:
+    path:  /vod-statistics
+    defaults: { _controller: "AppBundle:Admin/Statistics:vod" }
+    requirements:
+        methods: GET|POST
+
+
+admin_statistics_playback_word:
+    path:  /dashboard/playback-word/{type}
+    defaults: { _controller: AppBundle:Admin/Statistics:playbackWord  }
+    requirements:
+        methods: GET|POST

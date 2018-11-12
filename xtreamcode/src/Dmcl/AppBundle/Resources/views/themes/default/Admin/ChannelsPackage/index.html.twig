@@ -1,0 +1,61 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.channel_package.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel_package.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.channel_package.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body -%}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('channels-package_new') }}">
+            {{ "pages.channel_package.index.add_tv_package" | trans }}
+        </a>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.channel_package.index.table.name" | trans }}</th>
+                <th>{{ "pages.channel_package.index.table.status" | trans }}</th>
+                <th>{{ "pages.channel_package.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                    {% if entity.packageLogo %}
+                        <img src="../../../uploads/vod_package_logo/{{ entity.packageLogo }}" class="img-responsive img-thumbnail" style="max-width:100px">
+                    {% endif %}
+                    <div class="clearfix"></div>
+                    {{ entity.name }}
+                    </td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.channel_package.index.enabled" | trans :"pages.channel_package.index.disabled" | trans }}</td>
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-success show-inner" data-href="{{ path('channels-package_show', { 'id': entity.id }) }}"><i class="fa fa-plus"></i> {{ "pages.channel_package.index.details" | trans }}</a>
+                        <a class="btn btn-xs btn-info" href="{{ path('channels-package_edit', { 'id': entity.id }) }}">{{ "pages.channel_package.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete" data-href="{{ path('channels-package_delete', { 'id': entity.id }) }}">{{ "pages.channel_package.index.delete" | trans }}</a>
+						<a class="btn btn-xs btn-primary"  href="{{ path('channels-package_new', { 'id': entity.id }) }}">{{ "pages.channel.index.clone" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channel_package.index.no_tv_package" | trans }}</h4>
+    {% endif %}
+{% endblock %}

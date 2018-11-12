@@ -1,0 +1,76 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.products.new.title" | trans }}{% endblock %}
+
+{% block body %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary btn-md pull-right" href="{{ path('products') }}">
+                {{ "back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+   <div class="row">
+        <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-12">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                {{ form_label(form.name,"pages.products.name" | trans ) }}
+                                {{ form_widget(form.name) }}
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-5">
+                            <div class="form-group ml-5">
+                                <label class="checkbox-toggle checkbox-toggle--success" style="cursor:pointer !important">
+                                    {{ form_widget(form.superReseller) }}
+                                    <span data-on="{{ 'pages.products.superReseller' | trans }}" data-off="Disabled"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form_label(form.credits,"pages.products.credits" | trans ) }}
+                                {{ form_widget(form.credits) }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form_label(form.period,"pages.products.period" | trans ) }}
+                                {{ form_widget(form.period) }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form_label(form.price,"pages.products.price" | trans ) }}
+                                {{ form_widget(form.price) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    {{ form_label(form.logoFile,"pages.products.logo" | trans ) }}
+                    <div class="btn-upload btn-upload--vista-green mt-0">
+                        {{ form_widget(form.logoFile) }}
+                        <div class="btn-upload__top-side">
+                            <span class="ua-icon-btn-upload btn-upload__icon"></span>
+                            <span class="btn-upload__desc">Browse file</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                {{ form_widget(form.submit,{'attr':{
+                'class': 'btn btn-success btn-sm pull-right mt-2',
+                }}) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

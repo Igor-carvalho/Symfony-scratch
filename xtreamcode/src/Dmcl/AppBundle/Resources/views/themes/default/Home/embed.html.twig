@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title></title>
+    <link rel="stylesheet" href="{{asset('bundles/assets/bzplayer/css/font/bzicons.css') }}">
+    <link rel="stylesheet" href="{{asset('bundles/assets/bzplayer/css/default.css') }}">
+    <link rel="stylesheet" href="{{asset('bundles/assets/bzplayer/css/plugins/plugins-default.css') }}">
+    {#<link rel="stylesheet" href="{{asset('bundles/assets/videojs/video-js.min.css') }}">#}
+
+    {#<script src="{{ asset('bundles/assets/bzplayer/js/preroll.load.js') }}"></script>#}
+    {#<script src="{{ asset('bundles/assets/bzplayer/js/ima.js') }}"></script>#}
+    {#<script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>#}
+
+    <style>
+        html, body {
+            min-height: 100% !important;
+            height: 100%;
+        }
+    </style>
+    {#<script type="text/javascript" src="{{ asset('bundles/assets/videojs/ie8/videojs-ie8.min.js') }}"></script>#}
+
+</head>
+<body class="">
+<!--.preloader-->
+{#<div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>#}
+<!--/.preloader-->
+
+
+<!--/#blog-->
+
+
+            {% if data.channel is empty %}
+                <img src="{{ asset('bundles/assets/themes/default/dist/img/banned.png') }}" width={{ data.width }} height={{ data.height }}/>
+            {% else %}
+                {#{% set referer = app.request.server.get('http-referer') %}#}
+                {% if data.isBlocked == 1 %}
+                    <div id="protected" style="position:relative;">
+                        <img src="{{ asset('bundles/assets/themes/default/dist/img/protected.png', null, true) }}" />
+                        <span style="position:absolute;color:#FFFFFF;font-size:18px;left:80px;top:100px">
+                            This channel is domain protected,<br/>
+                            You can only watch it <a href="{{ url('home') }}" target="_blank" style="color:#FFFFFF;">HERE</a>
+                        </span>
+                    </div>
+                {% else %}
+                    <video id="video" class="video-js vjs-default-skin vjs-big-play-centered" width="{{ data.width }}" height="{{ data.height }}"
+                           {#preload="auto" {{ data.autoplay }} controls playsInline data-setup=''>#}
+                           preload="auto" {{ data.autoplay }} controls>
+                        <source src="{{ data.hls }}" type="application/x-mpegURL">
+                    </video>
+
+
+                    {#ADS#}
+                    {#<script>#}
+                        {#var player = videojs('video');#}
+                        {#var options = {#}
+                            {#id: 'video',#}
+                            {#adTagUrl: '{$vast}'#}
+                        {#};#}
+                        {#player.ima(options);#}
+                        {#var contentPlayer =  document.getElementById('{$id}');#}
+                        {#var startEvent = 'click';#}
+                        {#player.one(startEvent, function() {#}
+                            {#player.ima.initializeAdDisplayContainer();#}
+                            {#player.ima.requestAds();#}
+                            {#player.play();#}
+                        {#});#}
+                    {#</script>#}
+            {% endif %}
+
+
+            {% endif %}
+
+
+
+<script type="text/javascript" src="{{asset('bundles/assets/bzplayer/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/bzplayer/js/video.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/bzplayer/js/hls.js') }}"></script>
+{##}
+{#<script type="text/javascript" src="{{ asset('bundles/assets/videojs/video.min.js') }}"></script>#}
+{#<script type="text/javascript" src="{{ asset('bundles/assets/videojs/plugins/videojs-contrib-hls.min.js') }}"></script>#}
+
+<!-- load the AdSense assets after the Flowplayer assets -->
+<!-- the IMA SDK -->
+{#<script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>#}
+{#<script src="//imasdk.googleapis.com/js/sdkloader/ima3_debug.js"></script>#}
+<!-- your AdSense plugin (at your server) -->
+{#<script src="//releases.flowplayer.org/asf/flowplayer.com/2.1.9/asf.min.js"></script>#}
+
+<script type='text/javascript'>
+    {#file='{{ data.channel.streamname }}';#}
+    hls='{{ data.hls }}';
+    rtmp='{{ data.rtmp }}';
+    protocol='{{ data.protocol }}';
+    width='{{ data.width }}';
+    height='{{ data.height }}';
+    isBlocked='{{ data.isBlocked }}';
+    ads='{{ data.ads|json_encode|raw }}';
+    ads = JSON.parse(ads);
+    console.log(hls);
+    {#referer = '{{ app.request.server.get('http-referer')|default('/') }}';#}
+//    console.log('---ads---');
+//    console.log(ads);
+</script>
+<script>
+//    var player = videojs('video');
+//videojs.options.hls.overrideNative = true;
+
+//var player =  videojs('video');
+
+var player = videojs('video', {
+    html5: {
+        nativeAudioTracks: false,
+        nativeVideoTracks: false,
+        hls: {
+            debug: true,
+            overrideNative: true
+        }
+    }});
+//
+//    player.play();
+</script>
+
+
+
+</body>
+</html>

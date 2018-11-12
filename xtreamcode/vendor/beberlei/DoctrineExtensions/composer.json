@@ -1,0 +1,18 @@
+{
+    "name": "beberlei/DoctrineExtensions",
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "doctrine/orm": "<2.2",
+        "phpunit/phpunit": "~4.5",
+        "zf1/zend-date": "~1.12",
+        "zf1/zend-registry": "~1.12"
+    },
+    "suggest": {
+        "zf1/zend-date": "Alternative to DateTime"
+    },
+    "autoload": {
+        "psr-0": {"DoctrineExtensions" : "lib/"}
+    }
+}

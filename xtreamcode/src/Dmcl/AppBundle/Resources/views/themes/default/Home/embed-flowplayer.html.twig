@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title></title>
+    <style>
+        html, body {
+            min-height: 100% !important;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="">
+<!--.preloader-->
+{#<div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>#}
+<!--/.preloader-->
+
+
+<!--/#blog-->
+
+
+            {% if data.channel is empty %}
+                <img src="{{ asset('bundles/assets/themes/default/dist/img/banned.png') }}" width={{ data.width }} height={{ data.height }}/>
+            {% else %}
+                {#{% set referer = app.request.server.get('http-referer') %}#}
+                {% if data.isBlocked == 1 %}
+                    <div id="protected" style="position:relative;">
+                        <img src="{{ asset('bundles/assets/themes/default/dist/img/protected.png', null, true) }}" />
+                        <span style="position:absolute;color:#FFFFFF;font-size:18px;left:80px;top:100px">
+                            This channel is domain protected,<br/>
+                            You can only watch it <a href="{{ url('home') }}" target="_blank" style="color:#FFFFFF;">HERE</a>
+                        </span>
+                    </div>
+                {% else %}
+                    <div id="player" style="display:block;width:{{ data.width }}px;height:{{ data.height }}px;text-align: center;margin: 0 auto;">
+                        {#<img src="{{ asset('bundles/assets/themes/default/home/images/player/aaa.gif') }}" alt="" />#}
+                    </div>
+                {% endif %}
+
+
+            {% endif %}
+
+
+
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/flowplayer/flowplayer-3.2.13.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/flowplayer/flowplayer.embed-3.2.11.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/assets/flowplayer/flowplayer.ipad-3.2.13.js') }}"></script>
+<!-- load the AdSense assets after the Flowplayer assets -->
+<!-- the IMA SDK -->
+{#<script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>#}
+{#<script src="//imasdk.googleapis.com/js/sdkloader/ima3_debug.js"></script>#}
+<!-- your AdSense plugin (at your server) -->
+{#<script src="//releases.flowplayer.org/asf/flowplayer.com/2.1.9/asf.min.js"></script>#}
+
+<script type='text/javascript'>
+    file='{{ data.channel.streamname }}';
+    hls='{{ data.hls }}';
+    rtmp='{{ data.rtmp }}';
+    protocol='{{ data.protocol }}';
+    width='{{ data.width }}';
+    height='{{ data.height }}';
+    isBlocked='{{ data.isBlocked }}';
+    ads='{{ data.ads|json_encode|raw }}';
+    ads = JSON.parse(ads);
+    {#referer = '{{ app.request.server.get('http-referer')|default('/') }}';#}
+//    console.log('---ads---');
+//    console.log(ads);
+</script>
+<script language="JavaScript">
+    var player;
+    function initPlayer(config) {
+        if(isBlocked == 1){
+            return;
+        }
+        var ima = {
+            // make the Google robots crawl the current page
+            description_url: location.href,
+            // adverts configuration
+            ads: ads
+        };
+        if (config.protocol == 'rtmp') {
+            player = $f("player",
+                    {
+                        ima: ima,
+                        src: "{{ asset('bundles/assets/flowplayer/flowplayer.commercial-3.2.18.swf') }}",
+                        wmode: "opaque"
+                    },
+                    {
+                        plugins: {
+                            rtmp: {
+                                url: "{{ asset('bundles/assets/flowplayer/flowplayer.rtmp-3.2.13.swf') }}"
+                            }//,
+//                            controls: null
+                        }
+                    }).ipad();
+            player ? (player.play(), player.play(), player.play({
+                url: config.url,
+                scaling: 'scale',
+                provider: 'rtmp'
+            })) : console.log("error");
+        } else {
+            player = $f("player",
+                    {
+                        ima: ima,
+                        src: "{{ asset('bundles/assets/flowplayer/flowplayer.commercial-3.2.18.swf') }}",
+                        wmode: "opaque"
+                    },
+
+                    {
+                        plugins: {
+                            flashls: {
+                                // load the flashls plugin
+                                url: "{{ asset('bundles/assets/flowplayer/flashlsFlowPlayer.swf') }}",
+                                hls_maxbufferlength: 30
+                            }//,
+//                            controls: null
+                        }
+                    }).ipad();
+
+            player ? (player.play(), player.play(), player.play({
+                accelerated: true,
+                url: config.url,
+                ipadUrl: config.url,
+                urlResolvers: "flashls",
+                provider: "flashls",
+                autoPlay: true,
+                autoBuffering: true
+            })) : console.log("error");
+        }
+//        console.log(player.getEmbedCode());
+    }
+    var url = protocol == 'rtmp' ? rtmp : hls;
+    initPlayer({protocol: protocol, url: url});
+
+//    $('input[type=radio][name=tipo]').change(function() {
+//        if(isBlocked == 1){
+//            return;
+//        }
+//        if (this.value == 'hls') {
+//            $('#player').attr('href', hls);
+//            initPlayer({protocol: 'hls', url: hls});
+//        } else if (this.value == 'rtmp') {
+//            $('#player').attr('href', rtmp);
+//            initPlayer({protocol: 'rtmp', url: rtmp});
+//        }
+//    });
+</script>
+
+
+</body>
+</html>

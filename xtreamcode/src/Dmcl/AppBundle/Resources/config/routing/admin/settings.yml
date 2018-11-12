@@ -1,0 +1,23 @@
+settings:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Settings:index" }
+
+settings_update:
+    path:     /update
+    defaults: { _controller: "AppBundle:Admin/Settings:update" }
+    methods:  [POST, PUT]
+
+settings_update_style:
+    path:     /updateStyle
+    defaults: { _controller: "AppBundle:Admin/Settings:updateStyle" }
+    methods:  [POST, PUT]
+
+swith_status:
+    path:  /{ip}/{type}/{action}
+    defaults: { _controller: "AppBundle:Admin/Settings:swithStatus" }
+    requirements:
+        methods: POST
+
+server_info:
+    path:  /server_info
+    defaults: { _controller: "AppBundle:Admin/Settings:serverInfo" }

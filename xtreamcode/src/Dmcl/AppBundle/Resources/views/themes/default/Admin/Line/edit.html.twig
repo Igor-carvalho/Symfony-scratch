@@ -1,0 +1,119 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.line.edit.title" | trans }}{% endblock %}
+
+ {% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#packages").on({
+                change: function () {
+                    $("#changePackage")[0].value = 1;
+                    search($(this).val());
+                }
+            });
+           
+        })
+
+        function search(id){
+            $.ajax({
+                url: "{{ path('packages_bouquets') }}",
+                dataType: "json", 
+                type: 'POST',
+                data: {
+                    id: id,
+                },
+                success: function(response){
+                    var datas = response.datas;
+                    var options = '';
+                    var bouqutes = $("#bouquets");
+
+                    bouqutes.empty();
+
+                    for(var i = 0; i < datas.length; i++){
+                        options += '<option selected value="'+datas[i].id+'">'+datas[i].name+'</option>';
+                    }
+
+                    bouqutes.append(options);
+                }
+            });
+        }
+    </script>
+ {% endblock %}
+
+{% block body_parent %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="row">
+        <div class="col-md-12">
+            <a style="float: right;" class="btn btn-secondary btn-sm" href="{{ path('line') }}">
+                {{ "pages.line.edit.back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3 col-sm-8 offset-3 col-xs-12">
+            {{ form_start(edit_form) }}
+            <input id="changePackage" name="changePackage" type="hidden" value="0" />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h4>{{ "pages.line.attrs.package" | trans }}</h4>
+                        <select id="packages" class="form-control select2" required name="package" aria-required="true">
+                            {% for package in packages %}
+                                <option value="{{ package.id }}">{{ package.name }}</option>
+                            {% endfor%}
+                        </select>
+                    </div>  
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(edit_form.username,"pages.line.attrs.username" | trans ) }}
+                        {{ form_widget(edit_form.username) }}
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(edit_form.password,"pages.line.attrs.password" | trans ) }}
+                        {{ form_widget(edit_form.password) }}
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h4>{{ "pages.line.attrs.bouquet" | trans }}</h4>
+                        <select id="bouquets" class="form-control select2" multiple=true required name="bouquets[]" aria-required="true">
+                            {% for bouquet in bouquets %}
+                                <option selected value="{{ bouquet.id }}">{{ bouquet.bouquetName }}</option>
+                            {% endfor%}
+                        </select>
+                        
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(edit_form.resellerNotes,"pages.line.attrs.note" | trans ) }}
+                        {{ form_widget(edit_form.resellerNotes) }}
+                    </div>
+                </div>                
+            </div>
+            
+            <div>
+                {{ form_widget(edit_form.submit,{'attr':{
+                'class': 'btn btn-success btn-sm pull-right',
+                }}) }}
+            </div>
+            {{ form_end(edit_form) }}
+        </div>
+    </div>
+
+{% endblock %}

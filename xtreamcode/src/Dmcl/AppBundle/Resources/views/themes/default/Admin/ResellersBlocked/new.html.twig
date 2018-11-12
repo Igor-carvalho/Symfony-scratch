@@ -1,0 +1,41 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.resellers_blocked.new.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.resellers_blocked.new.title" | trans }}{% endblock %}
+  {% block stylesheets %}
+      <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}"/>
+      <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/ckeditor/skins/moono/editor_gecko.css') }}"/>
+  {% endblock %}
+
+     {% block javascripts %}
+         <script src="{{ asset('bundles/assets/themes/default/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+         <script src="{{ asset('bundles/assets/themes/default/plugins/ckeditor/ckeditor.js') }}"></script>
+         <script src="{{ asset('bundles/assets/themes/default/plugins/ckeditor/lang/'~app.request.get("_locale")~'.js') }}"></script>
+         <script src="{{ asset('bundles/assets/themes/default/plugins/ckeditor/config.js') }}"></script>
+         <script src="{{ asset('bundles/assets/themes/default/plugins/ckeditor/styles.js') }}"></script>
+     {% endblock %}
+{% block body -%}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('resellers-blocked') }}">
+            {{ "pages.resellers_blocked.new.back_to_list" | trans }}
+        </a>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form_start(form) }}
+        <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+            {{ form_label(form.reseller,"pages.resellers_blocked.attrs.reseller" | trans ) }}
+            {{ form_widget(form.reseller) }}
+        </div>
+        <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+            {{ form_label(form.reason,"pages.resellers_blocked.attrs.reason" | trans) }}
+            {{ form_widget(form.reason) }}
+        </div>
+        <div>
+            {{ form_widget(form.submit,{'attr':{
+            'class': 'btn btn-success btn-sm pull-right',
+            }}) }}
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

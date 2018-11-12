@@ -1,0 +1,40 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.gateways.edit.title" | transchoice(0,{"%name%":entity.displayName}) }}{% endblock %}
+{% block page_title %}{{ "pages.gateways.edit.title" | transchoice(0,{"%name%":entity.displayName})  }}{% endblock %}
+
+{% block body_parent %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary btn-sm pull-right" href="{{ path('gateways') }}">
+                {{ "pages.gateways.edit.back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3 col-sm-8 offset-2 col-xs-12">
+            {{ form_start(edit_form) }}
+                <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+                    {{ form_label(edit_form.shopIdPublicKey,"pages.gateways.attrs.shop_id_public_key" | trans ) }}
+                    {{ form_widget(edit_form.shopIdPublicKey) }}
+                </div>
+                <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+                    {{ form_label(edit_form.secretKey,"pages.gateways.attrs.secret_key" | trans ) }}
+                    {{ form_widget(edit_form.secretKey) }}
+                </div>
+                <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+                    {{ form_label(edit_form.enabled,"pages.gateways.attrs.enabled" | trans) }}
+                    {{ form_widget(edit_form.enabled) }}
+                </div>
+                <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+                    <div>
+                        {{ form_widget(edit_form.submit,{'attr':{
+                        'class': 'btn btn-success btn-sm pull-right',
+                        }}) }}
+                    </div>
+                </div>
+            {{ form_end(edit_form) }}
+        </div>
+    </div>
+{% endblock %}

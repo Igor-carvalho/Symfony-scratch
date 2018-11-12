@@ -1,0 +1,156 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/jquery.json-viewer/json-viewer/jquery.json-viewer.css') }}"/>
+ {% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/transcoder-control.js') }}"></script>
+     <script src="//{{ app.request.getHost() }}:{{ nodejs_port() }}/socket.io/socket.io.js"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/jquery.json-viewer/json-viewer/jquery.json-viewer.js') }}"></script>
+     <script type="text/javascript">
+         listNumElementShow('num_channels_list');
+         //console.info({{ app.user.username }});
+     </script>
+
+ {% endblock %}
+ 
+ {% set setting = settings() %}
+ 
+ {% block vars %}
+    var msgDelete = "{{ "pages.channel.msg_delete" | trans }}";
+    var starting = "{{ "pages.channel.index.starting" | trans }}"
+    var start = "{{ "pages.channel.index.start" | trans }}"
+    var stop = "{{ "pages.channel.index.stop" | trans }}"
+    var stopping = "{{ "pages.channel.index.stopping" | trans }}"
+    var transcoderMessages = {
+    404: "{{ "pages.channel.transcoder.404" | trans }}",
+    226: "{{ "pages.channel.transcoder.226" | trans }}",
+    500: "{{ "pages.channel.transcoder.500" | trans }}",
+    400: "{{ "pages.channel.transcoder.400" | trans }}",
+    start: {
+    200:  "{{ "pages.channel.transcoder.start.200" | trans }}"
+    },
+    stop: {
+    200:  "{{ "pages.channel.transcoder.stop.200" | trans }}"
+    }
+    }
+    var warningStop = "{{ "pages.channel.warning.stop" | trans }}"
+    var nodeJsPort = {{ nodejs_port() }}
+
+    var urlPlayHandler = "{{ path('playback_check_player') }}"
+    var urlStopHandler = "{{ path('playback_playstop') }}"
+    var idChannelPaying = 0;
+    var checkPlaying = false;
+{% endblock %}
+
+{% block title %}{{ "pages.channel.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel.index.title" | trans }}{% endblock %}
+
+{% block body %}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <div class="form-group pull-right">
+            <a class="btn btn-primary btn-sm" href="{{ path('channel_new') }}">
+                {{ "pages.channel.index.add_channel" | trans }}
+            </a>
+
+            {#<a class="btn btn-primary btn-sm" href="{{ path('channel_delete_logs') }}">
+                {{ "pages.channel.index.delete_logs_channels" | trans }}
+            </a>
+
+            <a class="btn btn-primary btn-sm" href="{{ path('channel_import') }}">
+                {{ "pages.channel.index.import_channels" | trans }}
+            </a>
+
+            {% if entities | length > 0 %}
+                <a class="btn btn-success btn-sm" href="{{ path('transcoder_channel_start_all') }}">
+                    <i class="fa fa-play-circle"></i>
+                    {{ "pages.vod_package.index.start_all" | trans }}
+                </a>
+
+                <a class="btn btn-danger btn-sm" href="{{ path('transcoder_channel_stop_all') }}">
+                    <i class="fa fa-stop"></i>
+                    {{ "pages.vod_package.index.stop_all" | trans }}
+                </a>
+            {% endif %}#}
+        </div>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.channel.index.table.status" | trans }}</th>
+                <th>{{ "pages.channel.index.table.name" | trans }}</th>
+                <th class="hidden-xs">{{ "pages.channel.index.table.category" | trans }}</th>
+                <th class="hidden-xs hidden-sm">{{ "pages.channel.index.table.input_stream" | trans }}</th>
+                <th>{{ "pages.channel.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td class="enabled col-sm-2 col-md-2 col-lg-1">                                       
+                        <div>                         
+                            <p>
+                                <i id="channel-indicator-in-{{ entity.id }}" style="font-size: 20px"
+                                   class="channel-indicator-{{ entity.id }} fa fa-circle text-off"></i>
+                                <span style="color: black;font-size: 20px;">/</span>
+                                <i id="channel-indicator-out-{{ entity.id }}" style="font-size: 20px"
+                                   class="channel-indicator-{{ entity.id }} fa fa-circle text-off"></i>
+                            </p>
+                            
+                            <a id="details-{{ entity.id }}" class="btn btn-default btn-xs show-inner"
+                           data-href="{{ path('app.route.channels.details', { 'id': entity.id }) }}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                          </a>                        
+                        </div>                      
+                    </td>
+                    <td title="{{ entity.id }}" style="text-align: center" class="col-sm-2 col-md-1 col-lg-1">
+                       <div class="thumbnail">
+                          <img class="img-rounded" src="{{ logos[entity.id] }}" style="max-width:60px;" />
+                        </div>
+                        {{ entity.name }}
+                    </td>
+                    <td class="hidden-xs col-sm-3 col-md-2 col-lg-1">{{ entity.category }}</td>
+                    <td style="word-break: break-all;" class="hidden-xs hidden-sm col-md-4 col-lg-4">{{ entity.source }}</td>                               
+                    
+                    <td style="text-align: center" class="col-sm-3 col-md-2 col-lg-2">                         
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 col-lg-6">
+                                <a class="btn btn-xs btn-info edit" data-id="{{ entity.id }}"
+                                  href="{{ path('channel_edit', { 'id': entity.id }) }}">{{ "pages.channel.index.edit" | trans }}
+                                </a>
+                            </div>
+                        </div>
+                        
+                         <div class="row">
+                           <div class="col-sm-12 col-md-12 col-lg-12">
+                             <a class="btn btn-xs btn-danger delete"
+                               data-href="{{ path('channel_delete', { 'id': entity.id }) }}">{{ "pages.channel.index.delete" | trans }}
+                             </a>                             
+                           </div>
+                         </div>                       
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p>
+            <span style="margin-right: 10px">
+            <i class="fa fa-circle text-on"></i> {{ "pages.channel.index.legend.running" | trans }}
+            </span>
+            <span style="margin-right: 10px">
+            <i class="fa fa-circle text-off"></i> {{ "pages.channel.index.legend.stopped" | trans }}
+            </span>
+            <span style="margin-right: 10px">
+            <i class="fa fa-circle text-error"></i> {{ "pages.channel.index.legend.error" | trans }}
+            </span>
+        </p>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channel.index.no_channels" | trans }}</h4>
+    {% endif %}
+{% endblock %}

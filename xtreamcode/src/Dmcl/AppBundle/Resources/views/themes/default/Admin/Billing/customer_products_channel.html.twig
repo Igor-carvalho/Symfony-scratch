@@ -1,0 +1,41 @@
+{% if productsAvailable["channel"] | length > 0 %}
+    <div class="col-md-12 margin-bottom-10">
+        <form method="POST" action="{{ path("billing_add_product",{"customer":customer.id,"type":"channel"}) }}">
+            <label for="channels-available">{{ "pages.billing.customer_products.index.channels_available" | trans }}</label>
+            <select style="top: 0px!important;" required id="channels-available" class="form-control select2" name="products[]" multiple>
+                {% for entity in  productsAvailable["channel"] %}
+                    <option value="{{ entity.id }}">{{ entity.name }}</option>
+                {% endfor %}
+            </select>
+            <button style="margin-top: 10px" class="btn btn-success pull-right" type="submit">{{ "pages.billing.customer_products.index.add_channels" | trans }}</button>
+        </form>
+    </div>
+{% endif %}
+{% if products["channel"] | length > 0 %}
+    <table class="datatable table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>{{ "pages.billing.customer_products.index.table.channels.name" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.channels.category" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.channels.live" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.channels.status" | trans }}</th>
+            <th>{{ "pages.billing.customer_products.index.table.channels.action" | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in  products["channel"] %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.category }}</td>
+                <td>{{ entity.live }}</td>
+                <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.billing.customer_products.index.enabled" | trans :"pages.billing.customer_products.index.disabled" | trans }}</td>
+                <td style="text-align: center">
+                    <a class="btn btn-xs btn-danger delete" data-msg-delete="{{ "pages.billing.customer_products.index.msgs.channel.msg_remove" | trans }}" data-href="{{ path('billing_remove_product', {'customer':customer.id,'type':"channel", 'id': entity.id }) }}">{{ "pages.billing.customer_products.index.remove" | trans }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h4 class="text-muted text-center">{{ "pages.billing.customer_products.index.no_channels" | trans }}</h4>
+{% endif %}

@@ -1,0 +1,37 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block body -%}
+    <div class="col-md-3">
+        <a href="{{ path('technical_issues_new') }}" class="btn btn-primary btn-block margin-bottom">{{ "pages.technical_issues.index.compose" | trans }}</a>
+        <div class="box box-solid">
+            <div class="box-body no-padding">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="{{ path('technical_issues') }}">
+                            <i class="fa fa-inbox"></i>
+                            {{ "pages.technical_issues.inbox" | trans }}
+                            {#<span class="label label-primary pull-right">12</span>#}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('technical_issues_sent') }}">
+                            <i class="fa fa-envelope-o"></i>
+                            {{ "pages.technical_issues.sent" | trans }}
+                        </a>
+                    </li>
+                    {#<li>#}
+                        {#<a href="#">#}
+                            {#<i class="fa fa-trash-o"></i>#}
+                            {#{{ "pages.technical_issues.trash" | trans }}#}
+                        {#</a>#}
+                    {#</li>#}
+                </ul>
+            </div><!-- /.box-body -->
+        </div><!-- /. box -->
+
+    </div><!-- /.col -->
+    <div class="col-md-9">
+        <div class="box box-primary">
+            {% block support_content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

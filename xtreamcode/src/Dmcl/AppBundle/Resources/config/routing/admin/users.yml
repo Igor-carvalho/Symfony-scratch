@@ -1,0 +1,71 @@
+line:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Users:index" }
+
+line_ajax:
+    path:     /ajax
+    defaults: { _controller: "AppBundle:Admin/Users:ajax" }
+
+line_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/Users:new", trial:0 }
+
+line_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/Users:create", trial:0 }
+    methods:  POST
+
+line_new_trial:
+    path:     /new/trial
+    defaults: { _controller: "AppBundle:Admin/Users:new", trial:1 }
+
+line_create_trial:
+    path:     /create/trial
+    defaults: { _controller: "AppBundle:Admin/Users:create", trial:1 }
+    methods:  POST
+
+line_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/Users:edit" }
+
+line_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/Users:update" }
+    methods:  [POST, PUT]
+
+line_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Users:delete" }
+    methods:  [POST, DELETE]
+
+line_show:
+    path:     /show
+    defaults: { _controller: "AppBundle:Admin/Users:show" }
+
+line_update_note:
+    path:     /update_note
+    defaults: { _controller: "AppBundle:Admin/Users:updateNote" }
+
+line_bouquets:
+    path:     /line_bouquets
+    defaults: { _controller: "AppBundle:Admin/Users:bouquets" }
+
+line_update_bouquets:
+    path:     /line_update_bouquets
+    defaults: { _controller: "AppBundle:Admin/Users:updateBouquets" }
+
+line_update_mac:
+    path:     /line_update_mac
+    defaults: { _controller: "AppBundle:Admin/Users:updateMAC" }
+
+line_update_e2:
+    path:     /line_update_e2
+    defaults: { _controller: "AppBundle:Admin/Users:updateE2" }
+
+line_update_parental_code:
+    path:     /line_update_parental_code
+    defaults: { _controller: "AppBundle:Admin/Users:updateParentalCode" }
+
+line_devices:
+    path:     /line_devices
+    defaults: { _controller: "AppBundle:Admin/Users:lineDevices" }

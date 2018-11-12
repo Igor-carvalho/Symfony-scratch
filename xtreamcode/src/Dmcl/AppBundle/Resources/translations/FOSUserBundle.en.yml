@@ -1,0 +1,41 @@
+form:
+    current_password: 'Current password'
+    email: Email
+    password: Password
+    password_confirmation: 'Repeat password'
+    username: Username
+
+layout:
+    login: Login
+    logout: Logout
+    register: Register
+
+registration:
+    back: 'Back to the originating page.'
+    check_email: 'An email has been sent to %email%. It contains an activation link you must click to activate your account.'
+    confirmed: 'Congrats %username%, your account is now activated.'
+
+    email:
+        message: "Hello %username%!\n\nTo finish activating your account - please visit %confirmationUrl%\n\nRegards,\nthe Team.\n"
+        subject: 'Welcome %username%!'
+
+    submit: Register
+
+resetting:
+    check_email: 'An email has been sent to %email%. It contains a link you must click to reset your password.'
+
+    email:
+        message: "Hello %username%!\n\nTo reset your password - please visit %confirmationUrl%\n\nRegards,\nthe Team.\n"
+        subject: 'Reset Password'
+
+    password_already_requested: 'The password for this user has already been requested within the last 24 hours.'
+
+    request:
+        invalid_username: 'The username or email address "%username%" does not exist.'
+        submit: 'Reset password'
+        username: 'Username or email address'
+
+security:
+    login:
+        remember_me: 'Remember me'
+        submit: Login

@@ -1,0 +1,55 @@
+streams_server:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:index" }
+
+streams_server_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:show" }
+
+streams_server_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:new" }
+
+streams_server_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:create" }
+    methods:  POST
+
+streams_server_install:
+    path:     /install
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:install" }
+    methods:  POST
+
+streams_server_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:edit" }
+
+streams_server_preinstall:
+    path:     /{id}/install
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:preInstall" }
+
+streams_server_postinstall:
+    path:     /postinstall
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:postInstall" }
+
+streams_server_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:update" }
+    methods:  [POST, PUT]
+
+streams_server_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:delete" }
+    methods:  [POST, DELETE]
+
+streams_server_swith_status:
+    path:  /{ip}/{action}
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:swithStatus" }
+    requirements:
+        methods: POST
+
+streams_server_checker:
+    path:  /checker
+    defaults: { _controller: "AppBundle:Admin/StreamsServer:checker" }
+    requirements:
+        methods: POST

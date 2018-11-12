@@ -1,0 +1,10 @@
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        <div class="alert alert-error" style="padding: 3px 5px;text-align: center">
+            <button style="padding-left: 10px" type="button" class="close" data-dismiss="alert">&times;</button>
+            {% for error in errors %}
+                {{ error.message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock form_errors %}

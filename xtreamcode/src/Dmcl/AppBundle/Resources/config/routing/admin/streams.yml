@@ -1,0 +1,48 @@
+streams:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Streams:index" }
+
+streams_ajax:
+    path:     /ajax
+    defaults: { _controller: "AppBundle:Admin/Streams:indexAjax" }
+
+streams_report:
+    path:     /report
+    defaults: { _controller: "AppBundle:Admin/Streams:indexReport" }
+
+streams_search:
+    path:     /search
+    defaults: { _controller: "AppBundle:Admin/Streams:search" }
+    methods: POST
+
+streams_submit:
+    path:     /submit
+    defaults: { _controller: "AppBundle:Admin/Streams:submit" }
+    methods: POST
+
+streams_reports:
+    path:     /reports
+    defaults: { _controller: "AppBundle:Admin/Streams:reports" }
+
+streams_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/Streams:edit" }
+
+streams_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/Streams:update" }
+    methods:  [POST, PUT]
+
+streams_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Streams:delete" }
+    methods:  [POST, DELETE]
+
+streams_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/Streams:new"}
+
+streams_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/Streams:create" }
+    methods:  POST

@@ -1,0 +1,19 @@
+/* here you can put your own css to customize and override the theme */
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.71)  !important;
+    border-color:rgba(255, 255, 253, 0.55);
+    border-radius: 0;
+    box-shadow: none;
+    height: 35px;
+}
+.form-control::-moz-placeholder,
+.form-control:-ms-input-placeholder,
+.form-control::-moz-placeholder,
+.form-control::-webkit-input-placeholder{
+    color: #000000!important;
+}
+
+a:hover{
+    text-decoration: none;
+}

@@ -1,0 +1,45 @@
+{% extends '@App/base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/bootstrap/css/bootstrap.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" action="{{ path('api_activation_code_login') }}" style="margin-top: 40px">
+                    <div class="form-group">
+                        <label>activationCode</label>
+                        <input type="text" name="activationCode" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>mac</label>
+                        <input type="text" name="mac" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>deviceModel</label>
+                        <input type="text" name="deviceModel" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>modelNumber</label>
+                        <input type="text" name="modelNumber" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>serialNumber</label>
+                        <input type="text" name="serialNumber" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Test</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

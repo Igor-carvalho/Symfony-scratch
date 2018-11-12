@@ -1,0 +1,665 @@
+{% block form_javascript %}
+{% spaceless %}
+    {% for child in form %}
+        {{ form_javascript(child) }}
+    {% endfor %}
+{% endspaceless %}
+{% endblock form_javascript %}
+
+{% block field_javascript "" %}
+
+{% block button_javascript "" %}
+
+{% block genemu_captcha_javascript %}
+{% spaceless %}
+    <!--[if lte IE 7]>
+    <script type="text/javascript">
+        $(function () {
+            var pathBase64 = "{{ path('genemu_base64')}}";
+
+            $(document.images).each(function(){
+                var src = $(this).attr("src");
+                if (/^data:.*;base64/i.test(src)) {
+                    src = src.slice(5);
+                    $(this).attr("src",pathBase64+"?"+src);
+                }
+            });
+        });
+    </script>
+    <![endif]-->
+{% endspaceless %}
+{% endblock genemu_captcha_javascript %}
+
+{% block genemu_recaptcha_javascript %}
+{% spaceless %}
+    <script type="text/javascript" src="{{ asset("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js") }}"></script>
+    <script type="text/javascript">
+        function genemu_recaptcha_load()
+        {
+            Recaptcha.create('{{ public_key }}', '{{ id }}_div', {{ configs|json_encode|raw }});
+        }
+
+        if (window.addEventListener) {
+            window.addEventListener('load', genemu_recaptcha_load, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', genemu_recaptcha_load);
+        } else {
+            window.onload = genemu_recaptcha_load;
+        }
+    </script>
+{% endspaceless %}
+{% endblock genemu_recaptcha_javascript %}
+
+{% block genemu_tinymce_javascript %}
+{% spaceless %}
+    {% if configs.script_url is defined %}
+        {% set configs = configs|merge({
+            "script_url": asset(configs.script_url)
+        }) %}
+    {% else %}
+        {% set configs = configs|merge({
+            "mode": "exact",
+            "elements": id
+        }) %}
+    {% endif %}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var $configs = {{ configs|json_encode|raw }};
+
+        {%- if configs.script_url is defined %}
+
+            var $textarea = jQuery('#{{ id }}');
+            if($textarea.is('[required]')) {
+                $configs.oninit = function(editor) {
+                    editor.onChange.add(function(ed, l) { ed.save(); });
+                };
+            }
+            $textarea.tinymce($configs);
+        {% else %}
+
+            tinyMCE.init($configs);
+        {% endif -%}
+
+        });
+    </script>
+{% endspaceless %}
+{% endblock genemu_tinymce_javascript %}
+
+{% block genemu_jquerydate_javascript %}
+{% spaceless %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $field = $('#{% if widget != "single_text" %}datepicker_{% endif %}{{ id }}');
+
+        {% block genemu_jquerydate_javascript_prototype %}
+
+        {% if configs.buttonImage is defined %}
+            {% set configs = configs|merge({
+                "buttonImage": asset(configs.buttonImage)
+            }) %}
+        {% endif %}
+
+        {% if culture == "en" %}
+            {% set culture = "en-GB" %}
+        {% endif %}
+
+            var $configs = $.extend({
+                minDate: new Date({{ min_year }}, 0, 1),
+                maxDate: new Date({{ max_year }}, 11, 31)
+            }, $.datepicker.regional['{{ culture }}'] ,{{ configs|json_encode|raw }});
+
+        {% if widget != "single_text" %}
+            var $year = $('#{{ form.year.vars.id }}');
+            var $month = $('#{{ form.month.vars.id }}');
+            var $day = $('#{{ form.day.vars.id }}');
+
+            $configs.onSelect = function(date) {
+                $year.val(parseInt(date.substring(0, 4), 10));
+                $month.val(parseInt(date.substring(5, 7), 10));
+                $day.val(parseInt(date.substring(8), 10));
+            }
+        {% endif %}
+
+            $field.datepicker($configs);
+        {% endblock %}
+        });
+    </script>
+{% endspaceless %}
+{% endblock %}
+
+{% block genemu_jqueryslider_javascript %}
+{% spaceless %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var $field = $('#{{ id }}');
+            var $configs = $.extend({{ configs|json_encode|raw }}, {
+                value: {{ value ? value : 0 }},
+                slide: function(event, ui) {
+                    $field.val(ui.value);
+                }
+            });
+
+            $('#{{ id }}_slider').slider($configs);
+        });
+    </script>
+{% endspaceless %}
+{% endblock genemu_jqueryslider_javascript %}
+
+{% block genemu_jquerycolor_javascript %}
+{% spaceless %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var $field = $('#{{ id }}');
+            var $configs = $.extend({
+                color: '#' + $field.val(),
+                onBeforeShow: function() {
+                    $(this).ColorPickerSetColor($field.val());
+                }
+            }, {{ configs|json_encode|raw }});
+
+        {% if widget == "image" %}
+            $picker = $('#{{ id }}_color');
+
+            $picker.ColorPicker($.extend({
+                onChange: function(hsb, hex, rgb) {
+                    $field.val(hex);
+
+                    $('div', $picker).css({
+                        backgroundColor: '#' + hex
+                    });
+                }
+            }, $configs));
+        {% else %}
+            $field.ColorPicker($.extend({
+                onChange: function(hsb, hex, rgb) {
+                    $field.val(hex).css({
+                        backgroundColor: '#' + hex
+                    });
+                }
+            }, $configs));
+        {% endif %}
+        });
+    </script>
+{% endspaceless %}
+{% endblock genemu_jquerycolor_javascript %}
+
+{% block genemu_jqueryrating_javascript %}
+{% spaceless %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('[name="{{ full_name }}"]').rating({{ configs|json_encode|raw }});
+        });
+    </script>
+{% endspaceless %}
+{% endblock genemu_jqueryrating_javascript %}
+
+{% block genemu_jquerytokeninput_javascript %}
+{% spaceless %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var $field = $('#{{ id }}');
+            var $tokeninput = $('#tokeninput_{{ id }}');
+
+            var update_hidden_sourceinput = function(item) {
+                var $val = $tokeninput.tokenInput('get');
+            {% if multiple is empty %}
+                for (first in $val) break;
+                $val = $val[first];
+            {% endif %}
+
+                $field.val(JSON.stringify($val));
+            };
+
+            {% if value is not empty %}
+                {% if multiple is empty %}
+                    {% set prePopulate = '[' ~ value ~ ']' %}
+                {% else %}
+                    {% set prePopulate = value %}
+                {% endif %}
+            {% endif %}
+
+            var $configs = $.extend({{ configs|json_encode|raw }}, {
+                prePopulate: {{ prePopulate|raw }},
+                onAdd: update_hidden_sourceinput,
+                onDelete: update_hidden_sourceinput
+            });
+
+            $tokeninput.tokenInput(
+            {% if route_name %}
+                '{{ path(route_name) }}'
+            {% else %}
+                {% set sourceChoices = [] %}
+                {% for choice in choices %}
+                    {% set sourceChoices = sourceChoices|merge([{'value': choice.value, 'label': choice.label}]) %}
+                {% endfor %}
+                {{ sourceChoices|json_encode|raw }}
+            {% endif %},
+                $configs
+            );
+        });
+    </script>
+{% endspaceless %}
+{% endblock genemu_jquerytokeninput_javascript %}
+
+{% block genemu_jqueryautocompleter_javascript %}
+{% spaceless %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var $field = $('#{{ id }}');
+            var $autocompleter = $('#autocompleter_{{ id }}');
+            var $configs = {
+                focus: function(event, ui) {
+                    return false;
+                },
+                select: function(event, ui) {
+                {% if multiple %}
+                    terms = this.value.split(/,\s*/);
+                    terms.pop();
+                    terms.push(ui.item.label);
+                    terms.push('');
+                    this.value = terms.join(', ');
+
+                    terms = $field.val();
+                    terms = !terms?[]:JSON.parse(terms);
+                    terms.push(ui.item);
+                {% else %}
+                    this.value = ui.item.label;
+                    terms = ui.item;
+                {% endif %}
+                    $field.val(JSON.stringify(terms));
+
+                    return false;
+                }
+            };
+
+            {% if route_name %}
+                $configs.source = function(request, response) {
+                    $.getJSON('{{ path(route_name) }}', {
+                        term: request.term
+                    }, response);
+                };
+            {% else %}
+                {% set sourceChoices = [] %}
+                {% for choice in choices %}
+                    {% set sourceChoices = sourceChoices|merge([{'value': choice.value, 'label': choice.label}]) %}
+                {% endfor %}
+                $configs.source = {{ sourceChoices|json_encode|raw }};
+            {% endif %}
+
+                $autocompleter.autocomplete($configs);
+
+            {% if free_values %}
+                $autocompleter.keyup(function(){
+                    var val ={}
+                    var fieldval = $(this).val();
+                    val['value'] = fieldval;
+                    val['label'] = fieldval;
+
+                    $field.val(JSON.stringify(val));
+                });
+            {% endif %}
+
+            {% if multiple %}
+                var $source = $autocompleter.data('autocomplete').source;
+
+                $autocompleter.autocomplete('option', 'source', function(request, response) {
+                    request.term = request.term.split(/,\s*/).pop();
+
+                    $source(request, response);
+                });
+            {% endif %}
+        });
+    </script>
+{% endspaceless %}
+{% endblock genemu_jqueryautocompleter_javascript %}
+
+{% block genemu_jqueryautocomplete_javascript %}
+{% spaceless %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var $autocompleter = $('#{{ id }}');
+            var $configs = {{ configs|json_encode|raw }};
+
+            {% if route_name %}
+                $configs.source = function(request, response) {
+                    $.getJSON('{{ path(route_name) }}', {
+                        term: request.term
+                    }, response);
+                };
+            {% else %}
+                $configs.source = {{ suggestions|json_encode|raw }};
+            {% endif %}
+
+            $autocompleter.autocomplete($configs);
+
+            {% if configs.minLength is defined and 0 == configs.minLength %}
+                $autocompleter.focus(function() {
+                    $(this).autocomplete("search", "");
+                });
+            {% endif %}
+        });
+    </script>
+{% endspaceless %}
+{% endblock %}
+
+{% block genemu_jquerychosen_javascript %}
+{% spaceless %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $field = $('#{{ id }}');
+
+            {% block genemu_jquerychosen_javascript_prototype %}
+                $field.chosen({
+                    no_results_text: "{{ no_results_text|trans({}, translation_domain) }}",
+                    allow_single_deselect: {{ allow_single_deselect ? 'true' : 'false' }},
+                    disable_search_threshold: {{ disable_search_threshold }}
+                });
+            {% endblock %}
+        });
+    </script>
+{% endspaceless %}
+{% endblock %}
+
+{% block genemu_jquerygeolocation_javascript %}
+{% spaceless %}
+    {# Elements generation #}
+    {% if map is same as(true) %}
+        {% set elements = elements|merge({"map": "#" ~ id ~ "_map"}) %}
+    {% endif %}
+
+    {% if form.latitude is defined %}
+        {% set elements = elements|merge({"lat": "#" ~ form.latitude.vars.id}) %}
+    {% endif %}
+
+    {% if form.longitude is defined %}
+        {% set elements = elements|merge({"lng": "#" ~ form.longitude.vars.id}) %}
+    {% endif %}
+
+    {% if form.locality is defined %}
+        {% set elements = elements|merge({"locality": "#" ~ form.locality.vars.id}) %}
+    {% endif %}
+
+    {% if form.country is defined %}
+        {% set elements = elements|merge({"country": "#" ~ form.country.vars.id}) %}
+    {% endif %}
+
+    {# Configs generation #}
+    {% if elements | length > 0 %}
+        {% set configs = configs|merge({"elements": elements}) %}
+    {% endif %}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $field = $('#{{ form.address.vars.id }}');
+
+            $field.addresspicker({{ configs|json_encode|raw }});
+
+            {% if map is same as(true) %}
+                var gmarker = $field.addresspicker('marker');
+                gmarker.setVisible(true);
+
+                $field.addresspicker('updatePosition');
+            {% endif %}
+        });
+    </script>
+{% endspaceless %}
+{% endblock genemu_jquerygeolocation_javascript %}
+
+{% block genemu_jqueryfile_javascript %}
+{% spaceless %}
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        var $field = $('#{{ id }}_upload');
+        {% block genemu_jqueryfile_javascript_prototype %}
+        var $form = $field.closest('form');
+        var $queue = $('#{{ id }}_queue');
+        var $nbQueue = 0;
+
+        var $configs = $.extend({{ configs|merge({
+            'swf':       asset(configs.swf),
+            'cancelImg': asset(configs.cancelImg),
+            'uploader':  path(configs.script),
+            'queueID':   id ~ '_queue'
+        })|json_encode|raw }}, {
+            onUploadSuccess: function(file, data, response) {
+                data = jQuery.parseJSON(data);
+
+                if (data.result == '1') {
+                    {% if multiple %}
+                        var value = $('#{{ id }}').val();
+                        if (value != '') {
+                            value += ",";
+                        }
+                        value += data.file;
+                    {% else %}
+                        var value = data.file;
+                    {% endif %}
+
+                    $('#{{ id }}').val(value);
+                    $nbQueue--;
+                } else {
+                    alert('Error');
+                }
+            },
+            onSelect: function(file) {
+                $nbQueue++;
+            },
+            onUploadError: function(file, errorCode, errorMsg, errorString) {
+                alert('error');
+            }
+        });
+
+    {% if configs.auto is not defined or configs.auto is same as(false) %}
+        $configs.onAllComplete = function(event, data) {
+            $form.submit();
+        };
+
+        $form.submit(function(event) {
+            if (0 === $nbQueue) {
+                return $joinFiles();
+            } else {
+                $field.uploadifyUpload();
+                event.preventDefault();
+            }
+        });
+    {% else %}
+        $form.submit(function(event) {
+            return $joinFiles();
+        });
+    {% endif %}
+
+        var $joinFiles = function() {
+            if ($files = $field.data('files')) {
+                $field.val($files.join(','));
+            }
+
+            return true;
+        }
+
+        $field.uploadify($configs);
+        {% endblock %}
+    });
+</script>
+{% endspaceless %}
+{% endblock %}
+
+{% block genemu_jqueryimage_javascript %}
+{% spaceless %}
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        var $field   = $('#{{ id }}_upload');
+        {% block genemu_jqueryimage_javascript_prototype %}
+        var $form    = $field.closest('form');
+        var $preview = $('#{{ id }}_img_preview');
+        var $options = $('#{{ id }}_options');
+        // Base path for apps not on DocumentRoot
+        var $basePath = '{{ asset(configs.folder) }}';
+        $basePath = $basePath.substr(0, $basePath.length - '{{ configs.folder }}'.length);
+
+        var $coords = {};
+        var $crop = null;
+        var $ratio = 1;
+
+        var $configs = $.extend({{ configs|merge({
+            'swf':       asset(configs.swf),
+            'cancelImg': asset(configs.cancelImg),
+            'uploader':  path(configs.script),
+            'queueID':   id ~ '_queue'
+        })|json_encode|raw }}, {
+            onUploadSuccess: function(file, data, response) {
+                data = jQuery.parseJSON(data);
+
+                if (data.result == '1') {
+                    $('#{{ id }}').val(data.file);
+
+                    // add if and only if path is relative
+                    if (data.thumbnail.file.search(/^[/\\]/) < 0) {
+                        data.thumbnail.file = $basePath + data.thumbnail.file;
+                    }
+
+                    createCrop({
+                        image:      data.image,
+                        thumbnail:  data.thumbnail
+                    });
+                } else {
+                    alert('Error');
+                }
+            },
+            onUploadError: function(file, errorCode, errorMsg, errorString) {
+                alert('error');
+            }
+        });
+
+        var createCrop = function (data) {
+            if ($crop) {
+                $crop.destroy();
+            }
+
+            // add if and only if path is relative
+            if (data.thumbnail.file.search(/^[/\\]/) < 0) {
+                data.thumbnail.file = $basePath + data.thumbnail.file;
+            }
+            var $img = new Image();
+
+            console.log(data);
+            $($img).load(function() {
+                {% set widthMax = data.thumbnail is defined ? data.thumbnail.width : 500 %}
+
+                $ratio = data.image.width > {{ widthMax }} ? data.image.width / {{ widthMax }} : 1;
+                $('.crop', $options).hide();
+
+                $preview
+                    .width(Math.round(data.image.width / $ratio))
+                    .height(Math.round(data.image.height / $ratio))
+                    .attr('src', this.src);
+
+                if (!$crop) {
+                    $options.fadeIn();
+                }
+
+                $preview.Jcrop({
+                    onSelect: checkCoords,
+                    onChange: checkCoords
+                }, function() {
+                    $crop = this;
+                });
+            }).attr('src', data.thumbnail.file);
+        }
+
+        var checkCoords = function(coords) {
+
+            if (coords.w > 0 && coords.h > 0) {
+                $('.crop', $options).fadeIn();
+
+                $coords = {
+                    x: coords.x * $ratio,
+                    y: coords.y * $ratio,
+                    w: coords.w * $ratio,
+                    h: coords.h * $ratio
+                };
+            } else {
+                $('.crop', $options).fadeOut();
+            }
+        }
+
+        $('.change', $options).click(function() {
+            var $this = $(this);
+            var $regex = new RegExp('^\\b(.*?) (.*)\\b', 'g');
+            var $filter = $this.attr('class').replace($regex, '$1');
+
+            var $data = {
+                filter: $filter,
+                image: $('#{{ id }}').val(),
+                opacity: 0.5
+            };
+
+            if ('crop' === $filter && !$.isEmptyObject($coords)) {
+                $data = $.extend($data, $coords);
+            }
+
+            if (
+                $.inArray($filter, {{ filters|json_encode|raw }}) !== -1 ||
+                ( 'crop' === $filter && !$.isEmptyObject($coords) )
+            ) {
+                $this.addClass('loading');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('genemu_form_image') }}',
+                    data: $data,
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.result == '1') {
+                            $('#{{ id }}').val(data.file);
+
+                            createCrop({
+                                image: data.image,
+                                thumbnail: $.isEmptyObject(data.thumbnail) ? $.extend(data.image, {
+                                    file: data.file
+                                }) : data.thumbnail
+                            });
+                        } else {
+                            alert('Error');
+                        }
+
+                        $this.removeClass('loading');
+                    }
+                });
+            }
+        });
+
+    {% if value %}
+        createCrop({
+            thumbnail: {
+                file: '{{ thumbnail is defined ? thumbnail.file : value }}',
+                width: {{ thumbnail is defined ? thumbnail.width : width }},
+                height: {{ thumbnail is defined ? thumbnail.height : height }},
+            },
+            image: {
+                width: {{ width }},
+                height: {{ height }}
+            }
+        });
+    {% else %}
+        $options.hide();
+    {% endif %}
+
+        $field.uploadify($configs);
+        {% endblock %}
+    });
+</script>
+{% endspaceless %}
+{% endblock %}
+
+{% block genemu_jqueryselect2_javascript %}
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $field = $('#{{ id }}');
+
+        {% block genemu_jqueryselect2_javascript_prototype %}
+            $field.select2({{ configs|json_encode|raw }});
+        {% endblock %}
+    });
+    </script>
+{% endblock %}

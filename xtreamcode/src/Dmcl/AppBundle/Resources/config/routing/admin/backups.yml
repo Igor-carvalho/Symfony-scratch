@@ -1,0 +1,36 @@
+backups:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Backups:index" }
+
+backups_new:
+    path:     /{ip}/new
+    defaults: { _controller: "AppBundle:Admin/Backups:new" }
+
+backups_restore_file:
+    path:     /{ip}/restore/file
+    defaults: { _controller: "AppBundle:Admin/Backups:restoreFromFile" }
+    methods:  [POST]
+
+backups_restore:
+    path:     /{ip}/{id}/restore
+    defaults: { _controller: "AppBundle:Admin/Backups:restore" }
+    methods:  [POST, GET]
+
+backups_download:
+    path:     /{ip}/{id}/download
+    defaults: { _controller: "AppBundle:Admin/Backups:download" }
+    methods:  [GET]
+
+backups_delete:
+    path:     /{ip}/{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Backups:delete" }
+    methods:  [POST, DELETE]
+
+backups_deleteall:
+    path:     /{ip}/delete
+    defaults: { _controller: "AppBundle:Admin/Backups:deleteAll" }
+    methods:  [POST, DELETE]
+
+backups_show:
+    path:     /{ip}/show
+    defaults: { _controller: "AppBundle:Admin/Backups:show" }

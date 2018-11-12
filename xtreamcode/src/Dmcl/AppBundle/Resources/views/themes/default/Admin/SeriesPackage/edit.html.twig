@@ -1,0 +1,191 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.series_package.edit.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.series_package.edit.title" | trans }}{% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.series_package.msg_delete" | trans }}";
+{% endblock %}
+
+{% block body %}
+    {{ form_start(edit_form) }}
+
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-default btn-sm pull-right" href="{{ path('series-package') }}">
+                {{ "pages.series_package.edit.back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(edit_form.enabled,"pages.series_package.attrs.enabled" | trans ) }}
+                                {{ form_widget(edit_form.enabled) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        {{ form_label(edit_form.name,"pages.series_package.attrs.name" | trans ) }}
+                        {{ form_widget(edit_form.name) }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_label(edit_form.packageLogoFile,"pages.series_package.attrs.packageLogoFile" | trans ) }}
+                        {{ form_widget(edit_form.packageLogoFile) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <select required multiple id="optgroup" name="vods[]">
+                    {% for posible in posibles %}
+                        <optgroup label="{{ posible.server }}">
+                            {% for vod in posible.vods %}
+                                <option {{ vod.selected?'selected':'' }} value="{{ posible.server }}&{{ vod.id }}">{{ vod.name }}</option>
+                            {% endfor%}
+                        </optgroup>
+                    {% endfor%}
+                    </select>
+                </div>
+            </div>
+
+            <fieldset>
+                <legend>
+                    <small>{{ "pages.vod_package.attrs.videoConfiguration" | trans }}</small>
+                </legend>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_widget(edit_form.allowTranscoder) }}
+                            {{ form_label(edit_form.allowTranscoder,"pages.vod_package.attrs.allowTranscoder" | trans ) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="trasnscoder-container" style="display: {{ entity.allowTranscoder ? 'block' : 'none' }}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_widget(edit_form.repeatTranscoderProcess) }}
+                                {{ form_label(edit_form.repeatTranscoderProcess,"pages.vod_package.attrs.repeatTranscoderProcess" | trans ) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(edit_form.fps,"pages.vod_package.attrs.fps" | trans ) }}
+                                {{ form_widget(edit_form.fps) }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(edit_form.width,"pages.vod_package.attrs.width" | trans ) }}
+                                {{ form_widget(edit_form.width) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(edit_form.bitrate,"pages.vod_package.attrs.bitrate" | trans ) }}
+                                {{ form_widget(edit_form.bitrate) }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(edit_form.height,"pages.vod_package.attrs.height" | trans ) }}
+                                {{ form_widget(edit_form.height) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(edit_form.preset,"pages.channel.attrs.preset" | trans ) }}
+                                {{ form_widget(edit_form.preset) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(edit_form.profile,"pages.channel.attrs.profile" | trans ) }}
+                                {{ form_widget(edit_form.profile) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(edit_form.crf,"pages.channel.attrs.crf" | trans ) }}
+                                {{ form_widget(edit_form.crf) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(edit_form.allowVideoBitStream) }}
+                                        {{ form_widget(edit_form.allowVideoBitStream) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form_label(edit_form.allowAudioBitStream) }}
+                                        {{ form_widget(edit_form.allowAudioBitStream) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="col-md-12 col-xs-12 no-padding">
+                {{ form_widget(edit_form.submit,{'attr':{
+                    'class': 'btn btn-success btn-sm pull-right',
+                }}) }}
+            </div>
+
+            {{ form_end(edit_form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#appbundle_vodpackage_allowTranscoder").on({
+                ifChecked: function(){
+                    $('#trasnscoder-container').show();
+                },
+                ifUnchecked: function(){
+                    $('#trasnscoder-container').hide();
+                }
+            });
+        })
+    </script>
+{% endblock %}

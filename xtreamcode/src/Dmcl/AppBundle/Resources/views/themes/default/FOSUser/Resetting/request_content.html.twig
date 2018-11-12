@@ -1,0 +1,38 @@
+<div  class="animate form">
+    <section class="login_content">
+        <form  action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+            <h1>{{ 'resetting.request.submit'|trans({},"FOSUserBundle") }}</h1>
+            <div>
+                {% if invalid_username is defined %}
+                    <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</p>
+                {% endif %}
+                <label for="username">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
+
+                <div>
+                    <input class="form-control" type="text" id="username" name="username" required="required"/>
+                </div>
+                <br/>
+            </div>
+            <div>
+                <input class="btn btn-default submit col-md-12"  type="submit"
+                       value="{{ 'resetting.request.submit'|trans({},"FOSUserBundle") }}"/>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="separator">
+
+                <p class="change_link">{{ "security.already_member" | trans }}
+                    <a href="{{ path('fos_user_security_login') }}" class="to_register">{{ "security.login.submit" | trans({},"FOSUserBundle") }} </a>
+                </p>
+                <div class="clearfix"></div>
+                <br />
+                <div>
+                    <a href="{{ path('home') }}"><h1>{{ project_name() }}</h1></a>
+
+                    <p>&copy; 2015 -  <a href="{{ path('home') }}">{{ project_name() }}</a>.
+                        <a href="#">Privacy Policy</a>|<a href="#" style="margin-left: 15px">Refund Policy</a></p>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>

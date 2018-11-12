@@ -1,0 +1,298 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.streams_server.install.title" | trans }}{% endblock %}
+{% block page_description %}{{ entity.name }}{% endblock %}
+
+{% set username = "root" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="text-success">{{ username }}@{{ entity.serverAddress }}:{{ entity.port }}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label id="progress">{{ "pages.streams_server.install.ready" | trans }}</label>
+                <div class="progress">
+                    <div id="progress-bar-warning" class="progress-bar progress-bar-warning" style="width: 0%">
+                        <span class="sr-only">/span>
+                    </div>
+                    <div id="progress-bar-info" class="progress-bar progress-bar-info" style="width: 0%">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-default btn-sm pull-left" href="{{ path('streams_server') }}">{{ "back_to_list" | trans }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(document).ready(function () {
+            var commands = new Array("wget http://{{ get_serveraddress() }}/iptvtranscoder/client/wmclient_setup.run -O /tmp/wmclient_setup.run -o /var/www/html/wmclogs.log",
+            "/tmp/wmclient_setup.run > /var/www/html/wmclogs.log", "php /usr/share/iptvtranscoder/client/config.php {{ entity.pass }} {{ app.user.email }}", 
+            "service apache2 reload", "rm -f /var/www/html/wmclogs.log", "rm -f /usr/share/iptvtranscoder/client/install.sh", "chmod -R 777 /usr/share/iptvtranscoder");
+            
+            var keywords = new Array("Verifying archive integrity", "Uncompressing IPTV transcoder Client Installation", "Installing core", "Checking dependencies", 
+            "Configuring Apache", "Configuring ffmpeg and nodeJs", "You can access to the system in this Url: http://localhost/iptvtranscoderclient");                        
+
+            var pos = 0;
+            var index = 0;
+            var retry = 50;
+
+        var checker = function(){
+            $.ajax({
+                url: "{{ path('streams_server_checker') }}",
+                type: "POST",
+                data: {
+                    'ip': "{{ entity.serverAddress }}",
+                    'port': "{{ entity.port }}",
+                    'username': "{{ username }}",
+                    'password': "{{ entity.pass }}",
+                    'index': index,
+                    'keyword': keywords[pos],
+                    'pos': pos
+                },
+                dataType: "json", 
+                success: function (data, textStatus, jqXHR) {
+                    var success = data.success;
+                    var data = data.data;
+
+                    if(!success){
+                            $('#progress').html("Installing streams client successfull in server {{ entity.name }} (Error!)");
+                            $('#progress-bar-warning')[0].style.width = '0%';
+                            $('#progress-bar-info')[0].style.width = '0%';
+                            $('#progress-bar-warning').removeClass('progress-bar-warning');
+                            $('#progress-bar-warning').addClass('progress-bar-error');
+                            $('#progress-bar-warning').addClass('progress-bar-striped');
+                            $('#progress-bar-warning').addClass('active'); 
+                            $('#progress-bar-warning')[0].style.width = '100%';
+                        }
+                        else{
+                            switch(index){
+                                case 0:
+                                    $('#progress-bar-warning')[0].style.width = data/10*5 + '%';
+                                    $('#progress').html("Copying setup file to server {{ entity.name }} (" + data + "%)");
+
+                                    if(data >= 100){
+                                        $('#progress-bar-info')[0].style.width = '0%';
+
+                                        $('#progress').html("Installing streams client in server {{ entity.name }}");
+
+                                        index++;
+
+                                        command();
+                                    }
+
+                                    checker();
+                                break;
+                                
+                                case 1: 
+                                    if(data.percent >= 100){
+                                        $('#progress').html("Installed streams client successfull in server {{ entity.name }}");
+                                        $('#progress-bar-info')[0].style.width = '0%';
+                                        $('#progress-bar-warning')[0].style.width = '0%';
+                                        $('#progress-bar-warning').removeClass('progress-bar-warning');
+                                        $('#progress-bar-warning').addClass('progress-bar-success');
+                                        $('#progress-bar-warning').addClass('progress-bar-striped');
+                                        $('#progress-bar-warning').addClass('active'); 
+                                        $('#progress-bar-warning')[0].style.width = '100%';
+
+                                        index++;
+
+                                        command();
+
+                                        console.info('Fin de la instalacion');
+                                    }
+                                    else{
+                                        if(data.next){
+                                            $('#progress').html("Installing streams client in server {{ entity.name }} > " +  keywords[pos] + " (" + data.percent + "%)");
+                                            $('#progress-bar-info')[0].style.width = data.percent/10*5 + '%';
+                                            pos++;
+                                        }   
+                                    }
+
+                                    checker();
+                                break;
+
+                                case 2: 
+                                    $('#progress').html("Starting services in {{ entity.name }}, be patients.");
+                                    $('#progress-bar-warning')[0].style.width = '25%';
+                                    
+                                    data = 'se configura la apikey';
+                                    
+                                    index++;
+
+                                    command();
+
+                                    checker();
+                                break;
+
+                                case 3: 
+                                    $('#progress').html("Starting services in {{ entity.name }}, be patients.");
+                                    $('#progress-bar-warning')[0].style.width = '35%';
+                                    
+                                    data = 'se reinicia el apache';
+                                    
+                                    index++;
+
+                                    command();
+
+                                    checker();
+                                break;
+
+                                case 4: 
+                                    $('#progress').html("Starting services in {{ entity.name }}, be patients.");
+                                    $('#progress-bar-warning')[0].style.width = '50%';
+
+                                    data = 'se borro el log';
+
+                                    index++;
+
+                                    command();
+
+                                    checker();
+                                break;
+
+                                case 5:
+                                    $('#progress').html("Starting services in {{ entity.name }}, be patients.");
+                                    $('#progress-bar-warning')[0].style.width = '60%';
+
+                                    data = 'se borro el config.php';
+
+                                    index++;
+
+                                    command();
+
+                                    checker();
+                                break;
+
+                                case 6:
+                                    $('#progress').html("Starting services in {{ entity.name }}, be patients.");
+                                    $('#progress-bar-warning')[0].style.width = '90%';
+
+                                    data = 'se le dio permisos 777 al iptvtranscoder'; 
+
+                                    index++;
+
+                                    command();
+
+                                    checker();
+                                break;
+
+                                case 7: 
+                                    data = 'se manda a arracar los servicios y cambiar el ip en el socket para finalizar';
+
+                                     $.ajax({
+                                        url: "{{ path('streams_server_postinstall') }}",
+                                        type: "POST",
+                                        data: {
+                                            'id': "{{ entity.id }}"
+                                        },
+                                        dataType: "json", 
+                                        success: function (data, textStatus, jqXHR) {
+                                            var success = data.success;
+                                            var data = data.data;
+
+                                            if(!success){
+                                                console.info('el node dentro del success');
+
+                                                if(retry){
+                                                    console.info('quedan ', --retry);
+                                                    toastr.warning("The server {{ entity.name }} is offline temporarily. Remain " + retry + " tray of 50.", 'Warning');
+                                                    checker();
+                                                }
+                                                else
+                                                    toastr.warning("An error ocurred. Go back and push in button orange to restart all service in server {{ entity.name }}", toastrError);
+                                            }
+                                            else{
+                                                $('#progress').html("Starting servces in {{ entity.name }}, be patients.");
+                                                $('#progress-bar-warning')[0].style.width = '100%';
+
+                                                $('#progress').html("Ready");
+
+                                                toastr.success('Installation successfull. Now can go back', toastrSuccess);
+
+                                                console.info('ahora si se acabo');
+                                            }
+                                        }, error: function (error) {
+                                            console.info('el node error');
+
+                                            if(retry){
+                                                console.info('quedan ', --retry);
+                                                toastr.warning("The server {{ entity.name }} is offline temporarily. Remain " + retry + " tray of 50.", 'Warning');
+                                                checker();
+                                            }
+                                            else
+                                                toastr.warning("An error ocurred. Go back and push in button orange to restart all service in server {{ entity.name }}. Or maybe you do`t allowed to access.", toastrError);
+                                        }
+                                    });
+                                break;
+                            }
+                            
+                            console.info(data);
+                        }
+                    }, error: function (error) {
+                        console.info('el checker error');
+
+                        if(retry){
+                            console.info('quedan ', --retry);
+                            toastr.warning("The server {{ entity.name }} is offline temporarily. Remain " + retry + " tray of 50.", 'Warning');
+                            checker();
+                        }
+                        else
+                            toastr.warning("An error ocurred. Go back and push in button orange to restart all service in server {{ entity.name }}", toastrError);
+                    }
+                });
+            };
+
+        var command = function(){
+            $.ajax({
+                    url: "{{ path('streams_server_install') }}",
+                    type: "POST",
+                    data: {
+                        'id': "{{ entity.id }}",
+                        'ip': "{{ entity.serverAddress }}",
+                        'port': "{{ entity.port }}",
+                        'username': "{{ username }}",
+                        'password': "{{ entity.pass }}",
+                        'command': commands[index],
+                        'index': index
+                    },
+                    dataType: "json", 
+                    success: function (data, textStatus, jqXHR) {
+                        var success = data.success;
+                        var data = data.data;
+
+                        if(!success){
+                            toastr.error(data, toastrError);
+                            console.info('el command dentro del success');
+                        }
+                    }, error: function (error) {
+                        toastr.error('An error ocurred in command', toastrError);
+                         console.info('el command ', commands[index]);
+
+                        if(retry){
+                            console.info('quedan ', --retry);
+                            command();
+                        }
+                    }
+                });
+        };
+
+        command();
+        checker();
+    });
+</script>
+{% endblock %}

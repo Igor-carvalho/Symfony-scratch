@@ -1,0 +1,39 @@
+{% set setting = settings() %}
+
+{% if entity.sources[0].video | is_url  == false%}
+    {% set http_stream %}{{ 'http://' ~ ip ~ ':' ~ http_port ~ '/'  ~ entity.sources[0].video }}{% endset %}
+    {% set hls_stream %}{{ 'http://' ~ ip ~ ':' ~ http_port ~ '/vod-files/'  ~ entity.sources[0].video ~ '/index.m3u8' }}{% endset %}
+    {% set rtmp_stream %}{{ 'rtmp://' ~ ip ~ ':' ~ rtmp_port ~ '/vod/'  ~ entity.sources[0].video }}{% endset %}
+    {% set dash_stream %}{{ 'http://' ~ ip ~ ':' ~ dash_port ~ '/vod-files/'  ~ entity.sources[0].video ~ '/manifest.mpd' }}{% endset %}
+
+    {% set size = entity.sources[0].size %}
+    {% set duration %}{{ entity.sources[0].duration | date('H:i:s') }}{% endset %}
+{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <pre style="text-align: left; padding-left: 2%; width: 100%; white-space: pre-wrap; word-break: normal !important; word-wrap: normal !important;"
+             id="json-renderer-{{ entity.id }}">
+            <script type="text/javascript">
+                {% if entity.sources[0].video | is_url %}
+                var data = {
+                    "stream": {
+                        "url": "{{ entity.sources[0].video }}"
+                    }
+                };
+                {% else %}
+                var data = {
+                    "duration": "{{ duration }}",
+                    "size": "{{ size | convert }}",
+                    "streams": {
+                        "http": "{{ http_stream }}",
+                        "hls": "{{ hls_stream }}",
+                        "rtmp": "{{ rtmp_stream }}",
+                        "dash": "{{ dash_stream }}"
+                    }
+                };
+                {% endif %}
+                $("#json-renderer-{{ entity.id }}").jsonViewer(data);
+            </script>
+        </pre>
+    </div>
+</div>

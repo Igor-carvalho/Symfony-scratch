@@ -1,0 +1,39 @@
+users:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Users:index" }
+
+line_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/Line:new", trial:0 }
+
+line_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/Line:create", trial:0 }
+    methods:  POST
+
+line_new_trial:
+    path:     /new/trial
+    defaults: { _controller: "AppBundle:Admin/Line:new", trial:1 }
+
+line_create_trial:
+    path:     /create/trial
+    defaults: { _controller: "AppBundle:Admin/Line:create", trial:1 }
+    methods:  POST
+
+line_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/Line:edit" }
+
+line_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/Line:update" }
+    methods:  [POST, PUT]
+
+line_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/Line:delete" }
+    methods:  [POST, DELETE]
+
+line_show:
+    path:     /show
+    defaults: { _controller: "AppBundle:Admin/Line:show" }

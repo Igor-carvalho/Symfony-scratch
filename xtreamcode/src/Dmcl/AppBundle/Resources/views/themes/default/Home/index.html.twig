@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{ project_name() }} | {% block title %}Welcome{% endblock %}</title>
+    <link href="{{asset('bundles/assets/themes/default/home/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('bundles/assets/themes/default/home/css/animate.min.css') }}" rel="stylesheet">
+    <link href="{{asset('bundles/assets/themes/default/home/css/font-awesome.min.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset("bundles/assets/themes/default/plugins/bootstrap-toastr/toastr.min.css") }}">
+    <link href="{{asset('bundles/assets/themes/default/home/css/lightbox.css') }}" rel="stylesheet">
+    <link href="{{asset('bundles/assets/themes/default/home/css/main.css') }}" rel="stylesheet">
+    <link id="css-preset" href="{{asset('bundles/assets/themes/default/home/css/presets/preset1.css') }}" rel="stylesheet">
+    <link href="{{asset('bundles/assets/themes/default/home/css/responsive.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{asset('favicon.ico') }}" />
+</head>
+<body class="">
+<!--.preloader-->
+<div class="preloader"> <i class="fa fa-circle-o-notch fa-spin"></i></div>
+<!--/.preloader-->
+<header id="home">    
+    <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="item active" >
+                <video onloadstart="this.volume=0" src="/xtreamcode/uploads/promos/promo1.mp4" autoplay loop type="video/mp4" width="100%"></video>
+                <div class="caption">                
+                    <h1 class="animated fadeInLeftBig">Welcome to <span>{{ project_name() }}</span></h1>
+                    <p class="animated fadeInRightBig">{{ "pages.home.over_channels" | transchoice(100,{"%channels%":100} ) }}</p>
+                    <a data-scroll class="btn btn-start animated fadeInUpBig" href="{{ is_granted('ROLE_USER') ? path('app_dashboard'): path('user_login') }}">{{ "pages.home.try" | trans }}</a>
+                </div>
+            </div>
+        </div>
+        <!--<a class="left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>-->
+        <!--<a class="right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>-->
+
+        <a id="tohash" href="#services"><i class="fa fa-angle-down"></i></a>
+
+    </div><!--/#home-slider-->
+    <div id="mainmanu" class="main-nav">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('home') }}">
+                    <h1>{{ project_name() }}</h1>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="scroll active"><a href="#services">{{ "pages.home.services" | trans }}</a></li>
+                    <li class="scroll"><a href="#about-us">{{ "pages.home.about" | trans }}</a></li>
+                    <li class="scroll"><a href="#contact">{{ "pages.home.contact" | trans }}</a></li>
+                    <li><a href="{{ path('show_anouncements') }}">{{ "pages.home.anouncements" | trans }}</a></li>
+                    {% block user %}
+                    {% if is_granted('ROLE_USER') %}
+                        <li class=""><a href="{{ path("home") }}">{{ "pages.home.account" | trans }}</a></li>
+                        <li class=""><a href="{{ path("user_logout") }}">logout</a></li>
+                    {% else %}
+                        <li class=""><a href="{{ path("user_login") }}">login</a></li>
+                    {% endif %}
+                    {% endblock %}
+                </ul>
+            </div>
+        </div>
+    </div><!--/#main-nav-->
+</header><!--/#home-->
+
+<section id="services">
+    <div class="container">
+    {% block services %}
+        <div class="heading wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div class="row">
+                <div class="text-center col-sm-8 col-sm-offset-2">
+                    <h2>{{ "pages.home.our_services" | trans }}</h2>
+                    {{ config_service.generalConfig().getServicesDescription() | raw }}
+                </div>
+            </div>
+        </div>
+        <div class="text-center our-services">
+            <div class="row">
+                <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="450ms">
+                    <a href="#">
+                        <div class="service-icon">
+                            <i class="fa fa-desktop"></i>
+                        </div>
+                    </a>
+                    <div class="service-info">
+                        <a href="#"><h3>{{ "pages.home.tv_channels" | trans }}</h3></a>
+                        {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>#}
+                    </div>
+                </div>
+                <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="550ms">
+                    <a href="#">
+                        <div class="service-icon">
+                            <i class="fa fa-youtube-play"></i>
+                        </div>
+                    </a>
+                    <div class="service-info">
+                        <a href="#">  <h3>{{ "pages.home.vod" | trans }}</h3></a>
+                        {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>#}
+                    </div>
+                </div>
+
+                <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="750ms">
+                    <a href="#">
+                        <div class="service-icon">
+                            <i class="fa fa-signal"></i>
+                        </div>
+                    </a>
+                    <div class="service-info">
+                        <a href="#"><h3>{{ "pages.home.broadcast" | trans }}</h3></a>
+                        {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>#}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</section><!--/#services-->
+ 
+<section id="about-us" class="parallax">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="about-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <h2>{{ "pages.home.about" | trans }}</h2>
+                    {{ config_service.generalConfig().getAboutUs() | raw }}
+                    </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="our-skills wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <p class="lead">{{ "pages.home.user_expriences" | trans }}</p>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar"  aria-valuetransitiongoal="95">95%</div>
+                        </div>
+                    </div>
+                    <div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="400ms">
+                        <p class="lead">{{ "pages.home.web_design" | trans }}</p>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar"  aria-valuetransitiongoal="75">75%</div>
+                        </div>
+                    </div>
+                    {#<div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="500ms">#}
+                    {#<p class="lead">Programming</p>#}
+                    {#<div class="progress">#}
+                    {#<div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar"  aria-valuetransitiongoal="60">60%</div>#}
+                    {#</div>#}
+                    {#</div>#}
+                    <div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <p class="lead">{{ "pages.home.fun" | trans }}</p>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar"  aria-valuetransitiongoal="85">85%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--/#about-us-->
+<!--/#blog-->
+
+<section id="contact" style="padding-top: 0px">
+    <!--<div id="google-map" class="wow fadeIn" data-latitude="52.365629" data-longitude="4.871331" data-wow-duration="1000ms" data-wow-delay="400ms"></div>-->
+    <div id="contact-us" class="parallax">
+        <div class="container">
+            <div class="row">
+                <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <h2>{{ "pages.home.contact_us" | trans }}</h2>
+                </div>
+            </div>
+            <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form id="main-contact-form" name="contact-form" method="post" action="{{ path('send_email') }}">
+                            <div class="row  wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" name="name" class="form-control" placeholder="{{ "pages.home.name" | trans }}" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="email" name="email" class="form-control" placeholder="{{ "pages.home.email_address" | trans }}" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="subject" class="form-control" placeholder="{{ "pages.home.subject" | trans }}" required="required">
+                            </div>
+							<div class="form-group">
+                                <select name="issue" class="form-control select2" required="required">
+									<option value="">Select issue</option>
+									{% for issue in issues %}
+										<option value="{{ issue.id }}">{{ issue.issue }}</option>
+									{% endfor %}	
+								</select>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" id="message" class="form-control" rows="4" placeholder="{{ "pages.home.enter_your_message" | trans }}" required="required"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn-submit">{{ "pages.home.contact_btn" | trans }}</button>
+                            </div>
+                        </form>
+						<a href="{{ path('sla_show',{"slug":"privacy-policy"}) }}" style="color:#fff;">{{ "base_admin.footer.privacy_policy" | trans }}</a> |
+						<a href="{{ path('sla_show',{"slug":"refund-policy"}) }}" style="color:#fff;">{{ "base_admin.footer.refund_policy" | trans }}</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="contact-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                            <ul class="address">
+                                <li><i class="fa fa-map-marker"></i> <span> {{ "pages.home.address" | trans }}:</span> {{ company_address() }} </li>
+                                <li><i class="fa fa-phone"></i> <span> {{ "pages.home.phone" | trans }}:</span> {{ company_phone() }}  </li>
+                                <li><i class="fa fa-envelope"></i> <span> {{ "pages.home.email" | trans }}:</span><a href="mailto:{{ company_email_support() }}"> {{ company_email_support() }}</a></li>
+                                <li><i class="fa fa-globe"></i> <span> {{ "pages.home.website" | trans }}:</span> <a href="#">{{ app.request.getHost() }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--/#contact-->
+{#<div id="account"></div>#}
+{#<div id="login"></div>#}
+{#<div id="logout"></div>#}
+
+<script type="text/javascript" src="{{ asset('bundles/assets/themes/default/home/js/jquery.js') }}"></script>
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/bootstrap.min.js') }}"></script>
+<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/jquery.inview.min.js') }}"></script>
+<script src="{{ asset('bundles/assets/themes/default/plugins/select2/select2.full.min.js') }}"></script>
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/wow.min.js') }}"></script>
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/mousescroll.js') }}"></script>
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/smoothscroll.js') }}"></script>
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/jquery.countTo.js') }}"></script>
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/lightbox.min.js') }}"></script>
+<script type="text/javascript" src="{{asset('bundles/assets/themes/default/home/js/main.js') }}"></script>
+<script src="{{ asset("bundles/assets/themes/default/plugins/bootstrap-toastr/toastr.min.js") }}"></script>
+
+<script type="application/javascript">
+    var locale = "{{ app.request.get("_locale") }}";
+    var txtSuccess = "{{ "js.txtSuccess" | trans }}";
+    var txtError = "{{ "js.txtError" | trans }}";
+    var btnOk = "{{ "js.btnOk" | trans }}";
+    var btnCancel = "{{ "js.btnCancel" | trans }}";
+    var toastrSuccess = "{{ "toastr.success" | trans }}";
+    var toastrError = "{{ "toastr.error" | trans }}";
+    var txtNoData = "{{ "js.data_table.txt_no_data" | trans }}";
+    var txtShowing = "{{ "js.data_table.txt_howing" | trans }}";
+    var txtTo = "{{ "js.data_table.txt_to" | trans }}";
+    var txtOf = "{{ "js.data_table.txt_of" | trans }}";
+    var txtSearch = "{{ "js.data_table.txt_search" | trans }}";
+    var txtNoDetails = "{{ "js.data_table.no_details" | trans }}";
+    {% block vars %}{% endblock %}
+</script>
+
+{% include "AppBundle:themes/default/base-admin:notify.html.twig" %}
+
+{% block javascript %}{% endblock %}
+</body>
+</html>

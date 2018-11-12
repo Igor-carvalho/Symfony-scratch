@@ -1,0 +1,9 @@
+billing-configuration:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/BillingConfiguration:index" }
+
+billing-configuration_update:
+    path:     /update
+    defaults: { _controller: "AppBundle:Admin/BillingConfiguration:update" }
+    methods:  [POST, PUT]
+

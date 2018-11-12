@@ -1,0 +1,13 @@
+<div style="padding:0px" class="item col-md-12 info-wrap">
+    <div style="padding-top: 0px;" class="wrap">
+        <div class="list clearfix">
+            {% for channel in entity.channels %}
+                <div class="channel">
+                    {#<a href="{{ path('channel_show', {'id': channel.id}) }}">#}
+                        <img alt="{{ channel.name }}" src="{{ asset('uploads/') }}{{ channel.logo }}">
+                    {#</a>#}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

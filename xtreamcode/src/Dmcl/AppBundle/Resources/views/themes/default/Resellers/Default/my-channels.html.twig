@@ -1,0 +1,51 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.channels_purchased.remove_msg" | trans }}";
+{% endblock %}
+
+{% block title %}{{ "pages.channels_purchased.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channels_purchased.title" | trans }}{% endblock %}
+
+{% block body -%}
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.channels_purchased.table.name" | trans }}</th>
+                <th>{{ "pages.channels_purchased.table.category" | trans }}</th>
+                <th>{{ "pages.channels_purchased.table.live" | trans }}</th>
+                <th>{{ "pages.channels_purchased.table.status" | trans }}</th>
+                <th>{{ "pages.channels_purchased.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.category }}</td>
+                    <td>{{ entity.live }}</td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.channels_purchased.enabled" | trans :"pages.channels_purchased.disabled" | trans }}</td>
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-danger delete"  data-href="{{ path('resellers_products_remove_subscription', {'type':"channel" , 'id': entity.id }) }}">{{ "pages.channels_purchased.remove" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.channels_purchased.no_channels" | trans }}</h4>
+    {% endif %}
+{% endblock %}

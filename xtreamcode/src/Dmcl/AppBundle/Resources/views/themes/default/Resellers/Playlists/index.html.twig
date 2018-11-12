@@ -1,0 +1,55 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.playlist.index.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.playlist.index.title" | trans }}{% endblock %}
+
+
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.css') }}"/>
+ {% endblock %}
+
+{% block vars %}
+    var msgDelete = "{{ "pages.playlist.msg_delete" | trans }}";
+{% endblock %}
+
+ {% block javascripts %}
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+     <script src="{{ asset('bundles/assets/themes/default/dist/js/data-tables.js') }}"></script>
+ {% endblock %}
+
+{% block body -%}
+    <div style="margin-bottom: 5px" class="col-md-12 no-padding">
+        <a class="btn btn-primary btn-sm pull-right" href="{{ path('playlists_new') }}">
+            {{ "pages.playlist.index.add_playlist" | trans }}
+        </a>
+    </div>
+    {% if entities | length > 0 %}
+        <table class="datatable table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>{{ "pages.playlist.index.table.name" | trans }}</th>
+                <th>{{ "pages.playlist.index.table.status" | trans }}</th>
+                <th>{{ "pages.playlist.index.table.expire_at" | trans }}</th>
+                <th>{{ "pages.playlist.index.table.actions" | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.name }}</td>
+                    <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.playlist.index.enabled" | trans :"pages.playlist.index.disabled" | trans }}</td>
+                    <td>{% if entity.expireAt %}{{ entity.expireAt|date('F j, Y') }}{% endif %}</td>
+                    <td style="text-align: center">
+                        <a class="btn btn-xs btn-success" data-id="{{ entity.id }}" href="{{ path('playlists_generate_m3u', { 'id': entity.id }) }}">{{ "pages.playlist.index.m3u" | trans }}</a>
+                        <a class="btn btn-xs btn-info edit" data-id="{{ entity.id }}" href="{{ path('playlists_edit', { 'id': entity.id }) }}">{{ "pages.playlist.index.edit" | trans }}</a>
+                        <a class="btn btn-xs btn-danger delete"  data-href="{{ path('playlists_delete', { 'id': entity.id }) }}">{{ "pages.playlist.index.delete" | trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="text-muted text-center">{{ "pages.playlist.index.no_playlists" | trans }}</h4>
+    {% endif %}
+{% endblock %}

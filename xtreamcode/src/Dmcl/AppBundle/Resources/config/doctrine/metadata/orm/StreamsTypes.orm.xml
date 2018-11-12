@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="StreamsTypes" table="streams_types">
+    <indexes>
+      <index name="type_key" columns="type_key"/>
+      <index name="type_output" columns="type_output"/>
+      <index name="live" columns="live"/>
+    </indexes>
+    <id name="typeId" type="integer" column="type_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="typeName" type="string" column="type_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="typeKey" type="string" column="type_key" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="typeOutput" type="string" column="type_output" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="live" type="boolean" column="live" nullable="false"/>
+  </entity>
+</doctrine-mapping>

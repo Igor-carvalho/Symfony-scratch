@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <form name='onpay' method='post' action='http://secure.onpay.ru/pay/{{ gateway.shopIdPublicKey }}'>
+            <input type='hidden' name='pay_mode' value='fix'>
+            <input type='hidden' name='pay_for' value='{{ order.transactionId }}'>
+            <input type='hidden' name='price' value='{{ order.amount }}'>
+            <input type='hidden' name='currency' value='{{ config.currency }}'>
+            <input type='hidden' name='convert' value='yes'>
+            {% set md5Temp = "fix;"~order.to_float()~";"~config.currency~";"~order.transactionId~";yes;"~gateway.secretKey %}
+                <input type='hidden' name='md5' value='{{ md5Temp | md5 }}'>
+                <input type='hidden' name='user_email' value=''>
+                <input type='hidden' name='url_success' value='{{ url( 'payments_onpay_check' ) }}'>
+                <input type='hidden' name='url_fail' value='{{ url( 'payments_error') }}'>
+                <input type='hidden' name='note' value='{{ project_name() }}'>
+            </form>
+            <script type='text/javascript'>
+                document.onpay.submit();
+            </script>
+        </body>
+    </html>

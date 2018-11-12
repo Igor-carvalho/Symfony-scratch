@@ -1,0 +1,13 @@
+{% if form is defined %}
+    {%form_theme form 'AppBundle:themes/default/base-admin:form_error.html.twig' %}
+{% elseif edit_form is defined %}
+    {% set form = edit_form %}
+{% endif %}
+    {%form_theme form 'AppBundle:themes/default/base-admin:form_error.html.twig' %}
+{% for row in form|batch(2) %}
+    {% for var in row %}
+        {% if var.vars.name != 'submit' and var.vars.name != '_token' %}
+            {{ form_errors(form[var.vars.name]) }}
+        {% endif %}
+    {% endfor %}
+{% endfor %}

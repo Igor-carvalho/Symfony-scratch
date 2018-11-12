@@ -1,0 +1,87 @@
+<aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu">
+            <!-- Optionally, you can add icons to the links -->
+            <li><a href="{{ path('app_resellers_dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ "base_admin.sidebar.menu.dashboard" | trans }}</span></a></li>
+
+			<li class="treeview">
+                <a href="#"><i class="fa fa-cogs"></i> <span>{{ "base_admin.sidebar.menu.admin.admin" | trans }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+
+                    <li><a href="{{ path('activationcode') }}">{{ "base_admin.sidebar.menu.packages.activation_codes" | trans }}</a></li>
+                    {% if app.user.dealer is not empty %}
+                        <li><a href="{{ path('app.push_messages.index') }}">{{ "base_admin.sidebar.menu.admin.push_messages" | trans }}</a></li>
+                    {% endif %}
+                    {#<li><a href="{{ path('app.push_messages.index') }}">{{ "base_admin.sidebar.menu.admin.push_messages" | trans }}</a></li>#}
+                    <li><a href="{{ path('customers') }}">{{ "base_admin.sidebar.menu.admin.customers" | trans }}</a></li>
+                    <li><a href="{{ path('playlists') }}">{{ "base_admin.sidebar.menu.admin.playlists" | trans }}</a></li>
+                    <li><a href="{{ path('resellers_presets') }}">{{ "base_admin.sidebar.menu.admin.encodes_predefined" | trans }}</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-film"></i> <span>{{ "base_admin.sidebar.menu.live_streams.live_streams" | trans }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    {% if config_service.getGeneralConfig().allowResellersAddChannels %}
+                        <li><a href="{{ path('resellers-channel') }}">{{ "base_admin.sidebar.menu.admin.resellers_menu.channels" | trans }}</a></li>
+                    {% endif %}
+                    <li><a href="{{ path('resellers-channels-package') }}">{{ "base_admin.sidebar.menu.admin.resellers_menu.channels_packages" | trans }}</a></li>
+                    <li><a href="{{ path('playback_index') }}">{{ "base_admin.sidebar.menu.admin.playback" | trans }}</a></li>
+                </ul>
+            </li>
+			 <li class="treeview">
+                <a href="#"><i class="fa fa-video-camera"></i> <span>{{ "base_admin.sidebar.menu.vod.vod" | trans }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+					{% if config_service.getGeneralConfig().allowResellersAddVod %}
+                        <li><a href="{{ path('resellers-vod') }}">{{ "base_admin.sidebar.menu.vod.manage_vod" | trans }}</a></li>
+                        <li><a href="{{ path('resseller-vod-series') }}">{{ "base_admin.sidebar.menu.vod.manage_series" | trans }}</a></li>
+                    {% endif %}
+                    <li><a href="{{ path('resellers-vod-package') }}">{{ "base_admin.sidebar.menu.admin.resellers_menu.vod_packages" | trans }}</a></li>
+                    {#<li><a href="{{ path('resellers-series-package') }}">{{ "base_admin.sidebar.menu.packages.series_packages" | trans }}</a></li>#}
+					<li><a href="{{ path('resellers-vod_package_playback') }}">{{ "base_admin.sidebar.menu.admin.playback" | trans }}</a></li>
+                </ul>
+            </li>
+
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-briefcase"></i> <span>{{ "base_admin.sidebar.menu.admin.resellers_menu.products_purchased" | trans }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ path('resellers_products_channels_packages') }}">{{ "base_admin.sidebar.menu.admin.resellers_menu.channels_packages" | trans }}</a></li>
+                    <li><a href="{{ path('resellers_products_vods_packages') }}">{{ "base_admin.sidebar.menu.admin.resellers_menu.vod_packages" | trans }}</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-shopping-cart"></i> <span>{{ "base_admin.sidebar.menu.store.store" | trans }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ path('reseller_billing_orders') }}">{{ "base_admin.sidebar.menu.store.orders" | trans }}</a></li>
+                    <li>
+                        <hr style="margin-top: 5px;margin-bottom: 5px"/>
+                    </li>
+                    <li><a href="{{ path('store_channels_package_for_sale') }}">{{ "base_admin.sidebar.menu.store.channel_packages" | trans }}</a></li>
+                    <li><a href="{{ path('store_vod_package_for_sale') }}">{{ "base_admin.sidebar.menu.store.vod_packages" | trans }}</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{{ path('tickets') }}"><i class="fa fa-envelope"></i>  <span>{{ "base_admin.sidebar.menu.support" | trans }}</span></a></li>
+
+            {% if config_service.getGeneralConfig().allowResellersBlockIp %}
+                <li><a href="{{ path('resellers-block-ip-country') }}"><i class="fa fa-shield"></i> {{ "base_admin.sidebar.menu.security.block_ip" | trans }}</a></li>
+            {% endif %}
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-signal"></i> <span>{{ "base_admin.sidebar.menu.statistics.statistics" | trans }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ path('resellers_channels_statistics') }}">{{ "base_admin.sidebar.menu.statistics.tv_statistics" | trans }}</a></li>
+                    <li><a href="{{ path('resellers_vod_statistics') }}">{{ "base_admin.sidebar.menu.statistics.vod_statistics" | trans }}</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{{ path('show_anouncements') }}">{{ "base_admin.sidebar.menu.pages.anouncement" | trans }}</a></li>
+        </ul><!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+</aside>

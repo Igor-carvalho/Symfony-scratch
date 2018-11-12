@@ -1,0 +1,104 @@
+<script src="{{ asset('bundles/assets/themes/default/plugins/themoviedb/themoviedb.min.js') }}"></script>
+<script src="{{ asset('bundles/assets/themes/default/plugins/bootstrap3-typeahead/bootstrap3-typeahead.min.js') }}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var coverFile = "{{ coverFile }}";
+        if (coverFile.length > 0) {
+            $('#file_upload a').remove();
+        }
+    });
+    theMovieDb.common.api_key = "{{ themoviedb_api_key }}";
+
+    var $input = $('#appbundle_vod_title');
+    $input.typeahead({
+        source: function (query, process) {
+            var successCB = function successCB(data) {
+                console.log(JSON.parse(data).results);
+                return process(JSON.parse(data).results);
+            };
+            var errorCB = function errorCB(data) {
+                console.log("Error callback: " + data)
+            };
+
+            theMovieDb.search.getMovie({"query": query}, successCB, errorCB);
+        },
+        autoSelect: true,
+        displayText: function (item) {
+            return item.title;
+        }
+    });
+
+    $input.change(function () {
+        var current = $input.typeahead("getActive");
+        if (current) {
+            if (current.title == $input.val()) {
+                // This means the exact match is found.
+
+                //Cover
+                //https://image.tmdb.org/t/p/original/2q1dsbdFUnTKNtIXI1BZvc6FjPH.jpg
+                if (current.poster_path) {
+                    var image = "https://image.tmdb.org/t/p/original" + current.poster_path;
+                    $('#coverFile').val(image);
+                    if ($('#file_upload a').length > 0) {
+                        $('#file_upload a').attr('href', image);
+                        $('#file_upload img').attr('src', image);
+                    } else {
+                        $('#file_upload').append('<a href="' + image + '"><img src="' + image + '" alt=""></a>');
+                    }
+                } else {
+                    $('#file_upload a').attr('href', '');
+                    $('#file_upload img').attr('src', '');
+                    $('#coverFile').val('');
+                }
+
+                theMovieDb.movies.getCredits({"id": current.id},
+                        function successCB(data) {
+                            var crew = JSON.parse(data).crew;
+                            var directors = "";
+                            crew.forEach(function (entry) {
+                                if (entry.job == "Director") {
+                                    directors += entry.name + ", ";
+                                }
+                            });
+                            $('#appbundle_vod_director').val(directors.substring(0, directors.length - 2));
+                        },
+                        function errorCB(data) {
+                            console.log("Error callback: " + data)
+                        }
+                );
+
+                theMovieDb.movies.getVideos({"id": current.id},
+                        function successCB(data) {
+                            var videos = JSON.parse(data).results;
+
+                            var length = videos.length;
+                            for (var i = 0, flag = false; i < length && !flag; i++) {
+                                var el = videos[i];
+                                if (el.type == "Trailer" || el.type == "Teaser") {
+                                    if (el.site == "YouTube") {
+                                        $('#appbundle_vod_trailer').val("https://www.youtube.com/watch?v=" + el.key);
+                                        flag = true;
+                                    }
+                                }
+                            }
+//                            var trailer = videos.some(function (el) {
+//                                if (el.type == "Trailer") {
+//                                    if (el.site == "YouTube") {
+//                                        return "https://www.youtube.com/watch?v=" + el.key;
+//                                    }
+//                                }
+//                            });
+//                            $('#appbundle_vod_trailer').val(trailer);
+                        },
+                        function errorCB(data) {
+                            console.log("Error callback: " + data)
+                        }
+                );
+
+                $('#appbundle_vod_year').val(current.release_date.split("-")[0]);
+                $('#appbundle_vod_description').val(current.overview);
+            }
+        }
+    });
+</script>

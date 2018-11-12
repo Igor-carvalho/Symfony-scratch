@@ -1,0 +1,3 @@
+services:
+    ssh2:
+        class: steevanb\SSH2Bundle\Service\Connection

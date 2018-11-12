@@ -1,0 +1,48 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.epg.title" | trans }}{% endblock %}
+
+ {% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+        });
+
+        function showUrl(url){
+            $('.url')[0].value = url;
+        }
+    </script>
+ {% endblock %}
+
+{% block body %}
+    {% if entities | length > 0 %}
+        <div class="row">
+            {% for entity in entities %}
+                <div class="col-lg-3 col-md-6">
+                    <div class="widget widget-beta widget-beta--lynch">
+                        <div class="widget-beta__body">
+                            <div style="font-size:2em;" class="widget-beta__amount">{{ entity.epgName }}</div>
+                        </div>
+                        <div class="widget-beta__chart">
+                            <div class="widget-beta__chart-container">
+                                <a href="{{ entity.epgFile }}" class="ua-icon-download-outline table__cell-actions-icon"></a>
+                                <a href="#url" onclick="showUrl('{{ entity.epgFile }}')" style="cursor:pointer;" class="ua-icon-pages table__cell-actions-icon"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>{{ "pages.epg.url" | trans }}</h4>
+                <div class="form-group">
+                    <input id="url" placeholder="{{ "pages.epg.url" | trans }}" class="form-control url" type="text">
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h1 class="text-center">{{ "pages.epg.msg_empty" | trans }}</h1>
+    {% endif %}
+
+{% endblock %}

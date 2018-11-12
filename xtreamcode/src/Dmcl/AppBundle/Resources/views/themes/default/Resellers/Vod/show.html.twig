@@ -1,0 +1,89 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.vod.show.title" | transchoice(0,{"%title%":entity.title}) }}{% endblock %}
+{% block page_title %}{{ "pages.vod.show.title" | transchoice(0,{"%title%":entity.title}) }}{% endblock %}
+
+{% block body -%}
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Agerestriction</th>
+                <td>{{ entity.ageRestriction }}</td>
+            </tr>
+            <tr>
+                <th>Agerating</th>
+                <td>{{ entity.ageRating }}</td>
+            </tr>
+            <tr>
+                <th>Protocol</th>
+                <td>{{ entity.protocol }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ entity.genre }}</td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>{{ entity.source }}</td>
+            </tr>
+            <tr>
+                <th>Allowloadbalancing</th>
+                <td>{{ entity.allowLoadBalancing }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ entity.year }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ entity.duration }}</td>
+            </tr>
+            <tr>
+                <th>Director</th>
+                <td>{{ entity.director }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Cover</th>
+                <td>{{ entity.cover }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ entity.enabled }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('vod') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('vod_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

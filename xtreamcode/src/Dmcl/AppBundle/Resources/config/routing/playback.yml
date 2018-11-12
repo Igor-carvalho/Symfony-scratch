@@ -1,0 +1,31 @@
+playback_playstop:
+    path:  /handle-stop
+    defaults: { _controller: "AppBundle:Playback:handleStop" }
+    requirements:
+        _method: POST|GET
+
+playback_check_player:
+    path:  /handle-play
+    defaults: { _controller: "AppBundle:Playback:handlePlay" }
+    requirements:
+        _method:  POST|GET
+
+playback_play_request:
+    path:  /{customer}/play-request/{type}/{id}
+    defaults: { _controller: "AppBundle:Playback:playRequest" }
+    requirements:
+        methods: GET|POST
+
+playback:
+    path: /playback/
+    defaults: { _controller: "AppBundle:Playback:playback" }
+
+playback_index:
+    path: /
+    defaults: { _controller: "AppBundle:Playback:playbackIndex" }
+
+playback_channel_info:
+    path: /channel-info/{idChannel}/{startdate}/{starttime}/{enddate}/{endtime}
+    defaults: { _controller: "AppBundle:Playback:playbackChannelInfo" }
+    options:
+        expose: true

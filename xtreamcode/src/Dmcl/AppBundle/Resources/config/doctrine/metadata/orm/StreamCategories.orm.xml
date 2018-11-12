@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="StreamCategories" table="stream_categories">
+    <indexes>
+      <index name="category_type" columns="category_type"/>
+      <index name="cat_order" columns="cat_order"/>
+      <index name="parent_id" columns="parent_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="category_type_2" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_3" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_4" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_5" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_6" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_7" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_8" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_9" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_10" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_11" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_12" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_13" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_14" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_15" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_16" columns="category_type,category_name,parent_id"/>
+      <unique-constraint name="category_type_17" columns="category_type,category_name,parent_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="categoryType" type="string" column="category_type" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="categoryName" type="string" column="category_name" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="parentId" type="integer" column="parent_id" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="catOrder" type="integer" column="cat_order" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

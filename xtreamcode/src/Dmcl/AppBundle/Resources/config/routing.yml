@@ -1,0 +1,51 @@
+app_admin_routing:
+    resource: "@AppBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin
+
+app_user:
+    resource: "@AppBundle/Resources/config/routing/admin/user.yml"
+    prefix:   /
+
+app_transcoder_rounting:
+    resource: "@AppBundle/Resources/config/routing/transcoder.yml"
+    prefix:   /
+
+app_shopping_cart_rounting:
+    resource: "@AppBundle/Resources/config/routing/shopcart.yml"
+    prefix:   /shopping-cart
+
+app_billing_purchase:
+    resource: "@AppBundle/Resources/config/routing/purchase.yml"
+    prefix:   /purchase
+
+payments_pay:
+    path:  /account/purchase/pay
+    defaults: { _controller: AppBundle:Payments:pay }
+    requirements:
+        methods: POST
+
+app_tickets_routing:
+    resource: "@AppBundle/Resources/config/routing/tickets.yml"
+    prefix:   /support/tickets
+
+app_technical_issues_routing:
+    resource: "@AppBundle/Resources/config/routing/technicalissues.yml"
+    prefix:   /support/technical_issues
+
+app_proxy_routing:
+    resource: "@AppBundle/Resources/config/routing/proxy.yml"
+    prefix:   /proxy
+
+show_anouncements:
+    path:  /anouncements/
+    defaults: { _controller: AppBundle:Default:showAnouncements }
+    requirements:
+        methods: POST
+
+navbar_date:
+    path: /navbar-date/
+    defaults: { _controller: AppBundle:Default:navbarDate }
+
+app_sla:
+    resource: "@AppBundle/Resources/config/routing/sla.yml"
+    prefix:   /statics

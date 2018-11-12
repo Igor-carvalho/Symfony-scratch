@@ -1,0 +1,29 @@
+{% extends "AppBundle:themes/default/FOSUser:base.html.twig" %}
+
+
+{% block body %}
+    <div class="form-wrapper">
+        <div class="col-md-8 col-md-offset-1">
+            <h1 style="padding-top: 160px;">{{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle') }}</h1>
+            {% if app.session is not empty %}
+            {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
+            {% if targetUrl is not empty %}
+            <p class="col-md-12">
+                <strong>
+                    <a style="color: white" class="pull-right" href="{{ targetUrl }}">{{ 'registration.back'|trans({}, 'FOSUserBundle') }}</a>
+                </strong>
+            </p>
+            {% endif %}
+            {% endif %}
+            <p class="col-md-12">
+                <strong>
+                    <a style="color: white" class="pull-right" href="{{ path('fos_user_profile_show') }}">{{ "pages.register_confirmed.go_home" | trans({},"messages") }}</a><br>
+                </strong>
+            </p>
+        </div>
+
+        <div class="col-md-2">
+            <img style="height: 250px" src="{{ asset('bundles/assets/themes/default/login/img/ok.png') }}" alt="account-activated" />
+        </div>
+    </div>
+{% endblock %}

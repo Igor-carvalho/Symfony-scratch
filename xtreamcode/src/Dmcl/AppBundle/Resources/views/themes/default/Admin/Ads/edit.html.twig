@@ -1,0 +1,17 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.ads.edit.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.ads.edit.title" | trans }}{% endblock %}
+
+{% block body -%}
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('ads') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,263 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: "@AppBundle/Resources/config/services.yml" }
+    - { resource: "@IdeupSimplePaginatorBundle/Resources/config/paginator.xml" }
+
+services:
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+                - { name: twig.extension }
+    app.twig.extension.vod_status:
+        class: Dmcl\AppBundle\Twig\Extension\VodStatusExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+    vod_package_hls_destination: "%kernel.root_dir%/../web/hls/vod_package"
+    transcoder_vodpack: "%kernel.root_dir%/../web/transcoder/vod-package"
+    transcoder_vod: "%kernel.root_dir%/../web/transcoder/vod"	
+    db_restore: "%kernel.root_dir%/../db_restore"
+    mysqldump_bin: "mysqldump"
+    mysqlrestore_bin: "mysql"
+    # Vod path
+    app.vod.upload_path: '%kernel.root_dir%/../web/uploads/vod'
+    app.vod.local: '%kernel.root_dir%/../web/videos'
+    app.vod.download_path: '%app.vod.upload_path%'   
+    app.vod.transcoder_path: '%app.vod.upload_path%/transcoder'
+    app.vod.download_log_path: '%kernel.logs_dir%/vod/download'
+    app.vod.probe_log_path: '%kernel.logs_dir%/vod/probe'
+    app.vod.transcoder_log_path: '%kernel.logs_dir%/vod/transcoder'    
+    #app.vod.transcoder_log_path: '%kernel.root_dir%/../web/uploads/vod/transcoder'
+    app.vod.public_path: '%kernel.root_dir%/nginx/html/vod-files'
+    app.vod.public_symlink_path: '%kernel.root_dir%/nginx/html'
+    app.paginator.pgcount: 5
+    codecs.video:
+        rtmp: [H264, FLV]
+        rtsp: [H264, H265, H263]
+        http: [H264, H265, H263]
+    codecs.audio:
+        rtmp: [AAC, MP3,MP2]
+        rtsp: [AAC, MP3, MP2]
+        http: [AAC, MP3, MP2]
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+#        handler_id:  ~
+         name: xtreamcode-session
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    globals:
+        ads_services: "@app.ads.services"
+        premium_service: "@app.users.services"
+        config_service: "@app.config.services"
+        services_container: "@service_container"
+        themoviedb_api_key: "ac398bd0e4ecbdab6829a07390791661"
+        vod_file_temp: "%vod_upload%"
+    form_themes:
+        - "VichUploaderBundle:Form:fields.html.twig"
+        - "AppBundle:Form:fields.html.twig"
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Doctrine Configuration
+doctrine:
+    dbal: 
+        default_connection:   default
+        connections:
+            default:
+                driver:   "%database_driver2%"
+                host:     "%database_host2%"
+                port:     "%database_port2%"
+                dbname:   "%database_name2%"
+                user:     "%database_user2%"
+                password: "%database_password2%"
+                charset:  UTF8  
+            xtreamcode:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+        # driver:   "%database_driver%"  
+        # host:     "%database_host%"
+        # port:     "%database_port%"
+        # dbname:   "%database_name%"
+        # user:     "%database_user%"
+        # password: "%database_password%"  
+        # charset:  UTF8
+
+    orm:
+        default_entity_manager:   default
+        entity_managers:
+            default:
+                connection:       default
+                mappings:
+                    AppBundle: ~
+            xtreamcode:
+                connection:       xtreamcode
+                mappings:
+                    AppBundle: ~
+        # auto_generate_proxy_classes: "%kernel.debug%"
+        # naming_strategy: doctrine.orm.naming_strategy.underscore
+        # auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+# fos_user:
+#     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+#     firewall_name: main
+#     user_class: Dmcl\AppBundle\Entity\User
+#     registration:
+#         form:
+#             type: app_user_registration
+#         confirmation:
+#             enabled: true
+# #    profile:
+# #        form:
+# #            type:               app_user_profile
+# #            name:               app_user_profile
+# #    resetting:
+# #        form:
+# #            type: app_user_resetting
+# #            name: app_user_resetting
+#     service:
+#             mailer: app.services.mailer
+#     from_email:
+#         address: you@example.com
+#         sender_name: You
+
+widop_php_bb:
+    path: %kernel.root_dir%/../vendor/widop/phpbb3
+    web_path: /forum
+
+
+nelmio_api_doc:
+    name: IPTV TRANSCODER API DOCUMENTATION
+    sandbox:
+        enabled: true
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        package_logo:
+            uri_prefix:         /uploads
+            upload_destination: "%kernel.root_dir%/../web/uploads"
+            namer:              vich_uploader.namer_uniqid
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+        # channel_categorie_logo:
+        #     uri_prefix:         /uploads
+        #     upload_destination: "%kernel.root_dir%/../web/uploads"
+        #     namer:              vich_uploader.namer_uniqid
+        #     inject_on_load:     true
+        #     delete_on_update:   true
+        #     delete_on_remove:   true
+        # vod_categorie_logo:
+        #     uri_prefix:         /uploads
+        #     upload_destination: "%kernel.root_dir%/../web/uploads"
+        #     namer:              vich_uploader.namer_uniqid
+        #     inject_on_load:     true
+        #     delete_on_update:   true
+        #     delete_on_remove:   true
+        # vod_cover:
+        #     uri_prefix:         /uploads/vod_cover
+        #     upload_destination: "%kernel.root_dir%/../web/uploads/vod_cover"
+        #     namer:              vich_uploader.namer_uniqid
+        #     inject_on_load:     true
+        #     delete_on_update:   true
+        #     delete_on_remove:   true
+#        vod:
+#            uri_prefix:         /uploads/vod
+#            upload_destination: "%kernel.root_dir%/../web/uploads/vod"
+#            namer:              vich_uploader.namer_uniqid
+#            inject_on_load:     true
+#            delete_on_update:   true
+#            delete_on_remove:   true
+        backups:
+            uri_prefix:         /backups
+            upload_destination: "%kernel.root_dir%/../web/backups"
+            namer:              vich_uploader.namer_uniqid
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+
+liip_imagine:
+    resolvers:
+        default:
+            web_path:
+              web_root: "%kernel.root_dir%/../web"
+              cache_prefix: "media/cache"
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.root_dir%/../web/"
+    driver:               gd
+    cache:                default
+    data_loader:          default
+    default_image:        null
+    controller:
+        filter_action:         liip_imagine.controller:filterAction
+        filter_runtime_action: liip_imagine.controller:filterRuntimeAction
+    filter_sets:
+        img_preview:
+            quality:              100
+            filters:
+                relative_resize: { widen: 100 }
+        package_logo:
+            quality:              100
+            filters:
+                relative_resize: { heighten: 50 }
+        # vod_cover:
+        #     quality:              100
+        #     filters:
+        #         relative_resize: { heighten: 90 }

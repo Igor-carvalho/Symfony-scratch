@@ -1,0 +1,50 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.billing.customers.index.title" | trans }}{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#datatable').DataTable({
+                lengthChange: true,
+                select: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+        })
+    </script>
+ {% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        {% if customers | length > 0 %}
+        <div class="m-datatable col-md-8 offset-md-2">
+            <table id="datatable" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>{{ "pages.billing.customers.index.table.name" | trans }}</th>
+                    <th>{{ "pages.billing.customers.index.table.email" | trans }}</th>
+                    <th>{{ "pages.billing.customers.index.table.status" | trans }}</th>
+                    <th>{{ "pages.billing.customers.index.table.actions" | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in customers %} 
+                        <tr>
+                            <td>{{ entity.name | default("-") }}</td>
+                            <td>{{ entity.email | default("-") }}</td>
+                            <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.billing.customers.index.verified" | trans :"pages.billing.customers.index.no_verified" | trans }}</td>
+                            <td>
+                                <a class="btn btn-xs btn-success" href="{{ path('billing_customers_orders', { 'id': entity.id }) }}">{{ "pages.billing.customers.index.orders" | trans }}</a>
+                            </td>
+                        </tr> 
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <div class="col-md-12">
+                <h4 class="text-muted text-center">{{ "pages.billing.customers.index.no_customers" | trans }}</h4>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block title %}{{ "pages.channel_categories.new.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.channel_categories.new.title" | trans }}{% endblock %}
+
+{% block body -%}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('channel-categories') }}">
+            {{ "pages.channel_categories.new.back_to_list" | trans }}
+        </a>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    {{ form_label(form.name,"pages.channel_categories.attrs.name" | trans ) }}
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form_label(form.categorieLogoFile,"pages.channel_categories.attrs.logo" | trans ) }}
+                    {{ form_widget(form.categorieLogoFile) }}
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            {{ form_widget(form.submit,{'attr':{
+            'class': 'btn btn-success btn-sm pull-right',
+            }}) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

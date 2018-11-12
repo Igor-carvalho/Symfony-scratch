@@ -1,0 +1,102 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.vod_package.new.title" | trans }}{% endblock %}
+{% block page_title %}{{ "pages.vod_package.new.title" | trans }}{% endblock %}
+
+{% block body -%}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="col-md-12">
+        <a class="btn btn-default btn-sm pull-right" href="{{ path('resellers-vod-package') }}">
+            {{ "pages.vod_package.edit.back_to_list" | trans }}
+        </a>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        {{ form_start(form) }}
+        <div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">
+            {{ form_label(form.name,"pages.vod_package.attrs.name" | trans ) }}
+            {{ form_widget(form.name) }}
+        </div>
+		{#<div class="col-md-4 col-xs-12 no-pad-right margin-btm-5">#}
+            {#{{ form_label(form.price,"pages.vod_package.attrs.price" | trans ) }}#}
+            {#{{ form_widget(form.price) }}#}
+        {#</div>#}
+        {#<div class="col-md-6 col-xs-12 no-pad-left margin-btm-5">#}
+            {#{{ form_label(form.allowDiscount,"pages.vod_package.attrs.allow_discount" | trans ) }}#}
+            {#{{ form_widget(form.allowDiscount) }}#}
+        {#</div>#}
+        {#<div class="clearfix"></div>#}
+        {#<div class="col-md-4 col-xs-12 no-pad-left margin-btm-5">#}
+            {#{{ form_label(form.discountCode,"pages.vod_package.attrs.discount_code" | trans ) }}#}
+            {#{{ form_widget(form.discountCode) }}#}
+        {#</div>#}
+        {#<div class="col-md-4 col-xs-12 no-pad-left margin-btm-5">#}
+            {#{{ form_label(form.discountValue,"pages.vod_package.attrs.discount_value" | trans ) }}#}
+            {#{{ form_widget(form.discountValue) }}#}
+        {#</div>#}
+        {#<div class="clearfix"></div>#}
+        {#<div class="col-md-12 col-xs-12 no-padding margin-btm-5">#}
+            {#{{ form_label(form.discountMessage,"pages.vod_package.attrs.discount_message" | trans ) }}#}
+            {#{{ form_widget(form.discountMessage) }}#}
+        {#</div>#}
+        {#<div class="col-md-8 col-xs-12 no-pad-left margin-btm-5">#}
+            {#<div class="col-md-6 col-xs-6 no-pad-left margin-btm-5">#}
+                {#{{ form_label(form.subscriptionPeriod,"pages.vod_package.attrs.subscription_period" | trans ) }}#}
+                {#{{ form_widget(form.subscriptionPeriod) }}#}
+            {#</div>#}
+            {#<div class="col-md-6 col-xs-6 no-pad-right margin-btm-5">#}
+                {#{{ form_label(form.subscriptionInterval,"pages.vod_package.attrs.subscription_interval" | trans ) }}#}
+                {#{{ form_widget(form.subscriptionInterval) }}#}
+            {#</div>#}
+        {#</div>#}
+        <div class="col-md-6 col-xs-12 no-pad-right margin-btm-5" style="padding-top: 30px;">
+            <div class="col-md-6 col-xs-6 no-pad-left margin-btm-5">
+                {{ form_label(form.enabled,"pages.vod_package.attrs.enabled" | trans ) }}
+                {{ form_widget(form.enabled) }}
+            </div>
+            {#<div class="col-md-6 col-xs-6 no-pad-right margin-btm-5">#}
+                {#{{ form_label(form.forTest,"pages.vod_package.attrs.for_test" | trans ) }}#}
+                {#{{ form_widget(form.forTest) }}#}
+            {#</div>#}
+        </div>
+		
+		<div class="col-md-6 no-pad-left margin-btm-5" style="padding-left:0px !important;">
+			{{ form_label(form.vodGenre,"pages.vod_package.attrs.vodGenre" | trans ) }}
+			{{ form_widget(form.vodGenre) }}
+		</div>	
+		<div class="col-md-6 no-pad-right margin-btm-5">
+			{{ form_label(form.startTime,"pages.vod_package.attrs.startTime" | trans ) }}
+			<div class="input-group datetimepicker">
+				{{ form_widget(form.startTime) }}
+				<span class="input-group-addon" style="cursor: pointer">
+					<span class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+		</div>	
+        <div class="col-md-12 col-xs-12 no-padding margin-btm-5">
+            {{ form_label(form.vods,"pages.vod_package.attrs.vods" | trans ) }}
+            {{ form_widget(form.vods) }}
+        </div>
+        {#<div class="col-md-12 col-xs-12 no-padding margin-btm-5">#}
+            {#{{ form_label(form.description,"pages.vod_package.attrs.description" | trans ) }}#}
+            {#{{ form_widget(form.description) }}#}
+        {#</div>#}
+        <div class="col-md-12 col-xs-12 no-padding">
+            {{ form_widget(form.submit,{'attr':{
+            'class': 'btn btn-success btn-sm pull-right',
+            }}) }}
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datetimepicker').datetimepicker({
+                locale: '{{ app.request.locale }}',
+                showClose: false,
+                allowInputToggle: true
+            });
+        })
+    </script>
+{% endblock %}

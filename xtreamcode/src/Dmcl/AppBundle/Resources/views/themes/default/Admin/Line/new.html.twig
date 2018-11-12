@@ -1,0 +1,130 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+{% block page_title %}{{ "pages.line.new.title" | trans }}{% endblock %}
+
+ {% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#packages").on({
+                change: function () {
+                   search($(this).val());
+                }
+            });
+           
+        })
+
+        function search(id){
+            $.ajax({
+                url: "{{ path('packages_bouquets') }}",
+                dataType: "json", 
+                type: 'POST',
+                data: {
+                    id: id,
+                },
+                success: function(response){
+                    var datas = response.datas;
+                    var options = '';
+                    var bouqutes = $("#bouquets");
+
+                    bouqutes.empty();
+
+                    for(var i = 0; i < datas.length; i++){
+                        options += '<option selected value="'+datas[i].id+'">'+datas[i].name+'</option>';
+                    }
+
+                    bouqutes.append(options);
+                }
+            });
+        }
+    </script>
+ {% endblock %}
+
+{% block body_parent %}
+    {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary btn-md pull-right" href="{{ path('line') }}">
+                {{ "pages.line.new.back_to_list" | trans }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-3 col-sm-8 offset-3 col-xs-12">
+            {{ form_start(form) }}
+            <div class="row">
+                {% if not trial %}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h4>{{ "pages.line.attrs.package" | trans }}</h4>
+                            <select id="packages" class="form-control select2" required name="package" aria-required="true">
+                                {% for package in packages %}
+                                    <option value="{{ package.id }}">{{ package.name }} ({{ package.credits }} Credits)</option>
+                                {% endfor%}
+                            </select>
+                         </div>  
+                    </div>
+                {%else%}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h4>{{ "pages.line.attrs.package" | trans }}<h4>
+                            <input name="package" value="-1" type="hidden">
+                            <input readonly placeholder="{{ "pages.line.new.trial" | trans }}" class="form-control" type="text">
+                        </div>
+                    </div>
+                {%endif%}
+            </div>
+
+             {% if trial %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h4>{{ "pages.line.attrs.email" | trans }}<h4>
+                            <input name="email" placeholder="{{ "pages.line.attrs.email" | trans }}" class="form-control" type="text">
+                        </div>
+                    </div>                
+                </div>
+             {% endif %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.username,"pages.line.attrs.username" | trans ) }}
+                        {{ form_widget(form.username) }}
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h4>{{ "pages.line.attrs.bouquet" | trans }}</h4>
+                        <select id="bouquets" class="form-control select2" multiple=true required name="bouquets[]" aria-required="true">
+                            {% for bouquet in bouquets %}
+                                <option selected value="{{ bouquet.id }}">{{ bouquet.bouquetName }}</option>
+                            {% endfor%}
+                        </select>
+                        
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.resellerNotes,"pages.line.attrs.note" | trans ) }}
+                        {{ form_widget(form.resellerNotes) }}
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    {{ form_widget(form.submit,{'attr':{
+                    'class': 'btn btn-success btn-md pull-right',
+                    }}) }}
+                </div>                
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

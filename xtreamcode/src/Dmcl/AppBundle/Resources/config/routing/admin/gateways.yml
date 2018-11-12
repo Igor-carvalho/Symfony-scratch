@@ -1,0 +1,30 @@
+gateways:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/Gateways:index" }
+
+gateways_show:
+    path:     /{uniquename}/show
+    defaults: { _controller: "AppBundle:Admin/Gateways:show" }
+
+gateways_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/Gateways:new" }
+
+gateways_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/Gateways:create" }
+    methods:  POST
+
+gateways_edit:
+    path:     /{uniquename}/edit
+    defaults: { _controller: "AppBundle:Admin/Gateways:edit" }
+
+gateways_update:
+    path:     /{uniquename}/update
+    defaults: { _controller: "AppBundle:Admin/Gateways:update" }
+    methods:  [POST, PUT]
+
+gateways_delete:
+    path:     /{uniquename}/delete
+    defaults: { _controller: "AppBundle:Admin/Gateways:delete" }
+    methods:  [POST, DELETE]

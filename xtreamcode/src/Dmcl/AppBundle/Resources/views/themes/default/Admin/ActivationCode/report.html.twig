@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <title></title>
+
+</head>
+    <body>
+
+        <table>
+            <thead>
+            <tr>
+                <th>{{ "pages.activation_code.index.table.code" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.period" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.package" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.activated_at" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.end_date" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.mac" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.device_model" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.model_number" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.serial_number" | trans }}</th>
+                <th>{{ "pages.activation_code.index.table.reseller" | trans }}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for entity in activationCodes %}
+                <tr>
+
+                    <td>{{ entity.code }}</td>
+
+                    <td>{{ entity.period }}</td>
+
+                    <td>
+                        {% if entity.channelsPackage %}
+                            {{ entity.channelsPackage.name }}
+                        {% else %}
+                            {{ entity.vodPackage.name }}
+                        {% endif %}
+                    </td>
+
+                    <td>{{ entity.startDate ? entity.startDate|date('Y-m-d') : '-' }}</td>
+
+                    <td>{{ entity.endDate ? entity.endDate|date('Y-m-d') : '-' }}</td>
+
+                    <td>
+                        {% if entity.device is not null %}
+                            {% if entity.device.mac is not null %}
+                                {{ entity.device.mac }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if entity.device is not null %}
+                            {% if entity.device.deviceModel is not null %}
+                                {{ entity.device.deviceModel }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if entity.device is not null %}
+                            {% if entity.device.modelNumber is not null %}
+                                {{ entity.device.modelNumber }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if entity.device is not null %}
+                            {{ entity.device.serialNumber }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ entity.reseller.name }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </body>
+</html>

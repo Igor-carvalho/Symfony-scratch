@@ -1,0 +1,55 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block page_title %}{{ "pages.gateways.index.title" | trans }}{% endblock %}
+
+ {% block stylesheets %}
+ {% endblock %}
+
+ {% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#datatable').DataTable({
+                lengthChange: true,
+                select: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+        })
+    </script>
+ {% endblock %}
+
+{% block body_parent %}
+    <div class="row">
+        {% if entities | length > 0 %}
+        <div class="m-datatable col-md-12">
+            <table id="datatable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ "pages.gateways.index.table.method" | trans }}</th>
+                        <th>{{ "pages.gateways.index.table.shop_id_public_key" | trans }}</th>
+                        <th>{{ "pages.gateways.index.table.secret_key" | trans }}</th>
+                        <th>{{ "pages.gateways.index.table.status" | trans }}</th>
+                        <th>{{ "pages.gateways.index.table.actions" | trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><img style="width: 92px; height: 42px;" src="{{ asset('bundles/assets/themes/default/dist/img/payments/'~entity.uniqueName~'.png') }}" alt="{{ entity.displayName }}"/></td>
+                        <td>{{ entity.shopIdPublicKey  | default("-") }}</td>
+                        <td>{{ entity.secretKey | default("-") }}</td>
+                        <td class="{{ entity.enabled ? "enabled":"disabled" }}">{{ entity.enabled ? "pages.gateways.index.enabled" | trans :"pages.gateways.index.disabled" | trans }}</td>
+                        <td>
+                            <a class="btn btn-xs btn-info" href="{{ path('gateways_edit', { 'uniquename': entity.uniqueName }) }}">{{ "pages.gateways.index.edit" | trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <div class="col-md-12">
+                <h4 class="text-muted text-center">{{ "pages.gateways.no_gateways" | trans }}</h4>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

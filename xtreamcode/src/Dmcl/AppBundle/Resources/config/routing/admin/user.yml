@@ -1,0 +1,50 @@
+user_login:
+    pattern:   /login
+    defaults:  { _controller: AppBundle:Admin/User:login }
+    
+user_check:
+    pattern:   /check
+    defaults:  { _controller: AppBundle:Admin/User:check }
+
+user_logout:
+    pattern:   /logout
+
+user:
+    path:  /admin/user
+    defaults: { _controller: "AppBundle:Admin/User:index" }
+
+user_change_password:
+    path:  /admin/user/chage_password
+    defaults: { _controller: "AppBundle:Admin/User:changePassword" }
+
+user_profile:
+    path:  /admin/profile
+    defaults: { _controller: "AppBundle:Admin/User:profile" }
+
+user_profile_update:
+    path:  /admin/profile/update
+    defaults: { _controller: "AppBundle:Admin/User:profileUpdate" }
+
+user_resellers:
+    path:  /admin/user/resellers
+    defaults: { _controller: "AppBundle:Admin/User:indexResellers" }
+
+user_resellers_ajax:
+    path:  /admin/user/resellers/ajax
+    defaults: { _controller: "AppBundle:Admin/User:ajaxResellers" }
+
+user_create:
+    path:  /admin/user/create
+    defaults: { _controller: "AppBundle:Admin/User:create" }
+
+user_update:
+    path:  /admin/user/{id}/update
+    defaults: { _controller: "AppBundle:Admin/User:update" }
+
+user_delete:
+    path:  /admin/user/{id}/delete
+    defaults: { _controller: "AppBundle:Admin/User:delete" }
+
+user_change_verified:
+    path:  /admin/user/{id}/change_verified
+    defaults: { _controller: "AppBundle:Admin/User:changeVerified" }

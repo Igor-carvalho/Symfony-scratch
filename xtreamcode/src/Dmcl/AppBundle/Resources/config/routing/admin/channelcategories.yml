@@ -1,0 +1,30 @@
+channel-categories:
+    path:     /
+    defaults: { _controller: "AppBundle:Admin/ChannelCategories:index" }
+
+channel-categories_show:
+    path:     /show
+    defaults: { _controller: "AppBundle:Admin/ChannelCategories:show" }
+
+channel-categories_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Admin/ChannelCategories:new" }
+
+channel-categories_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Admin/ChannelCategories:create" }
+    methods:  POST
+
+channel-categories_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Admin/ChannelCategories:edit" }
+
+channel-categories_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Admin/ChannelCategories:update" }
+    methods:  [POST, PUT]
+
+channel-categories_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Admin/ChannelCategories:delete" }
+    methods:  [POST, DELETE]

@@ -1,0 +1,97 @@
+<script type="text/javascript">
+    $(function () {
+        function peticionGet(url, params, cb, cbError) {
+            $.get(url, params, function (result) {
+                //var result = JSON.parse(response);
+                if (result.success == true) {
+                    cb(result);
+                } else {
+                    cbError(result);
+                }
+            });
+        }
+
+        /*
+         * Peticion post
+         */
+        function peticionPost(url, params, cb, cbError) {
+            //showMask();
+            $.post(url, params, function (result) {
+                //var result = JSON.parse(response);
+                //hideMask();
+                if (result.success == true) {
+                    cb(result);
+                } else {
+                    cbError(result);
+                }
+            });
+        }
+
+        function stopLoop() {
+            clearTimeout(transcodeTime);
+        }
+
+        $('.chart').easyPieChart({
+            easing: 'easeOutBounce',
+            lineWidth: '5',
+            onStep: function (from, to, percent) {
+                $(this.el).find('.percent').text(Math.round(percent));
+            }
+        });
+
+        var transcodeTime = setInterval(function () {
+            if ($(".transcoding").length == 0) {
+                clearTimeout(transcodeTime);
+            } else {
+                var array = [];
+                allChilds = $(".converting").parent();
+                allChilds.each(function (pos, a) {
+                    array.push($(a).attr("id"));
+                });
+
+                peticionPost("{{ vodTrans }}", {vodId: JSON.stringify(array)},
+                        function (result) {
+                        },
+                        function (result) {
+                            var req = JSON.parse(result);
+                            if (typeof (req.success) === "undefined") {
+                                $.each(req, function (index, data) {
+                                    var chart = window.chart = $('.pie-' + array[index]).data('easyPieChart');
+                                    chart.update(data);
+                                    if (data >= 99) {
+                                        $('.pie-' + array[index]).removeClass("show").addClass("hide");
+                                        $('<i class="fa fa-check" style="color:green"></i>').insertAfter('.pie-' + array[index]);
+
+                                        $(".disabled", $('#' + array[index])).removeClass("disabled converting").addClass("enabled").html('{{ "pages.vod.index.table.enabled" | trans }}');
+                                        $(".btn-success", $('#' + array[index])).removeClass("hide");
+
+                                        peticionPost("{{ vodRmLogs }}", {vodId: array[index]},
+                                                function (result) {
+                                                },
+                                                function (result) {
+                                                    var req = JSON.parse(result);
+                                                    if (req.status == 200) {
+                                                        peticionPost("{{ vodRmFile }}", {vodId: array[index]},
+                                                                function (result) {
+                                                                },
+                                                                function (result) {
+                                                                    //vodRmFile
+
+                                                                });
+                                                    }
+
+
+                                                })
+                                    }
+
+                                });
+                            } else {
+                                alert('{{ "pages.vod.index.error_transcoding" | trans }}');
+                            }
+
+                        });
+            }
+        }, 3000);
+
+    })
+</script>

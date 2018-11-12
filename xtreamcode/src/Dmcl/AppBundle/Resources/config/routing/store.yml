@@ -1,0 +1,29 @@
+store_shopping_cart:
+    path:  /shopping-cart
+    defaults: { _controller: "AppBundle:Store:shoppingCart" }
+    requirements:
+        methods: GET
+
+store_checkout:
+    path:  /checkout
+    defaults: { _controller: "AppBundle:Store:chackOut" }
+    requirements:
+        methods: GET
+
+store_channels_package_for_sale:
+    path:  /channels-packages-for-sale
+    defaults: { _controller: "AppBundle:Store:channelsPackageForSale" }
+    requirements:
+        methods: GET
+
+store_vod_package_for_sale:
+    path:  /vod-packages-for-sale
+    defaults: { _controller: "AppBundle:Store:vodPackagesForSale" }
+    requirements:
+        methods: GET
+
+store_activation_code_for_sale:
+    path:  /activation-code/{code}
+    defaults: { _controller: "AppBundle:Store:activationCodeForSale" }
+    requirements:
+        methods: GET

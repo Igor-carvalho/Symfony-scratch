@@ -1,0 +1,49 @@
+{% extends 'AppBundle:themes/default/base-admin:base.html.twig' %}
+
+{% block title %}{{ "pages.anouncement.edit.title" | trans }}{% endblock %}
+
+{% block page_title %}{{ "pages.anouncement.edit.title" | trans }}{% endblock %}
+
+{% block body %}
+    <form method="post" action="{{ path('anouncement_edit', {'id': anouncement.id}) }}">
+        <div class="box-body">
+            {% include "AppBundle:themes/default/base-admin:errors.html.twig" %}
+
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.title,"pages.anouncement.attr.title" | trans ) }}
+                                {{ form_widget(form.title) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.anouncement, "pages.anouncement.attr.anouncement" | trans ) }}
+                                {{ form_widget(form.anouncement) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="form-group pull-right">
+                        <a class="btn btn-default btn-sm" href="{{ path('anouncement') }}">{{ 'pages.anouncement.attr.cancel'|trans }}</a>
+                        <button type="submit" class="btn btn-success btn-sm">{{ 'pages.anouncement.attr.edit'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+    </form>
+{% endblock %}

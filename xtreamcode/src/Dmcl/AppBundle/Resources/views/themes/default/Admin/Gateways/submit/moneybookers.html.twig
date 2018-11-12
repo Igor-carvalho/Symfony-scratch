@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <form name="moneybookers" action="https://www.moneybookers.com/app/payment.pl" method="POST">
+            <input type="hidden" name="pay_to_email" value="{{ gateway.shopIdPublicKey }}">
+            <input type="hidden" name="status_url" value="{{ url( 'payments_moneybookers_check') }}"/> 
+            <input type="hidden" name="transaction_id" value="{{ order.transactionId }}">
+            <input type="hidden" name="return_url_target" value="1">
+            <input type="hidden" name="return_url" value="{{ url( 'payments_success' ) }}">
+            <input type="hidden" name="cancel_url_target" value="1">
+            <input type="hidden" name="cancel_url" value="{{ url( 'payments_error') }}">
+            <input type="hidden" name="language" value="EN">
+            <input type="hidden" name="confirmation_note" value="Enjoy your Purchase">
+            <input type="hidden" name="firstname" value="{{ app.user.username }}">
+            <input type="hidden" name="phone_number" value="{{ app.user.phone | default("") }}">  
+            <input type="hidden" name="amount" value="{{ order.amount }}">
+            <input type="hidden" name="currency" value="{{ order.currency }}">
+            <input type="hidden" name="detail1_description" value="Product ID: {{ order.transactionId }}">
+            <input type="hidden" name="detail1_text" value=""> 
+            <input type="hidden" name="rec_period" value="1">
+            <input type="hidden" name="rec_grace_period" value="1">
+            <input type="hidden" name="rec_cycle" value="day">
+            <input type="hidden" name="ondemand_max_currency" value="{{ config.currency }}">
+            <input type="hidden" name="ondemand_note" value=" "> 
+        </form>
+        <script type='text/javascript'>
+                        document.moneybookers.submit();
+        </script>
+    </body>
+</html>
+

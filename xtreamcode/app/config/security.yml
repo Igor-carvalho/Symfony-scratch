@@ -1,0 +1,45 @@
+security:
+    encoders:
+        Dmcl\AppBundle\Entity\RegUsers:
+            id: app.security.crypt_encoder
+    
+    role_hierarchy:
+        ROLE_USER:        ROLE_USER
+        ROLE_RESELLER:    [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_RESELLER,ROLE_USER]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN,ROLE_USER]
+    
+    providers:
+         users_db:
+             entity: { class: AppBundle:RegUsers, property: username }    
+   
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                #check_path: user_check
+                login_path: user_login
+                #default_target_path: _after_login
+            logout:
+                path: user_logout
+                target: home
+            anonymous:    true
+            remember_me:
+                key:      "%secret%"
+                lifetime: 31536000 # 365 days in seconds
+                path:     /
+                domain:   ~ # Defaults to the current domain from $_SERVER
+
+    access_control:
+        - { path: ^%prefix%/%kernel.default_locale%/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^%prefix%/%kernel.default_locale%/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^%prefix%/%kernel.default_locale%/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^%prefix%/%kernel.default_locale%/playback/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^%prefix%/%kernel.default_locale%/store/activation-code/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^%prefix%/%kernel.default_locale%/admin/activationcode/, role: [ROLE_ADMIN, ROLE_RESELLER] }
+        - { path: ^%prefix%/%kernel.default_locale%/admin/vod/upload/*, role: ROLE_RESELLER }
+        - { path: ^%prefix%/%kernel.default_locale%/admin/*, role: ROLE_RESELLER }
+        - { path: ^%prefix%/%kernel.default_locale%/resellers/*, role: ROLE_RESELLER }
+        - { path: ^%prefix%/%kernel.default_locale%/account/*, role: ROLE_USER }
+        - { path: ^%prefix%/%kernel.default_locale%/support/*, role: ROLE_USER }
+        - { path: ^%prefix%/%kernel.default_locale%/store/*, role: ROLE_USER }

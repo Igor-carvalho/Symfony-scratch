@@ -1,0 +1,10 @@
+stb_index:
+    path:     /index.html
+    defaults: { _controller: StbBundle:Default:index }
+
+stb_server_load:
+    path:  /server/load.php
+    defaults: { _controller: StbBundle:Default:handle }
+    requirements:
+        methods: GET|POST
+

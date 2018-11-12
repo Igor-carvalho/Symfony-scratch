@@ -1,0 +1,77 @@
+<div class="navbar navbar-light navbar-expand-lg">
+    <button class="sidebar-toggler" type="button">
+        <span class="ua-icon-sidebar-open sidebar-toggler__open"></span>
+        <span class="ua-icon-alert-close sidebar-toggler__close"></span>
+    </button>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="ua-icon-navbar-open navbar-toggler__open"></span>
+        <span class="ua-icon-alert-close navbar-toggler__close"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+        <div class="navbar__menu">
+            <ul class="navbar-nav">
+                <li>
+                    {% if not is_granted('ROLE_ADMIN') %}
+                        {{ "current_balance" | trans }} {{ app.user.credits}}
+                    {% endif %}
+                </li>
+            </ul>
+            <div class="navbar__menu-side">
+            </div>
+        </div>
+
+        <div class="dropdown navbar-dropdown no-arrow navbar-notify-dropdown navbar-notify-dropdown--messages">
+            <a class="dropdown-toggle navbar-dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="navbar-notify">
+                    <span>
+                        <span class="navbar-notify__icon mdi mdi-email"></span>
+                        <span class="navbar-notify__text">Messages</span>
+                    </span>
+                    <span class="hidden navbar-notify__indicator"></span>
+                    {# <span class="navbar-notify__amount">5</span> #}
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown-menu navbar-dropdown-notifications navbar-dropdown-messages">
+                <div class="navbar-dropdown-notifications__header"><span>MESSAGES</span>
+                    {# <a href="#" class="navbar-dropdown-notifications__mark-read">
+                        Mark all as read <span class="navbar-dropdown-notifications__mark-read-icon ua-icon-arrow-circle-down"></span>
+                    </a> #}
+                </div>
+
+                <div id="notifications" class="navbar-dropdown-notifications__body navbar-dropdown-notifications__body-messages js-scrollable">
+                </div>
+                    
+                <a class="navbar-dropdown-notifications__view-all" href="{{ path('tickets') }}"><span class="icon ua-icon-view-all"></span><span>View all</span></a>
+            </div>
+        </div>
+    
+        <div class="dropdown navbar-dropdown">
+            <a class="dropdown-toggle navbar-dropdown-toggle navbar-dropdown-toggle__user" data-toggle="dropdown" href="#">
+                <img src="{{ app.user.avatar  ? asset("uploads/"~app.user.avatar):asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="{{ app.user.name | default("Anonymous") }}" class="navbar-dropdown-toggle__user-avatar">
+                <span class="navbar-dropdown__user-name">{{ app.user.username | default("Anonymous") }}</span>
+            </a>
+            <div class="dropdown-menu navbar-dropdown-menu navbar-dropdown-menu__user">
+                <div class="navbar-dropdown-user-content mb-0" >
+                    <div class="dropdown-user__avatar"><img src="{{ app.user.avatar  ? asset("uploads/"~app.user.avatar):asset("bundles/assets/themes/default/dist/img/user.png") }}" alt="{{ app.user.name | default("Anonymous") }}"/>
+                    </div>
+                    <div class="dropdown-info">
+                        <div class="dropdown-info__name">{{ app.user.username | default("Anonymous") }}</div>
+                        <div class="dropdown-info-buttons">
+                            {{ app.user.email | default("Email") }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 center">
+                        <a class="dropdown-item navbar-dropdown__item color-danger" href="{{ path('user_logout') }}">{{ "base_admin.top_navbar.sign_out" | trans }}</a>
+                    </div>
+                    <div class="col-md-6 center">
+                        <a class="dropdown-item navbar-dropdown__item  color-info" href="{{ path('user_profile') }}">{{ "base_admin.top_navbar.profile" | trans }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
